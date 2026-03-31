@@ -1,3 +1,7 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
 [project]
 name = "backend"
 version = "0.1.0"
@@ -5,6 +9,13 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+    "alembic>=1.18.4",
     "fastapi>=0.135.1",
+    "psycopg[binary]>=3.3.3",
+    "pydantic-settings>=2.13.1",
+    "sqlalchemy>=2.0.48",
     "uvicorn[standard]>=0.42.0",
 ]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/finance_buddy_backend"]

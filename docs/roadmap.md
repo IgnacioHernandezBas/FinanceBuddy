@@ -1,4 +1,4 @@
-# FinanceBuddy Roadmap
+﻿# FinanceBuddy Roadmap
 
 This roadmap reflects the incremental build order currently being followed.
 
@@ -11,16 +11,21 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Implement mock `POST /chat`
 - [x] Initialize frontend with React + TypeScript + Vite
 - [x] Connect frontend to backend mock `/chat`
+- [x] Setup Docker Compose for frontend, backend, and database
+- [x] Design the initial database schema
+- [x] Add the initial persistence layer
+- [x] Setup Alembic and apply the first migration
+- [x] Persist conversations and messages through repository and service layers
+- [x] Add `GET /chat/{conversation_id}` for conversation history
 
 ## Next
 
-- [ ] Setup Docker Compose for frontend, backend, and database
-- [ ] Design the initial database schema
-- [ ] Add the persistence layer
+- [ ] Connect the frontend to the new conversation-aware chat API
+- [ ] Build the document ingestion pipeline
+- [ ] Add source-side repositories and services as ingestion grows
 
 ## Later
 
-- [ ] Build the document ingestion pipeline
 - [ ] Implement retrieval
 - [ ] Implement grounded generation
 - [ ] Add source tracing

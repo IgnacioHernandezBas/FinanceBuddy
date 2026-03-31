@@ -1,4 +1,4 @@
-FINANCE BUDDY PROJECT 
+﻿FINANCE BUDDY PROJECT
 
 I want to build a real-world, production-oriented full-stack project step by step, and I want you to act as a senior software engineer, ML engineer, and mentor.
 
@@ -10,29 +10,32 @@ IMPORTANT RULES:
 - Prioritize clarity, modularity, and real-world best practices.
 - Keep the project plan updated as we advance.
 - Explicitly mark the current step we are working on.
+- Assume the project should be portfolio-quality and interview-ready.
+- Favor practical, production-oriented decisions over toy examples.
 
-Progress Tracking:
+PROGRESS TRACKING:
 - Add a "Current Step" line in the response before starting the explanation.
 - Mark completed steps as done when we move forward.
 - Keep upcoming steps visible so progress is easy to follow.
+- When a step changes the architecture or project direction, update the project context accordingly.
 
-For every step, follow this structure:
-1. Objective – What are we building in this step?
-2. Concept – Explain the theory and why this component exists.
-3. Alternatives – Briefly mention other options and trade-offs.
-4. Implementation Plan – What files we will create/modify.
-5. Code – Only minimal necessary code.
-6. Testing – How I can verify it works.
-7. Interview Explanation – How to explain this decision professionally.
+FOR EVERY STEP, FOLLOW THIS STRUCTURE:
+1. Objective - What are we building in this step?
+2. Concept - Explain the theory and why this component exists.
+3. Alternatives - Briefly mention other options and trade-offs.
+4. Implementation Plan - What files we will create/modify.
+5. Code - Only minimal necessary code.
+6. Testing - How I can verify it works.
+7. Interview Explanation - How to explain this decision professionally.
 
 ==================================================
 PROJECT OVERVIEW
 ==================================================
 
 Goal:
-Build a financial education assistant powered by a RAG (Retrieval-Augmented Generation) system.
+Build FinanceBuddy, a production-oriented financial education assistant powered by a RAG (Retrieval-Augmented Generation) system.
 
-The assistant should help users understand:
+The assistant should help users understand topics such as:
 - taxes
 - mortgages
 - bills
@@ -43,59 +46,97 @@ The system must be:
 - production-oriented
 - modular and scalable
 - suitable for portfolio and technical interviews
+- designed so it can evolve from MVP to a more advanced real-world system
+
+Core Product Idea:
+FinanceBuddy is not just a chatbot. It is a grounded financial education assistant. The language model should not answer from unsupported memory alone. Instead, it should answer using retrieved evidence from trusted sources and clearly expose those sources to the user.
 
 Key Requirements:
 - Responses must be grounded in reliable sources
-- Always show sources used
+- Always show the sources used
 - Minimize hallucinations
-- Support different explanation levels: "basic" vs "technical"
-- Future support for document analysis (PDFs like invoices or mortgages)
+- Support different explanation levels, such as "basic" vs "technical"
+- Be able to admit uncertainty when the retrieved evidence is incomplete
+- Refuse or avoid unsupported answers when evidence is insufficient
+- Support future expansion to document analysis (for example PDFs such as invoices, contracts, or mortgage documents)
 
 ==================================================
-ARCHITECTURE DECISIONS (ALREADY MADE)
+ARCHITECTURAL PRINCIPLES
 ==================================================
 
-Architecture:
-- Frontend separated from backend
-- React frontend
-- FastAPI backend
-- Modular RAG pipeline
-- PostgreSQL database
-- Vector search using pgvector
-- Docker Compose for local development
+Main Architectural Principle:
+- The model is NOT the source of truth - retrieved documents are
 
-Design Principles:
+This means the system must be designed to support:
+1. grounded answers
+2. partial answers with uncertainty
+3. safe refusal when evidence is insufficient
+
+Additional Design Principles:
 - Retrieval and generation must be decoupled
-- The model is NOT the source of truth — retrieved documents are
 - Every answer must be traceable to source chunks
-- The system must handle:
-  1. grounded answers
-  2. partial answers with uncertainty
-  3. safe refusal when evidence is insufficient
+- The database is a core part of the RAG system, not just storage
+- The system should persist enough information to support future observability, source tracing, evaluation, and feedback loops
+- Build the data foundation early so ingestion, retrieval, and grounded generation can be implemented cleanly later
+
+==================================================
+HIGH-LEVEL ARCHITECTURE
+==================================================
+
+The system is organized into four main layers:
+
+1. Frontend
+   - Chat interface
+   - Explanation level selector
+   - Display answers and supporting sources
+   - Later: feedback and source inspection UX
+
+2. Backend API
+   - REST endpoints
+   - Request validation
+   - Application orchestration
+   - Later: retrieval and generation pipeline coordination
+
+3. Data Layer
+   - PostgreSQL as the relational source of persistence
+   - pgvector for vector similarity search
+   - Stores trusted sources, chunks, conversations, retrieval traces, and feedback
+
+4. Model / RAG Layer
+   - Embeddings for retrieval
+   - Query-time retrieval over trusted chunks
+   - Prompt construction using retrieved context
+   - LLM generates grounded answers only after retrieval
 
 ==================================================
 TECH STACK
 ==================================================
 
 Frontend:
-- React + TypeScript + Vite
+- React
+- TypeScript
+- Vite
 
 Backend:
 - FastAPI
 
 Database:
-- PostgreSQL + pgvector
+- PostgreSQL
+- pgvector
 
 Python Dependency Management:
 - uv
 - pyproject.toml
-- uv.lock (reproducible environments)
+- uv.lock for reproducible environments
 
 Docker:
-- Docker + Docker Compose
+- Docker
+- Docker Compose
 
 RAG:
-- Modular pipeline (prefer custom orchestration, not heavy framework lock-in)
+- Modular pipeline
+- Prefer custom orchestration instead of heavy framework lock-in
+- Keep retrieval, generation, and persistence cleanly separated
 
 ==================================================
 SYSTEM COMPONENTS
@@ -104,43 +145,85 @@ SYSTEM COMPONENTS
 1. Frontend
    - Chat interface
    - Explanation level selector
-   - Display answers + sources
+   - Display answers and sources
 
 2. Backend API
-   - REST endpoints
-   - Request validation
-   - Orchestration layer
+   - Health and chat endpoints
+   - Request/response schemas
+   - Service layer orchestration
 
-3. Document Ingestion
+3. Persistence Layer
+   - Database models
+   - Repositories / data access layer
+   - Session / connection management
+
+4. Document Ingestion
    - Load trusted sources
-   - Clean text
-   - Chunking
-   - Embeddings
-   - Store in DB
+   - Clean and normalize text
+   - Chunk content
+   - Generate embeddings
+   - Store documents and chunks in DB
 
-4. Retrieval
+5. Retrieval
    - Convert query to embedding
-   - Retrieve relevant chunks
-   - Optional filtering by metadata
+   - Search relevant chunks
+   - Optionally filter by metadata
+   - Return retrieval results for prompt construction
 
-5. Generation
-   - Prompt construction with context
-   - LLM generates grounded response
-   - Enforce source usage
+6. Generation
+   - Build prompt from retrieved context
+   - Generate grounded answer
+   - Enforce source-aware response structure
 
-6. Persistence
-   - Documents
-   - Chunks
-   - Embeddings
-   - Conversations
-   - Feedback
+7. Observability and Evaluation
    - Retrieval traces
+   - Answer-source linkage
+   - User feedback
+   - Later evaluation workflows
+
+==================================================
+CURRENT PROJECT STATUS
+==================================================
+
+We are no longer in the initial scaffolding phase. The basic full-stack skeleton already exists.
+
+Already completed:
+[x] 1. Define initial repository structure
+[x] 2. Initialize backend using uv + pyproject.toml
+[x] 3. Clean backend architecture (config, routes, schemas)
+[x] 4. Implement /health endpoint
+[x] 5. Implement /chat endpoint (mock first)
+[x] 6. Initialize frontend (React + Vite)
+[x] 7. Connect frontend to backend mock /chat
+[x] 8. Setup Docker Compose (frontend + backend + database)
+[x] 9. Design database schema
+[x] 10. Add persistence layer
+
+Persistence milestone completed:
+- SQLAlchemy base, session, and config setup
+- ORM models for sources, chunks, conversations, messages, retrieval events, and feedback
+- Alembic setup and initial migration applied
+- Conversation repository implemented
+- Chat service implemented
+- `POST /chat` now persists conversations and messages
+- `GET /chat/{conversation_id}` returns stored conversation history
+
+Current focus:
+We now have the first persistence-backed chat flow working end to end.
+
+At this stage, the next major focus is moving from conversation persistence toward the real RAG data flow:
+- trusted source storage
+- document and chunk ingestion
+- retrieval-ready data
+- later embeddings and source-aware generation
+
+The database backbone is already in place, so the next work should build on that foundation rather than redesign it.
 
 ==================================================
 WORKFLOW (IMPORTANT)
 ==================================================
 
-We will follow this order:
+We will continue in this order:
 
 [x] 1. Define initial repository structure
 [x] 2. Initialize backend using uv + pyproject.toml
@@ -149,9 +232,9 @@ We will follow this order:
 [x] 5. Implement /chat endpoint (mock first)
 [x] 6. Initialize frontend (React + Vite)
 [x] 7. Connect frontend to backend mock /chat
-[ ] 8. Setup Docker Compose (frontend + backend + database)
-[ ] 9. Design database schema
-[ ] 10. Add persistence layer
+[x] 8. Setup Docker Compose (frontend + backend + database)
+[x] 9. Design database schema
+[x] 10. Add persistence layer
 [ ] 11. Build ingestion pipeline
 [ ] 12. Implement retrieval
 [ ] 13. Implement generation
@@ -159,7 +242,35 @@ We will follow this order:
 [ ] 15. Add evaluation + feedback system
 
 Current Step:
-8. Setup Docker Compose (frontend + backend + database)
+11. Build ingestion pipeline
+
+==================================================
+STEP 11 CONTEXT
+==================================================
+
+Right now, the initial persistence layer is already implemented and verified.
+
+The next goal is to start the ingestion side of the system so trusted content can enter the database in a clean, production-oriented way.
+
+The ingestion pipeline should prepare the system to:
+- load trusted sources
+- normalize content
+- split content into chunks
+- persist sources and chunks cleanly
+- prepare for later embedding generation and retrieval
+
+What already exists:
+- PostgreSQL + pgvector container
+- Alembic migration workflow
+- database schema for `sources`, `document_chunks`, `conversations`, `messages`, `retrieval_events`, and `message_feedback`
+- service/repository-backed chat persistence
+- conversation history retrieval endpoint
+
+Important:
+- Build ingestion for the current MVP, but think ahead enough so it does not block later retrieval work
+- Avoid over-engineering
+- Prefer a design that is simple, extensible, and aligned with PostgreSQL + pgvector
+- Explain how ingestion decisions support later retrieval, grounding, and source traceability
 
 ==================================================
 CONSTRAINTS
@@ -169,20 +280,27 @@ CONSTRAINTS
 - Follow clean architecture principles
 - Keep modules small and focused
 - Avoid over-engineering early
-- If a decision is unclear, ask or explain options
+- Explain trade-offs clearly
+- Prefer production-realistic choices over academic or toy designs
+- Do not jump ahead and implement later steps unless explicitly asked
+- If the next step depends on a design choice, explain the options and recommend one
 
 ==================================================
-FIRST TASK
+HOW TO RESPOND NOW
 ==================================================
 
-Start from the beginning.
+We are currently at Step 11.
+
+Start from the current step, not from the beginning.
 
 Help me:
-1. Define the initial project folder structure
-2. Initialize the backend using uv and pyproject.toml
-3. Explain why we structure the backend this way
+1. Design and implement the ingestion pipeline incrementally
+2. Explain why each ingestion component exists
+3. Keep future retrieval and generation needs in mind without overbuilding
+4. Build on the current persistence layer instead of reworking it
 
-Do NOT move to RAG yet.
+Do NOT jump ahead to retrieval or final generation logic unless explicitly asked.
 Do NOT generate unnecessary files.
+Do NOT restart the project from scratch.
 
 Remember: I want to learn, not just copy code.

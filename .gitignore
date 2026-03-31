@@ -21,3 +21,6 @@ frontend/dist/
 # Editors and OS files
 .DS_Store
 Thumbs.db
+
+#Project prompt
+Project_codex_prompt.txt

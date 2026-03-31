@@ -1,5 +1,7 @@
-import { SubmitEvent, useState } from "react";
+import { useState, type SubmitEvent } from "react";
 import "./App.css";
+
+const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
 
 type ChatSource = {
   title: string;
@@ -25,7 +27,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const backendResponse = await fetch("http://127.0.0.1:8000/chat", {
+      const backendResponse = await fetch(`${apiBaseUrl}/chat`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
