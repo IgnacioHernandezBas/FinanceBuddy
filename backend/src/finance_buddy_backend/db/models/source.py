@@ -1,6 +1,7 @@
 from datetime import datetime
 from sqlalchemy import DateTime, ForeignKey, Integer, String, Text, func
 from sqlalchemy.orm import relationship, Mapped, mapped_column
+from pgvector.sqlalchemy import Vector
 
 from ..base import Base
 
@@ -37,5 +38,5 @@ class DocumentChunk(Base):
     char_start: Mapped[int] = mapped_column(Integer, nullable=False)
     char_end: Mapped[int] = mapped_column(Integer, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
-
+    embedding: Mapped[list[float] | None] = mapped_column(Vector(768), nullable=True)
     source: Mapped["Source"] = relationship("Source", back_populates="chunks")

@@ -1,4 +1,4 @@
-﻿FINANCE BUDDY PROJECT
+FINANCE BUDDY PROJECT
 
 I want to build a real-world, production-oriented full-stack project step by step, and I want you to act as a senior software engineer, ML engineer, and mentor.
 
@@ -198,6 +198,7 @@ Already completed:
 [x] 8. Setup Docker Compose (frontend + backend + database)
 [x] 9. Design database schema
 [x] 10. Add persistence layer
+[x] 11. Build ingestion pipeline
 
 Persistence milestone completed:
 - SQLAlchemy base, session, and config setup
@@ -208,14 +209,22 @@ Persistence milestone completed:
 - `POST /chat` now persists conversations and messages
 - `GET /chat/{conversation_id}` returns stored conversation history
 
-Current focus:
-We now have the first persistence-backed chat flow working end to end.
+Ingestion milestone completed:
+- PDF loader implemented for trusted local documents
+- text normalization and chunking processors added
+- source repository supports source and chunk persistence
+- ingestion service orchestrates load, normalize, chunk, and persist
+- ingestion status tracking and content hashing added
+- ingestion script added for local batch loading of trusted PDFs
+- project documentation updated with startup and DB inspection guidance
 
-At this stage, the next major focus is moving from conversation persistence toward the real RAG data flow:
-- trusted source storage
-- document and chunk ingestion
-- retrieval-ready data
-- later embeddings and source-aware generation
+Current focus:
+We now have both the first persistence-backed chat flow and the first ingestion baseline working end to end.
+
+At this stage, the next major focus is moving from stored source data toward the first real retrieval flow:
+- retrieval over persisted chunks
+- retrieval-oriented repository and service boundaries
+- preparing for later embeddings and grounded answer generation
 
 The database backbone is already in place, so the next work should build on that foundation rather than redesign it.
 
@@ -235,29 +244,28 @@ We will continue in this order:
 [x] 8. Setup Docker Compose (frontend + backend + database)
 [x] 9. Design database schema
 [x] 10. Add persistence layer
-[ ] 11. Build ingestion pipeline
+[x] 11. Build ingestion pipeline
 [ ] 12. Implement retrieval
 [ ] 13. Implement generation
 [ ] 14. Add source tracing
 [ ] 15. Add evaluation + feedback system
 
 Current Step:
-11. Build ingestion pipeline
+12. Implement retrieval
 
 ==================================================
-STEP 11 CONTEXT
+STEP 12 CONTEXT
 ==================================================
 
-Right now, the initial persistence layer is already implemented and verified.
+Right now, the persistence layer and ingestion baseline are implemented and verified.
 
-The next goal is to start the ingestion side of the system so trusted content can enter the database in a clean, production-oriented way.
+The next goal is to implement the first retrieval slice so user questions can be matched against persisted trusted chunks.
 
-The ingestion pipeline should prepare the system to:
-- load trusted sources
-- normalize content
-- split content into chunks
-- persist sources and chunks cleanly
-- prepare for later embedding generation and retrieval
+The retrieval step should prepare the system to:
+- define how query-time retrieval will be orchestrated
+- choose the first retrieval strategy for the MVP
+- retrieve relevant chunks from persisted source data
+- keep the design compatible with later source tracing and grounded generation
 
 What already exists:
 - PostgreSQL + pgvector container
@@ -265,12 +273,14 @@ What already exists:
 - database schema for `sources`, `document_chunks`, `conversations`, `messages`, `retrieval_events`, and `message_feedback`
 - service/repository-backed chat persistence
 - conversation history retrieval endpoint
+- trusted PDF ingestion into `sources` and `document_chunks`
+- local ingestion script for batch loading source documents
 
 Important:
-- Build ingestion for the current MVP, but think ahead enough so it does not block later retrieval work
+- Build retrieval for the current MVP, but think ahead enough so it does not block later grounding and source tracing work
 - Avoid over-engineering
 - Prefer a design that is simple, extensible, and aligned with PostgreSQL + pgvector
-- Explain how ingestion decisions support later retrieval, grounding, and source traceability
+- Explain how retrieval decisions support later grounded generation, source traceability, and observability
 
 ==================================================
 CONSTRAINTS
@@ -289,17 +299,17 @@ CONSTRAINTS
 HOW TO RESPOND NOW
 ==================================================
 
-We are currently at Step 11.
+We are currently at Step 12.
 
 Start from the current step, not from the beginning.
 
 Help me:
-1. Design and implement the ingestion pipeline incrementally
-2. Explain why each ingestion component exists
-3. Keep future retrieval and generation needs in mind without overbuilding
+1. Design and implement retrieval incrementally
+2. Explain why each retrieval component exists
+3. Keep future generation and source-tracing needs in mind without overbuilding
 4. Build on the current persistence layer instead of reworking it
 
-Do NOT jump ahead to retrieval or final generation logic unless explicitly asked.
+Do NOT jump ahead to final generation logic unless explicitly asked.
 Do NOT generate unnecessary files.
 Do NOT restart the project from scratch.
 

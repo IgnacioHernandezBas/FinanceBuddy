@@ -46,11 +46,21 @@ class SourceRepository:
         self.db.refresh(source)
         return source
 
-    def create_document_chunks(self, source_id: int, chunks: list[str]) -> list[DocumentChunk]:
+    def create_document_chunks(
+            self, 
+            source_id: int, 
+            chunks: list[str], 
+            embeddings: list[list[float]]
+    ) -> list[DocumentChunk]:
+        
+        if len(chunks) != len(embeddings):
+            raise ValueError("The number of chunks must match the number of embeddings.")
+
         document_chunks: list[DocumentChunk] = []
         cursor = 0
 
-        for index, chunk_text in enumerate(chunks):
+        for index, (chunk_text, chunk_embedding) in enumerate(zip(chunks, embeddings)):
+
             char_start = cursor
             char_end = cursor + len(chunk_text)
 
@@ -61,6 +71,7 @@ class SourceRepository:
                 token_count=len(chunk_text.split()),
                 char_start=char_start,
                 char_end=char_end,
+                embedding=chunk_embedding
             )
             document_chunks.append(document_chunk)
             cursor = char_end

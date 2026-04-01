@@ -1,4 +1,4 @@
-﻿# FinanceBuddy Roadmap
+# FinanceBuddy Roadmap
 
 This roadmap reflects the incremental build order currently being followed.
 
@@ -17,16 +17,18 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Setup Alembic and apply the first migration
 - [x] Persist conversations and messages through repository and service layers
 - [x] Add `GET /chat/{conversation_id}` for conversation history
+- [x] Build the document ingestion pipeline baseline
+- [x] Add a local ingestion script for trusted PDF sources
 
 ## Next
 
 - [ ] Connect the frontend to the new conversation-aware chat API
-- [ ] Build the document ingestion pipeline
-- [ ] Add source-side repositories and services as ingestion grows
+- [ ] Implement retrieval over persisted chunks
+- [ ] Add retrieval-side repositories and services
+- [ ] Decide the first MVP retrieval strategy compatible with later pgvector search
 
 ## Later
 
-- [ ] Implement retrieval
 - [ ] Implement grounded generation
 - [ ] Add source tracing
 - [ ] Add evaluation and feedback flows
