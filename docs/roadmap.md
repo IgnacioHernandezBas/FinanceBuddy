@@ -19,17 +19,18 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Add `GET /chat/{conversation_id}` for conversation history
 - [x] Build the document ingestion pipeline baseline
 - [x] Add a local ingestion script for trusted PDF sources
+- [x] Implement retrieval over persisted chunks
+- [x] Add retrieval-side repositories and services
+- [x] Integrate retrieval into the chat flow with persisted retrieval events
 
 ## Next
 
 - [ ] Connect the frontend to the new conversation-aware chat API
-- [ ] Implement retrieval over persisted chunks
-- [ ] Add retrieval-side repositories and services
-- [ ] Decide the first MVP retrieval strategy compatible with later pgvector search
+- [ ] Implement grounded answer generation from retrieved evidence
+- [ ] Decide the first MVP generation strategy and prompt structure
 
 ## Later
 
-- [ ] Implement grounded generation
 - [ ] Add source tracing
 - [ ] Add evaluation and feedback flows
 

@@ -16,7 +16,7 @@ services:
       context: ./backend
     container_name: finance_buddy_backend
     environment:
-      DATABASE_URL: postgresql://finance_buddy:finance_buddy@db:5432/finance_buddy
+      DATABASE_URL: postgresql+psycopg://finance_buddy:finance_buddy@db:5432/finance_buddy
     ports:
       - "8000:8000"
     volumes:
