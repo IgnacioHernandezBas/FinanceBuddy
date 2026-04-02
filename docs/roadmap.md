@@ -22,12 +22,13 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Implement retrieval over persisted chunks
 - [x] Add retrieval-side repositories and services
 - [x] Integrate retrieval into the chat flow with persisted retrieval events
+- [x] Implement grounded answer generation from retrieved evidence
 
 ## Next
 
-- [ ] Connect the frontend to the new conversation-aware chat API
-- [ ] Implement grounded answer generation from retrieved evidence
-- [ ] Decide the first MVP generation strategy and prompt structure
+- [ ] Connect the frontend to the new conversation-aware grounded chat API
+- [ ] Display supporting sources in the frontend chat UI
+- [ ] Preserve `conversation_id` across follow-up turns
 
 ## Later
 

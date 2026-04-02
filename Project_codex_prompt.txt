@@ -200,6 +200,7 @@ Already completed:
 [x] 10. Add persistence layer
 [x] 11. Build ingestion pipeline
 [x] 12. Implement retrieval
+[x] 13. Implement generation
 
 Persistence milestone completed:
 - SQLAlchemy base, session, and config setup
@@ -225,18 +226,25 @@ Retrieval milestone completed:
 - retrieval repository performs cosine-similarity search over persisted chunk vectors
 - retrieval results now include source metadata and similarity scores
 - retrieval events are persisted for user messages
-- chat flow now returns real retrieved sources while keeping answer generation mock
+- chat flow returns real retrieved sources
 - Docker backend configuration aligned with psycopg v3 connection URLs
 
+Generation milestone completed:
+- Gemini-based generation service added behind a dedicated service boundary
+- prompts are built from retrieved evidence and explanation level
+- chat flow now generates grounded answers instead of returning mock text
+- no-evidence and generation-failure fallback responses are handled explicitly
+- generated answers stay tied to retrieved sources in the API response
+
 Current focus:
-We now have a working ingestion and retrieval baseline with real evidence flowing into the chat response.
+We now have a working backend RAG flow: ingestion, retrieval, and grounded generation are functional.
 
-At this stage, the next major focus is moving from retrieval-backed mock answers toward grounded answer generation:
-- prompt construction from retrieved evidence
-- controlled answer generation that stays tied to retrieved sources
-- answer behavior for uncertainty and insufficient evidence
+At this stage, the next major focus is exposing that improved backend cleanly in the product experience:
+- connect the frontend to the conversation-aware chat API
+- display grounded answers and supporting sources in the UI
+- preserve conversation continuity with `conversation_id`
 
-The database and retrieval backbone are already in place, so the next work should build on that foundation rather than redesign it.
+The backend backbone is already in place, so the next work should focus on frontend integration before adding deeper source-tracing refinements.
 
 ==================================================
 WORKFLOW (IMPORTANT)
@@ -256,26 +264,30 @@ We will continue in this order:
 [x] 10. Add persistence layer
 [x] 11. Build ingestion pipeline
 [x] 12. Implement retrieval
-[ ] 13. Implement generation
-[ ] 14. Add source tracing
-[ ] 15. Add evaluation + feedback system
+[x] 13. Implement generation
+[ ] 14. Connect the frontend to the new conversation-aware grounded chat API
+[ ] 15. Add source tracing
+[ ] 16. Add evaluation + feedback system
 
 Current Step:
-13. Implement generation
+14. Connect the frontend to the new conversation-aware grounded chat API
 
 ==================================================
-STEP 13 CONTEXT
+STEP 14 CONTEXT
 ==================================================
 
-Right now, the persistence layer, ingestion pipeline, and retrieval baseline are implemented and verified.
+Right now, the backend RAG flow is implemented and verified.
 
-The next goal is to generate answers from retrieved evidence rather than returning mock text.
+The next goal is to connect the frontend to that improved backend so the product experience reflects:
+- grounded generated answers
+- supporting sources
+- multi-turn conversation continuity
 
-The generation step should prepare the system to:
-- build prompts from retrieved chunks
-- keep answers explicitly grounded in retrieved evidence
-- handle insufficient evidence safely
-- preserve source-aware response structure for the frontend
+The frontend step should prepare the system to:
+- send `conversation_id` on follow-up turns
+- render grounded answers from the backend
+- display supporting sources returned by the API
+- stay compatible with later source-tracing UX improvements
 
 What already exists:
 - PostgreSQL + pgvector container
@@ -284,16 +296,16 @@ What already exists:
 - service/repository-backed chat persistence
 - conversation history retrieval endpoint
 - trusted PDF ingestion into `sources` and `document_chunks`
-- local ingestion script for batch loading source documents
 - chunk and query embeddings with local sentence-transformer models
 - vector retrieval over stored chunk embeddings
-- retrieval-backed chat flow with persisted retrieval events
+- generation service using Gemini API
+- retrieval-backed grounded chat flow with persisted retrieval events
 
 Important:
-- Build generation for the current MVP, but think ahead enough so it does not block later source tracing and evaluation work
+- Build the frontend integration for the current MVP, but think ahead enough so it does not block later source tracing work
 - Avoid over-engineering
-- Prefer a design that is simple, extensible, and aligned with the existing retrieval pipeline
-- Explain how generation decisions support grounded answers, uncertainty handling, and source traceability
+- Prefer a design that is simple, extensible, and aligned with the current backend API
+- Explain how frontend decisions support conversation continuity, source visibility, and future source inspection UX
 
 ==================================================
 CONSTRAINTS
@@ -305,24 +317,24 @@ CONSTRAINTS
 - Avoid over-engineering early
 - Explain trade-offs clearly
 - Prefer production-realistic choices over academic or toy designs
-- Do not jump ahead and implement later steps unless explicitly asked
+- Do not jump ahead to later steps unless explicitly asked
 - If the next step depends on a design choice, explain the options and recommend one
 
 ==================================================
 HOW TO RESPOND NOW
 ==================================================
 
-We are currently at Step 13.
+We are currently at Step 14.
 
 Start from the current step, not from the beginning.
 
 Help me:
-1. Design and implement generation incrementally
-2. Explain why each generation component exists
-3. Keep future source-tracing and evaluation needs in mind without overbuilding
-4. Build on the current persistence and retrieval layers instead of reworking them
+1. Design and implement the frontend integration incrementally
+2. Explain why each frontend change exists
+3. Keep future source-tracing needs in mind without overbuilding
+4. Build on the current backend flow instead of redesigning it
 
-Do NOT jump ahead to later evaluation logic unless explicitly asked.
+Do NOT jump ahead to evaluation logic unless explicitly asked.
 Do NOT generate unnecessary files.
 Do NOT restart the project from scratch.
 
