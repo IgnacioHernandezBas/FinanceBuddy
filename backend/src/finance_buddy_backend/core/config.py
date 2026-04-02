@@ -1,11 +1,18 @@
+from pathlib import Path
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+BASE_DIR = Path(__file__).resolve().parents[4]
 
 
 class Settings(BaseSettings):
     database_url: str = "postgresql+psycopg://finance_buddy:finance_buddy@localhost:5432/finance_buddy"
+    gemini_api_key: str | None = None
+    gemini_model: str = "gemini-3-flash-preview"
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=BASE_DIR / ".env",
         env_file_encoding="utf-8",
     )
 

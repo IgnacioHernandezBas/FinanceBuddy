@@ -24,3 +24,5 @@ Thumbs.db
 
 #Project prompt
 Project_codex_prompt.txt
+
+#.env

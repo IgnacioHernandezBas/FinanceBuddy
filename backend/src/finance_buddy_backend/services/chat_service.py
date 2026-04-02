@@ -6,11 +6,13 @@ from finance_buddy_backend.repositories.retrieval_repository import RetrievalRep
 from finance_buddy_backend.schemas.chat import ChatResponse, ChatSource, ConversationHistoryResponse, ConversationMessage
 from finance_buddy_backend.services.embedding_service import EmbeddingService
 from finance_buddy_backend.services.retrieval_service import RetrievalService
+from finance_buddy_backend.services.generation_service import GenerationService
 
 
 class ChatService:
     def __init__(self, db: Session) -> None:
         self.db = db
+        self.generation_service = GenerationService()
         self.conversation_repository = ConversationRepository(db)
         self.retrieval_repository = RetrievalRepository(db)
         self.embedding_service = EmbeddingService()
@@ -46,17 +48,33 @@ class ChatService:
         retrieved_chunks = self.retrieval_service.retrieve_relevant_chunks(message, top_k=3)
         if retrieved_chunks:
             self.retrieval_repository.create_retrieval_events(user_message.id, retrieved_chunks)
-            answer = (
-                f"This is still a mock answer for: '{message}'. "
-                "The response is now backed by retrieved source chunks."
-            )
-            answer_status = "retrieved_mock"
+            try:
+                answer = self.generation_service.generate_response(
+                    question=message,
+                    explanation_level=explanation_level,
+                    retrieved_chunks=retrieved_chunks,
+                )
+            except Exception:
+                answer = (
+                    "I could not generate a grounded answer at this time. "
+                    "Please try again in a moment."
+                )
+                answer_status = "generation_failed"
+            else:
+                if not answer.strip():
+                    answer = (
+                        "I could not generate a grounded answer at this time. "
+                        "Please try again in a moment."
+                    )
+                    answer_status = "generation_failed"
+                else:
+                    answer_status = "generated"
+        
         else:
             answer = (
-                f"This is still a mock answer for: '{message}'. "
-                "No relevant source chunks were retrieved."
+                "I could not find enough supporting evidence in the trusted sources to answer confidently."
             )
-            answer_status = "no_evidence_mock"
+            answer_status = "no_evidence_found"
 
         self.conversation_repository.create_message(
             conversation_id=conversation.id,
