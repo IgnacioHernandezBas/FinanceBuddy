@@ -28,6 +28,9 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Preserve `conversation_id` across follow-up turns
 - [x] Restore persisted conversation history in the frontend after refresh
 - [x] Improve retrieval for multilingual tax queries through query normalization
+- [x] Create a first retrieval evaluation dataset and manifest grounded in the Agencia Tributaria corpus
+- [x] Build a retrieval-only evaluation runner with MLflow experiment tracking
+- [x] Log baseline retrieval runs, per-example results, and failure summaries to MLflow
 
 ## Next
 
@@ -35,13 +38,14 @@ This roadmap reflects the incremental build order currently being followed.
 - [ ] Define a minimal observability model for request tracing, latency, retrieval quality, and generation failures
 - [ ] Expose operational metrics and health signals for backend and ingestion workflows
 - [ ] Add error monitoring and a clear debugging workflow for failed chat requests
+- [ ] Compare retrieval variants systematically, starting with query normalization on/off and further retriever tuning
+- [ ] Add generation evaluation with answer artifacts, latency/cost tracking, and LLM-as-a-judge metrics
 
 ## Later
 
 - [ ] Preload the sentence-transformer model at backend startup and optionally bake it into the backend image to reduce chat cold-start latency
 - [ ] Add a local-first retrieval agent with optional user-authorized lookup over approved public web sources
 - [ ] Add source tracing
-- [ ] Add evaluation and feedback flows
 - [ ] Add a bills and invoices (`facturas`) document-analysis module
 - [ ] Expand beyond tax education into broader personal-finance and mortgage workflows
 
@@ -52,3 +56,4 @@ This roadmap reflects the incremental build order currently being followed.
 - Prefer clear boundaries over premature complexity
 - Treat retrieved evidence as the source of truth
 - Add observability before expanding scope so new modules are easier to debug and evaluate
+- Evaluate retrieval and generation separately before trusting end-to-end RAG metrics

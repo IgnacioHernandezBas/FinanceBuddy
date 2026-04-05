@@ -1,0 +1,195 @@
+[
+  {
+    "question_id": "tax-es-001",
+    "question": "¿Para qué sirven los impuestos en una sociedad?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["impuestos", "bienes y servicios públicos", "financiación colectiva"],
+    "expected_source_titles": ["_Para_qué_son_los_impuestos_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "los impuestos financian bienes y servicios públicos",
+      "permiten cubrir necesidades colectivas",
+      "constituyen una aportación obligatoria por ley"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "baseline public-purpose question"
+  },
+  {
+    "question_id": "tax-es-002",
+    "question": "¿Qué son los bienes y servicios públicos?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["bienes públicos", "servicios públicos", "necesidades colectivas"],
+    "expected_source_titles": ["_Para_qué_son_los_impuestos_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "satisfacen necesidades que no pueden cubrirse individualmente",
+      "se financian con recursos públicos",
+      "benefician al conjunto de la sociedad"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "strong concept-definition example"
+  },
+  {
+    "question_id": "tax-es-003",
+    "question": "¿Qué es el gasto público?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["gasto público", "necesidades públicas", "administraciones públicas"],
+    "expected_source_titles": ["_Para_qué_son_los_impuestos_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "es el empleo de caudales públicos",
+      "sirve para satisfacer necesidades públicas",
+      "incluye ejemplos como sanidad o educación"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "good for answer completeness"
+  },
+  {
+    "question_id": "tax-es-004",
+    "question": "¿Quién tiene el deber de contribuir al sostenimiento de los gastos públicos?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["deber de contribuir", "ciudadanos", "gastos públicos"],
+    "expected_source_titles": ["_Quién_paga_los_impuestos_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "los ciudadanos tienen el deber de contribuir",
+      "el deber se vincula al sostenimiento de los gastos públicos",
+      "la obligación está recogida en la Constitución"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "constitutional tax duty question"
+  },
+  {
+    "question_id": "tax-es-005",
+    "question": "¿Qué significa el principio de capacidad económica?",
+    "language": "es",
+    "difficulty": "intermediate",
+    "expected_topics": ["capacidad económica", "sistema tributario", "justicia tributaria"],
+    "expected_source_titles": ["_Quién_paga_los_impuestos_", "_Qué_impuestos_hay_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "las aportaciones deben ajustarse a la capacidad económica",
+      "es un principio del sistema tributario justo",
+      "se relaciona con igualdad y progresividad"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "good multi-source retrieval candidate"
+  },
+  {
+    "question_id": "tax-es-006",
+    "question": "¿Qué es el fraude fiscal y por qué perjudica a la sociedad?",
+    "language": "es",
+    "difficulty": "intermediate",
+    "expected_topics": ["fraude fiscal", "evasión", "servicios públicos", "contribuyentes cumplidores"],
+    "expected_source_titles": ["_Quién_paga_los_impuestos_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "el fraude fiscal implica incumplir obligaciones tributarias",
+      "reduce recursos para servicios públicos",
+      "perjudica a los contribuyentes cumplidores"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "useful for relevance and groundedness"
+  },
+  {
+    "question_id": "tax-es-007",
+    "question": "¿Qué son los tributos y qué tipos existen?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["tributos", "tasas", "contribuciones especiales", "impuestos"],
+    "expected_source_titles": ["_Qué_impuestos_hay_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "los tributos son prestaciones dinerarias obligatorias por ley",
+      "se clasifican en tasas, contribuciones especiales e impuestos",
+      "los impuestos son la fuente principal de ingresos públicos"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "taxonomy question"
+  },
+  {
+    "question_id": "tax-es-008",
+    "question": "¿Qué diferencia hay entre tasas, contribuciones especiales e impuestos?",
+    "language": "es",
+    "difficulty": "intermediate",
+    "expected_topics": ["tasas", "contribuciones especiales", "impuestos", "diferencias"],
+    "expected_source_titles": ["_Qué_impuestos_hay_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "las tasas se pagan por actuaciones administrativas concretas",
+      "las contribuciones especiales se vinculan a beneficios especiales por una actuación pública",
+      "los impuestos no tienen contraprestación individualizada específica"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "strong definition-comparison example"
+  },
+  {
+    "question_id": "tax-es-009",
+    "question": "¿Qué grava el IRPF?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["IRPF", "renta", "personas físicas"],
+    "expected_source_titles": ["_Qué_impuestos_hay_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "el IRPF grava la renta",
+      "afecta a las personas físicas",
+      "es un impuesto directo"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "important baseline retrieval question"
+  },
+  {
+    "question_id": "tax-es-010",
+    "question": "¿Qué grava el IVA?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["IVA", "consumo", "impuesto indirecto"],
+    "expected_source_titles": ["_Qué_impuestos_hay_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "el IVA grava el consumo",
+      "es el impuesto sobre el valor añadido",
+      "es un impuesto indirecto"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "pairs well with IRPF question"
+  },
+  {
+    "question_id": "tax-es-011",
+    "question": "¿Cuál es la diferencia entre el IRPF y el IVA?",
+    "language": "es",
+    "difficulty": "intermediate",
+    "expected_topics": ["IRPF", "IVA", "impuesto directo", "impuesto indirecto", "renta", "consumo"],
+    "expected_source_titles": ["_Qué_impuestos_hay_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "el IRPF grava la renta",
+      "el IVA grava el consumo",
+      "el IRPF es directo",
+      "el IVA es indirecto"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "high-value comparison example"
+  },
+  {
+    "question_id": "tax-es-012",
+    "question": "¿Qué es una aduana y qué función cumple?",
+    "language": "es",
+    "difficulty": "basic",
+    "expected_topics": ["aduana", "control de mercancías", "Territorio Aduanero de la Unión"],
+    "expected_source_titles": ["_Qué_son_las_aduanas_", "_Quién_recauda_los_impuestos_y_controla_las_aduanas_"],
+    "expected_source_ids": [],
+    "expected_answer_points": [
+      "la aduana controla la entrada y salida de mercancías",
+      "actúa en relación con importaciones y exportaciones",
+      "forma parte del control aduanero del territorio correspondiente"
+    ],
+    "must_refuse_without_evidence": false,
+    "notes": "extends coverage beyond pure tax definitions"
+  }
+]

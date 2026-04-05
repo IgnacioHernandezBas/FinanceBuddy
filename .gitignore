@@ -27,3 +27,6 @@ Project_codex_prompt.txt
 
 #data folder additions
 backend/data/raw/cnmv
+
+#Mlflow artifacts
+backend/mlartifacts
