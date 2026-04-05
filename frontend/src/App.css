@@ -88,6 +88,12 @@
   margin-bottom: 18px;
 }
 
+.panel-actions {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
 .panel-header h2 {
   margin: 6px 0 0;
 }
@@ -142,6 +148,56 @@
 .message-content {
   white-space: pre-wrap;
   color: #2e271d;
+}
+
+.message-sources {
+  display: grid;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+.message-sources-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a6440;
+}
+
+.message-source-list {
+  display: grid;
+  gap: 10px;
+}
+
+.message-source-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(118, 96, 58, 0.07);
+}
+
+.message-source-card strong {
+  color: #2a2117;
+  font-size: 0.94rem;
+}
+
+.message-source-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.message-source-card a {
+  color: #214b60;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.message-source-card a:hover {
+  text-decoration: underline;
 }
 
 .composer {
@@ -212,12 +268,14 @@
 
 .helper-text,
 .source-note,
+.source-publisher,
 .error-text {
   font-size: 0.88rem;
 }
 
 .helper-text,
-.source-note {
+.source-note,
+.source-publisher {
   color: #665844;
 }
 
@@ -237,11 +295,28 @@
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
+.secondary-button {
+  border: 1px solid rgba(71, 57, 34, 0.12);
+  border-radius: 999px;
+  padding: 10px 16px;
+  background: rgba(255, 252, 246, 0.88);
+  color: #4b3d2a;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.secondary-button:hover:not(:disabled) {
+  background: rgba(246, 239, 225, 0.98);
+}
+
 .composer button:hover:not(:disabled) {
   transform: translateY(-1px);
 }
 
-.composer button:disabled {
+.composer button:disabled,
+.secondary-button:disabled {
   opacity: 0.6;
   cursor: wait;
 }
@@ -276,7 +351,9 @@
   }
 
   .panel-header,
-  .composer-actions {
+  .composer-actions,
+  .panel-actions,
+  .message-source-card {
     flex-direction: column;
     align-items: stretch;
   }

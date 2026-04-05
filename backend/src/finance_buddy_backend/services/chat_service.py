@@ -5,6 +5,7 @@ from finance_buddy_backend.repositories.conversation_repository import Conversat
 from finance_buddy_backend.repositories.retrieval_repository import RetrievalRepository
 from finance_buddy_backend.schemas.chat import ChatResponse, ChatSource, ConversationHistoryResponse, ConversationMessage
 from finance_buddy_backend.services.embedding_service import EmbeddingService
+from finance_buddy_backend.services.query_normalization_service import QueryNormalizationService
 from finance_buddy_backend.services.retrieval_service import RetrievalService
 from finance_buddy_backend.services.generation_service import GenerationService
 
@@ -16,9 +17,11 @@ class ChatService:
         self.conversation_repository = ConversationRepository(db)
         self.retrieval_repository = RetrievalRepository(db)
         self.embedding_service = EmbeddingService()
+        self.query_normalization_service = QueryNormalizationService()
         self.retrieval_service = RetrievalService(
             retrieval_repository=self.retrieval_repository,
             embedding_service=self.embedding_service,
+            query_normalization_service=self.query_normalization_service,
         )
 
     def create_chat_response(
@@ -45,7 +48,7 @@ class ChatService:
             answer_status=None,
         )
 
-        retrieved_chunks = self.retrieval_service.retrieve_relevant_chunks(message, top_k=3)
+        retrieved_chunks = self.retrieval_service.retrieve_relevant_chunks(message, top_k=5)
         if retrieved_chunks:
             self.retrieval_repository.create_retrieval_events(user_message.id, retrieved_chunks)
             try:
@@ -91,6 +94,11 @@ class ChatService:
                 unique_sources[source_id] = ChatSource(
                     title=str(chunk["source_title"]),
                     url=chunk["source_url"] if isinstance(chunk["source_url"], str) else None,
+                    publisher=(
+                        chunk["source_publisher"]
+                        if isinstance(chunk["source_publisher"], str)
+                        else None
+                    ),
                 )
 
         return ChatResponse(
@@ -105,15 +113,30 @@ class ChatService:
             raise HTTPException(status_code=404, detail="Conversation not found.")
 
         messages = self.conversation_repository.list_messages_by_conversation(conversation_id)
-        message_items = [
-            ConversationMessage(
+        user_message_ids = [message.id for message in messages if message.role == "user"]
+        sources_by_user_message_id = self.retrieval_repository.list_sources_by_message_ids(user_message_ids)
+
+        latest_user_message_id: int | None = None
+        message_items: list[ConversationMessage] = []
+
+        for message in messages:
+            if message.role == "user":
+                latest_user_message_id = message.id
+
+            message_items.append(
+                ConversationMessage(
                 id=message.id,
                 role=message.role,
                 content=message.content,
                 explanation_level=message.explanation_level,
                 answer_status=message.answer_status,
                 created_at=message.created_at,
+                sources=(
+                    sources_by_user_message_id.get(latest_user_message_id, [])
+                    if message.role == "assistant" and latest_user_message_id is not None
+                    else []
+                ),
             )
-            for message in messages
-        ]
+            )
+
         return ConversationHistoryResponse(conversation_id=conversation_id, messages=message_items)

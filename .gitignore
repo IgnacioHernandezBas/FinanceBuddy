@@ -25,4 +25,5 @@ Thumbs.db
 #Project prompt
 Project_codex_prompt.txt
 
-#.env
+#data folder additions
+backend/data/raw/cnmv

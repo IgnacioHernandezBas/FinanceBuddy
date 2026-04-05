@@ -23,17 +23,27 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Add retrieval-side repositories and services
 - [x] Integrate retrieval into the chat flow with persisted retrieval events
 - [x] Implement grounded answer generation from retrieved evidence
+- [x] Connect the frontend to the conversation-aware grounded chat API
+- [x] Display supporting sources in the frontend chat UI
+- [x] Preserve `conversation_id` across follow-up turns
+- [x] Restore persisted conversation history in the frontend after refresh
+- [x] Improve retrieval for multilingual tax queries through query normalization
 
 ## Next
 
-- [ ] Connect the frontend to the new conversation-aware grounded chat API
-- [ ] Display supporting sources in the frontend chat UI
-- [ ] Preserve `conversation_id` across follow-up turns
+- [ ] Add structured application logging for chat, retrieval, generation, and ingestion flows
+- [ ] Define a minimal observability model for request tracing, latency, retrieval quality, and generation failures
+- [ ] Expose operational metrics and health signals for backend and ingestion workflows
+- [ ] Add error monitoring and a clear debugging workflow for failed chat requests
 
 ## Later
 
+- [ ] Preload the sentence-transformer model at backend startup and optionally bake it into the backend image to reduce chat cold-start latency
+- [ ] Add a local-first retrieval agent with optional user-authorized lookup over approved public web sources
 - [ ] Add source tracing
 - [ ] Add evaluation and feedback flows
+- [ ] Add a bills and invoices (`facturas`) document-analysis module
+- [ ] Expand beyond tax education into broader personal-finance and mortgage workflows
 
 ## Guiding Principles
 
@@ -41,3 +51,4 @@ This roadmap reflects the incremental build order currently being followed.
 - Explain decisions before coding
 - Prefer clear boundaries over premature complexity
 - Treat retrieved evidence as the source of truth
+- Add observability before expanding scope so new modules are easier to debug and evaluate

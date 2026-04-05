@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class ChatRequest(BaseModel):
@@ -12,6 +12,7 @@ class ChatRequest(BaseModel):
 class ChatSource(BaseModel):
     title: str
     url: str | None = None
+    publisher: str | None = None
 
 
 class ChatResponse(BaseModel):
@@ -27,6 +28,7 @@ class ConversationMessage(BaseModel):
     explanation_level: str | None
     answer_status: str | None
     created_at: datetime
+    sources: list[ChatSource] = Field(default_factory=list)
 
 
 class ConversationHistoryResponse(BaseModel):

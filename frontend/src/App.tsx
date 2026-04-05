@@ -1,17 +1,34 @@
-import { useMemo, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useState, type FormEvent } from "react";
 import "./App.css";
 
 const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://127.0.0.1:8000";
+const conversationStorageKey = "financebuddy-conversation-id";
 
 type ChatSource = {
   title: string;
   url: string | null;
+  publisher: string | null;
 };
 
 type ChatResponse = {
   answer: string;
   sources: ChatSource[];
   conversation_id: number;
+};
+
+type ConversationHistoryMessage = {
+  id: number;
+  role: "user" | "assistant";
+  content: string;
+  explanation_level: string | null;
+  answer_status: string | null;
+  created_at: string;
+  sources: ChatSource[];
+};
+
+type ConversationHistoryResponse = {
+  conversation_id: number;
+  messages: ConversationHistoryMessage[];
 };
 
 type Message = {
@@ -29,6 +46,7 @@ function App() {
   const [latestSources, setLatestSources] = useState<ChatSource[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [isRestoringConversation, setIsRestoringConversation] = useState(true);
 
   const canSubmit = message.trim().length > 0 && !isLoading;
 
@@ -39,6 +57,69 @@ function App() {
 
     return `Conversation #${conversationId}`;
   }, [conversationId]);
+
+  useEffect(() => {
+    const storedConversationId = window.localStorage.getItem(conversationStorageKey);
+    if (!storedConversationId) {
+      setIsRestoringConversation(false);
+      return;
+    }
+
+    const parsedConversationId = Number(storedConversationId);
+    if (Number.isNaN(parsedConversationId)) {
+      window.localStorage.removeItem(conversationStorageKey);
+      setIsRestoringConversation(false);
+      return;
+    }
+
+    async function restoreConversation() {
+      try {
+        const response = await fetch(`${apiBaseUrl}/chat/${parsedConversationId}`);
+        if (!response.ok) {
+          throw new Error("Could not restore conversation");
+        }
+
+        const data: ConversationHistoryResponse = await response.json();
+        const restoredMessages: Message[] = data.messages.map((entry) => ({
+          id: `history-${entry.id}`,
+          role: entry.role,
+          content: entry.content,
+          sources: entry.role === "assistant" ? entry.sources : undefined,
+        }));
+
+        setConversationId(data.conversation_id);
+        setMessages(restoredMessages);
+        setLatestSources([]);
+      } catch {
+        window.localStorage.removeItem(conversationStorageKey);
+        setConversationId(null);
+        setMessages([]);
+        setLatestSources([]);
+        setError("Could not restore the previous conversation. A new one will start with your next message.");
+      } finally {
+        setIsRestoringConversation(false);
+      }
+    }
+
+    void restoreConversation();
+  }, []);
+
+  useEffect(() => {
+    if (conversationId === null) {
+      window.localStorage.removeItem(conversationStorageKey);
+      return;
+    }
+
+    window.localStorage.setItem(conversationStorageKey, String(conversationId));
+  }, [conversationId]);
+
+  function resetConversation() {
+    setConversationId(null);
+    setMessages([]);
+    setLatestSources([]);
+    setError("");
+    window.localStorage.removeItem(conversationStorageKey);
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -127,18 +208,37 @@ function App() {
               <p className="panel-kicker">Conversation Workspace</p>
               <h2>Ask, refine, follow up</h2>
             </div>
-            <span className="status-pill">
-              {isLoading ? "Generating answer..." : "Ready"}
-            </span>
+            <div className="panel-actions">
+              <span className="status-pill">
+                {isRestoringConversation
+                  ? "Restoring conversation..."
+                  : isLoading
+                    ? "Generating answer..."
+                    : "Ready"}
+              </span>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={resetConversation}
+                disabled={isLoading || isRestoringConversation}
+              >
+                New conversation
+              </button>
+            </div>
           </div>
 
           <div className="messages">
-            {messages.length === 0 ? (
+            {isRestoringConversation ? (
+              <article className="empty-state">
+                <h3>Restoring your previous conversation</h3>
+                <p>FinanceBuddy is loading the saved thread from the backend.</p>
+              </article>
+            ) : messages.length === 0 ? (
               <article className="empty-state">
                 <h3>Start with a real financial question</h3>
                 <p>
-                  Try something like “What is the difference between a tax and a fee?”
-                  or “How does a fixed-rate mortgage work?”
+                  Try something like "What is the difference between a tax and a fee?"
+                  or "How does a fixed-rate mortgage work?"
                 </p>
               </article>
             ) : (
@@ -153,6 +253,30 @@ function App() {
                     </span>
                   </header>
                   <p className="message-content">{entry.content}</p>
+                  {entry.role === "assistant" && entry.sources && entry.sources.length > 0 ? (
+                    <div className="message-sources">
+                      <span className="message-sources-label">Sources</span>
+                      <div className="message-source-list">
+                        {entry.sources.map((source, index) => (
+                          <article className="message-source-card" key={`${source.title}-${index}`}>
+                            <div className="message-source-copy">
+                              <strong>{source.title}</strong>
+                              {source.publisher ? (
+                                <span className="source-publisher">{source.publisher}</span>
+                              ) : null}
+                            </div>
+                            {source.url ? (
+                              <a href={source.url} target="_blank" rel="noreferrer">
+                                Open source
+                              </a>
+                            ) : (
+                              <span className="source-note">Stored local trusted document</span>
+                            )}
+                          </article>
+                        ))}
+                      </div>
+                    </div>
+                  ) : null}
                 </article>
               ))
             )}
@@ -187,11 +311,12 @@ function App() {
               onChange={(event) => setMessage(event.target.value)}
               placeholder="Ask about a mortgage, a tax concept, or another financial topic."
               rows={4}
+              disabled={isRestoringConversation}
             />
 
             <div className="composer-actions">
               {error ? <p className="error-text">{error}</p> : <span className="helper-text">Grounded answers only from retrieved evidence.</span>}
-              <button type="submit" disabled={!canSubmit}>
+              <button type="submit" disabled={!canSubmit || isRestoringConversation}>
                 {isLoading ? "Working..." : "Send question"}
               </button>
             </div>
@@ -219,6 +344,9 @@ function App() {
                 <article className="source-card" key={`${source.title}-${index}`}>
                   <span className="source-index">Source {index + 1}</span>
                   <h3>{source.title}</h3>
+                  {source.publisher ? (
+                    <p className="source-publisher">{source.publisher}</p>
+                  ) : null}
                   {source.url ? (
                     <a href={source.url} target="_blank" rel="noreferrer">
                       Open source

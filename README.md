@@ -2,6 +2,13 @@
 
 FinanceBuddy is a production-oriented full-stack financial education assistant built incrementally to learn backend architecture, frontend integration, and later a grounded RAG pipeline.
 
+## Project Intent And Data Usage
+
+- This project uses data from public sources.
+- The current tax education materials are taken from publicly accessible Agencia Tributaria, CNMV, Banco de España resources.
+- FinanceBuddy is a non-profit project built for educational and learning purposes.
+- It is intended as an engineering-learning project, not as a commercial product.
+
 ## Current Status
 
 Current backend progress includes:
@@ -130,13 +137,15 @@ This loads trusted PDF files from the configured data directory, normalizes and 
 
 ## Notes
 
-- The assistant answer is still mock text, but retrieval is now real and source-backed.
+- The assistant answer is now generated from retrieved evidence and returned with supporting source references.
 - The current frontend still needs to be updated to fully use `conversation_id` and conversation history.
 - Alembic is the official schema management workflow.
-- The next major backend milestone is grounded answer generation over retrieved evidence.
+- A reasonable backend optimization for a later step is to preload the sentence-transformer model at application startup and optionally download it during image build, which would trade higher steady backend container memory for lower request latency.
+- Another future capability is a local-first retrieval agent with optional user-authorized public web lookup, where FinanceBuddy answers from internal trusted sources first and only searches approved public sources when the user explicitly allows it.
 
 ## Roadmap
 
 See [docs/roadmap.md](/d:/FinanceBuddy/docs/roadmap.md).
 
 Useful commands reference: [docs/dev-commands.md](/d:/FinanceBuddy/docs/dev-commands.md).
+
