@@ -70,12 +70,12 @@ Current API integration:
 
 The current UI behavior is primarily orchestrated from:
 
-- `[App.tsx](/d:/FinanceBuddy/frontend/src/App.tsx)`
-- `[App.css](/d:/FinanceBuddy/frontend/src/App.css)`
+- `[App.tsx](src/App.tsx)`
+- `[App.css](src/App.css)`
 
 ## Local Development
 
-From `[frontend](/d:/FinanceBuddy/frontend)`:
+From `[frontend](.)`:
 
 ```powershell
 npm install
@@ -118,3 +118,4 @@ To do next:
 ## Summary
 
 The frontend is designed to make a RAG system understandable to the user. It does not only display answers; it also exposes source evidence, preserves conversation continuity, and lets the user control explanation depth, which makes the product feel more trustworthy and production-oriented.
+

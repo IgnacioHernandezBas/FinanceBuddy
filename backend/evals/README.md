@@ -67,10 +67,10 @@ This keeps evaluation evidence in one place instead of scattering results across
 
 ## Current Local MLflow Storage
 
-In this project, the local MLflow files currently live under `[backend](/d:/FinanceBuddy/backend)`:
+In this project, the local MLflow files currently live under `[backend](..)`:
 
-- metadata store: `[mlflow.db](/d:/FinanceBuddy/backend/mlflow.db)`
-- artifact root: `[mlartifacts](/d:/FinanceBuddy/backend/mlartifacts)`
+- metadata store: `[mlflow.db](../mlflow.db)`
+- artifact root: `[mlartifacts](../mlartifacts)`
 
 That means the MLflow server should always be started against the same backend store and artifact root if you want previous runs to remain visible after restart.
 
@@ -94,7 +94,7 @@ This is a server storage-path issue, not a problem with the evaluation code itse
 
 ## Recommended MLflow Startup Command
 
-From `[backend](/d:/FinanceBuddy/backend)` start MLflow like this:
+From `[backend](..)` start MLflow like this:
 
 ```powershell
 uv run mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root file:./mlartifacts --host 127.0.0.1 --port 5000
@@ -113,7 +113,7 @@ uv run mlflow server --backend-store-uri sqlite:///D:/FinanceBuddy/backend/mlflo
 
 ## Example Evaluation Flow
 
-From `[backend](/d:/FinanceBuddy/backend)`:
+From `[backend](..)`:
 
 ```powershell
 uv run mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root file:./mlartifacts --host 127.0.0.1 --port 5000
@@ -332,4 +332,5 @@ Use this artifact to document the scope and limits of the current evaluation sta
 ## Short Interview Explanation
 
 The evaluation layer gives FinanceBuddy a controlled way to compare retrieval behavior with real evidence. MLflow stores the runs, metrics, and artifacts needed to justify retriever decisions instead of relying on intuition or one-off tests.
+
 

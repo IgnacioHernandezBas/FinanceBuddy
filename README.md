@@ -70,9 +70,9 @@ Services:
 
 ### 3. Docker development notes
 
-The backend container bind-mounts [backend/src](/d:/FinanceBuddy/backend/src) into `/app/src`, so ordinary backend code changes reload automatically inside the container.
+The backend container bind-mounts [backend/src](backend/src) into `/app/src`, so ordinary backend code changes reload automatically inside the container.
 
-After changing backend dependencies in [pyproject.toml](/d:/FinanceBuddy/backend/pyproject.toml) or [uv.lock](/d:/FinanceBuddy/backend/uv.lock), rebuild the backend image:
+After changing backend dependencies in [pyproject.toml](backend/pyproject.toml) or [uv.lock](backend/uv.lock), rebuild the backend image:
 
 ```powershell
 docker compose up -d --build backend
@@ -87,7 +87,7 @@ postgresql+psycopg://finance_buddy:finance_buddy@db:5432/finance_buddy
 
 ### 4. Run the backend locally
 
-From [backend](/d:/FinanceBuddy/backend):
+From [backend](backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -107,7 +107,7 @@ Running the backend locally is optional if the backend container is already heal
 
 ### 5. Run the frontend
 
-From [frontend](/d:/FinanceBuddy/frontend):
+From [frontend](frontend):
 
 ```powershell
 cd D:\FinanceBuddy\frontend
@@ -121,7 +121,7 @@ The frontend will usually be available at `http://localhost:5173`.
 
 The ingestion script requires the PostgreSQL container to be running. The backend API does not need to be running for this script.
 
-From [backend](/d:/FinanceBuddy/backend):
+From [backend](backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -132,7 +132,7 @@ This loads trusted PDF files from the configured data directory, normalizes and 
 
 ### 7. Run retrieval evaluation with MLflow
 
-From [backend](/d:/FinanceBuddy/backend), start MLflow with the persistent local store:
+From [backend](backend), start MLflow with the persistent local store:
 
 ```powershell
 uv run mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root file:./mlartifacts --host 127.0.0.1 --port 5000
@@ -149,7 +149,7 @@ uv run python -m evals.run_rag_eval --dataset-path evals/datasets/tax_qa_es_v1.j
 1. Start Docker Desktop and bring up the containers.
 2. Rebuild the backend container after dependency changes.
 3. Run the backend locally only when you want a faster debug loop.
-4. Run the frontend from [frontend](/d:/FinanceBuddy/frontend).
+4. Run the frontend from [frontend](frontend).
 5. Use `POST /chat` to create or continue a conversation.
 6. Use `GET /chat/{conversation_id}` to inspect persisted message history.
 7. Run the ingestion script when you want to load trusted PDF sources into PostgreSQL.
@@ -167,11 +167,13 @@ uv run python -m evals.run_rag_eval --dataset-path evals/datasets/tax_qa_es_v1.j
 
 Project roadmap and commands:
 
-- [Roadmap](/d:/FinanceBuddy/docs/roadmap.md)
-- [Dev Commands](/d:/FinanceBuddy/docs/dev-commands.md)
+- [Roadmap](docs/roadmap.md)
+- [Dev Commands](docs/dev-commands.md)
 
 Subsystem documentation:
 
-- [Database Layer](/d:/FinanceBuddy/backend/src/finance_buddy_backend/db/README.md)
-- [Frontend](/d:/FinanceBuddy/frontend/README.md)
-- [Evaluation And MLflow](/d:/FinanceBuddy/backend/evals/README.md)
+- [Database Layer](backend/src/finance_buddy_backend/db/README.md)
+- [Frontend](frontend/README.md)
+- [Evaluation And MLflow](backend/evals/README.md)
+
+

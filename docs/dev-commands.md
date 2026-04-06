@@ -24,7 +24,7 @@ docker compose down
 
 ## Backend
 
-Run the FastAPI backend from [backend](/d:/FinanceBuddy/backend):
+Run the FastAPI backend from [backend](../backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -33,7 +33,7 @@ uv run uvicorn finance_buddy_backend.main:app --reload
 
 ## Frontend
 
-Run the Vite frontend from [frontend](/d:/FinanceBuddy/frontend):
+Run the Vite frontend from [frontend](../frontend):
 
 ```powershell
 cd D:\FinanceBuddy\frontend
@@ -43,7 +43,7 @@ npm run dev
 
 ## Ingestion
 
-Run the ingestion script from [backend](/d:/FinanceBuddy/backend):
+Run the ingestion script from [backend](../backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -101,3 +101,4 @@ Run a one-off table listing without entering the container shell:
 ```powershell
 docker compose exec db psql -U finance_buddy -d finance_buddy -c "\dt"
 ```
+

@@ -216,7 +216,7 @@ This lets the retrieval repository run semantic similarity search over stored ch
 
 ### 1. Check Alembic head
 
-From `[backend](/d:/FinanceBuddy/backend)`:
+From `[backend](../../../..)`:
 
 ```powershell
 uv run alembic current
@@ -281,3 +281,4 @@ Expected result should include:
 ## Summary
 
 FinanceBuddy uses PostgreSQL plus pgvector as a persistence and retrieval backbone. The schema separates trusted sources, chunk embeddings, chat history, retrieval traces, and feedback so the system can generate grounded answers while staying debuggable and extensible.
+
