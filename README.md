@@ -65,9 +65,9 @@ Services:
 
 ### 3. Docker development notes
 
-The backend container bind-mounts [backend/src](/d:/FinanceBuddy/backend/src) into `/app/src`, so ordinary backend code changes reload automatically inside the container.
+The backend container bind-mounts [backend/src](backend/src) into `/app/src`, so ordinary backend code changes reload automatically inside the container.
 
-After changing backend dependencies in [backend/pyproject.toml](/d:/FinanceBuddy/backend/pyproject.toml) or [backend/uv.lock](/d:/FinanceBuddy/backend/uv.lock), rebuild the backend image:
+After changing backend dependencies in [backend/pyproject.toml](backend/pyproject.toml) or [backend/uv.lock](backend/uv.lock), rebuild the backend image:
 
 ```powershell
 docker compose up -d --build backend
@@ -82,7 +82,7 @@ postgresql+psycopg://finance_buddy:finance_buddy@db:5432/finance_buddy
 
 ### 4. Run the backend locally
 
-From [backend](/d:/FinanceBuddy/backend):
+From [backend](backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -102,7 +102,7 @@ Running the backend locally is optional if the backend container is already heal
 
 ### 5. Run the frontend
 
-From [frontend](/d:/FinanceBuddy/frontend):
+From [frontend](frontend):
 
 ```powershell
 cd D:\FinanceBuddy\frontend
@@ -116,7 +116,7 @@ The frontend will usually be available at `http://localhost:5173`.
 
 The ingestion script requires the PostgreSQL container to be running. The backend API does not need to be running for this script.
 
-From [backend](/d:/FinanceBuddy/backend):
+From [backend](/backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -130,7 +130,7 @@ This loads trusted PDF files from the configured data directory, normalizes and 
 1. Start Docker Desktop and bring up the containers.
 2. Rebuild the backend container after dependency changes.
 3. Run the backend locally only when you want a faster local debug loop.
-4. Run the frontend from [frontend](/d:/FinanceBuddy/frontend).
+4. Run the frontend from [frontend](frontend).
 5. Use `POST /chat` to create or continue a conversation.
 6. Use `GET /chat/{conversation_id}` to inspect persisted message history.
 7. Run the ingestion script when you want to load trusted PDF sources into PostgreSQL.
@@ -145,7 +145,7 @@ This loads trusted PDF files from the configured data directory, normalizes and 
 
 ## Roadmap
 
-See [docs/roadmap.md](/d:/FinanceBuddy/docs/roadmap.md).
+See [docs/roadmap.md](/docs/roadmap.md).
 
-Useful commands reference: [docs/dev-commands.md](/d:/FinanceBuddy/docs/dev-commands.md).
+Useful commands reference: [docs/dev-commands.md](docs/dev-commands.md).
 
