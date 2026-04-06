@@ -201,6 +201,9 @@ Already completed:
 [x] 11. Build ingestion pipeline
 [x] 12. Implement retrieval
 [x] 13. Implement generation
+[x] 14. Connect the frontend to the new conversation-aware grounded chat API
+[x] 15. Display supporting sources and preserve conversation continuity in the frontend
+[x] 16. Add retrieval evaluation datasets, manifests, and MLflow tracking
 
 Persistence milestone completed:
 - SQLAlchemy base, session, and config setup
@@ -228,6 +231,7 @@ Retrieval milestone completed:
 - retrieval events are persisted for user messages
 - chat flow returns real retrieved sources
 - Docker backend configuration aligned with psycopg v3 connection URLs
+- query normalization improves multilingual tax retrieval
 
 Generation milestone completed:
 - Gemini-based generation service added behind a dedicated service boundary
@@ -236,15 +240,39 @@ Generation milestone completed:
 - no-evidence and generation-failure fallback responses are handled explicitly
 - generated answers stay tied to retrieved sources in the API response
 
+Frontend integration milestone completed:
+- frontend sends and preserves `conversation_id`
+- grounded backend answers are rendered in the UI
+- supporting sources are displayed in chat responses
+- conversation history is restored after refresh
+
+Evaluation milestone completed:
+- versioned retrieval evaluation dataset added
+- dataset manifest defines corpus assumptions and scoring targets
+- retrieval-only evaluation runner executes against the real retrieval path
+- MLflow tracking logs params, aggregate metrics, datasets, artifacts, and failure summaries
+- baseline retrieval runs are now reproducible and comparable
+
 Current focus:
-We now have a working backend RAG flow: ingestion, retrieval, and grounded generation are functional.
+We now have a working full-stack MVP for grounded chat:
+- ingestion is functional
+- retrieval is functional
+- grounded generation is functional
+- the frontend is connected to the conversation-aware chat API
+- supporting sources are visible in the UI
+- conversation continuity is preserved with `conversation_id`
 
-At this stage, the next major focus is exposing that improved backend cleanly in the product experience:
-- connect the frontend to the conversation-aware chat API
-- display grounded answers and supporting sources in the UI
-- preserve conversation continuity with `conversation_id`
+We also now have the first retrieval evaluation layer in place:
+- a versioned retrieval evaluation dataset exists
+- a dataset manifest defines corpus assumptions and scoring targets
+- a retrieval-only evaluation runner executes against the real backend retrieval path
+- MLflow logs baseline runs, aggregate metrics, per-example outputs, and failure summaries
 
-The backend backbone is already in place, so the next work should focus on frontend integration before adding deeper source-tracing refinements.
+At this stage, the next major focus is retrieval testing and evaluation-driven improvement:
+- compare retrieval variants systematically in MLflow
+- validate the impact of query normalization and retriever configuration changes
+- tighten retrieval quality before moving deeper into generation evaluation
+- keep the roadmap and project context synchronized with the actual milestone
 
 ==================================================
 WORKFLOW (IMPORTANT)
@@ -265,29 +293,30 @@ We will continue in this order:
 [x] 11. Build ingestion pipeline
 [x] 12. Implement retrieval
 [x] 13. Implement generation
-[ ] 14. Connect the frontend to the new conversation-aware grounded chat API
-[ ] 15. Add source tracing
-[ ] 16. Add evaluation + feedback system
+[x] 14. Connect the frontend to the new conversation-aware grounded chat API
+[x] 15. Display supporting sources and preserve conversation continuity in the frontend
+[x] 16. Add retrieval evaluation datasets, manifests, and MLflow tracking
+[ ] 17. Compare retrieval variants and improve retrieval quality from measured results
+[ ] 18. Add structured observability for chat, retrieval, generation, and ingestion
+[ ] 19. Add generation evaluation + feedback system
+[ ] 20. Add source tracing refinements
 
 Current Step:
-14. Connect the frontend to the new conversation-aware grounded chat API
+17. Compare retrieval variants and improve retrieval quality from measured results
 
 ==================================================
-STEP 14 CONTEXT
+STEP 17 CONTEXT
 ==================================================
 
-Right now, the backend RAG flow is implemented and verified.
+Right now, the backend RAG flow and the first evaluation layer are implemented.
 
-The next goal is to connect the frontend to that improved backend so the product experience reflects:
-- grounded generated answers
-- supporting sources
-- multi-turn conversation continuity
+The next goal is to use the new retrieval evaluation stack to make retrieval improvements measurable and defensible.
 
-The frontend step should prepare the system to:
-- send `conversation_id` on follow-up turns
-- render grounded answers from the backend
-- display supporting sources returned by the API
-- stay compatible with later source-tracing UX improvements
+This step should prepare the system to:
+- compare retrieval configurations using the same fixed dataset
+- track results in MLflow so runs are easy to compare later
+- identify whether improvements come from recall, ranking, or reduced source noise
+- make retrieval changes only when they are supported by measured results
 
 What already exists:
 - PostgreSQL + pgvector container
@@ -300,12 +329,17 @@ What already exists:
 - vector retrieval over stored chunk embeddings
 - generation service using Gemini API
 - retrieval-backed grounded chat flow with persisted retrieval events
+- frontend integration for conversation-aware chat and source display
+- multilingual tax query normalization for retrieval
+- retrieval evaluation dataset and manifest
+- retrieval-only evaluation runner
+- MLflow tracking for baseline retrieval runs and artifacts
 
 Important:
-- Build the frontend integration for the current MVP, but think ahead enough so it does not block later source tracing work
+- Build on the current retrieval evaluation workflow instead of redesigning it
 - Avoid over-engineering
-- Prefer a design that is simple, extensible, and aligned with the current backend API
-- Explain how frontend decisions support conversation continuity, source visibility, and future source inspection UX
+- Prefer comparisons that keep the dataset fixed and isolate one retrieval variable at a time
+- Explain how each retrieval experiment supports future retriever tuning, observability, and later generation evaluation
 
 ==================================================
 CONSTRAINTS
@@ -324,17 +358,17 @@ CONSTRAINTS
 HOW TO RESPOND NOW
 ==================================================
 
-We are currently at Step 14.
+We are currently at Step 17.
 
 Start from the current step, not from the beginning.
 
 Help me:
-1. Design and implement the frontend integration incrementally
-2. Explain why each frontend change exists
-3. Keep future source-tracing needs in mind without overbuilding
-4. Build on the current backend flow instead of redesigning it
+1. Design and implement retrieval-testing improvements incrementally
+2. Explain why each evaluation or retriever change exists
+3. Keep future generation evaluation and observability needs in mind without overbuilding
+4. Build on the current MLflow-backed evaluation flow instead of redesigning it
 
-Do NOT jump ahead to evaluation logic unless explicitly asked.
+Do NOT jump ahead to full generation evaluation unless explicitly asked.
 Do NOT generate unnecessary files.
 Do NOT restart the project from scratch.
 

@@ -1,26 +1,30 @@
 # FinanceBuddy
 
-FinanceBuddy is a production-oriented full-stack financial education assistant built incrementally to learn backend architecture, frontend integration, and later a grounded RAG pipeline.
+FinanceBuddy is a production-oriented full-stack financial education assistant built incrementally to learn backend architecture, grounded retrieval, evaluation workflows, and documentation discipline.
+
+![FinanceBuddy frontend overview](imgs/frontend_new.png)
 
 ## Project Intent And Data Usage
 
 - This project uses data from public sources.
-- The current tax education materials are taken from publicly accessible Agencia Tributaria, CNMV, Banco de España resources.
+- The current tax education materials are taken from publicly accessible Agencia Tributaria, CNMV, and Banco de Espana resources.
 - FinanceBuddy is a non-profit project built for educational and learning purposes.
 - It is intended as an engineering-learning project, not as a commercial product.
 
 ## Current Status
 
-Current backend progress includes:
+Current implemented scope includes:
 
 - FastAPI backend with `GET /health`
-- Persistence-backed `POST /chat`
-- `GET /chat/{conversation_id}` for conversation history
-- Retrieval-backed `POST /chat` with semantic chunk search and real source references
+- persistence-backed `POST /chat`
+- `GET /chat/{conversation_id}` for conversation history restore
+- retrieval-backed grounded answers with source references
 - PostgreSQL schema managed with Alembic
-- SQLAlchemy models, repositories, and service-layer orchestration
-- React + TypeScript + Vite frontend scaffold
-- Docker Compose setup for frontend, backend, and PostgreSQL with pgvector
+- pgvector-backed chunk embeddings and semantic retrieval
+- React + TypeScript + Vite frontend with explanation-level selection
+- frontend conversation persistence through `conversation_id`
+- visible source evidence in the UI
+- retrieval evaluation datasets, manifests, and MLflow tracking
 
 ## Repository Structure
 
@@ -28,6 +32,7 @@ Current backend progress includes:
 FinanceBuddy/
 |- backend/
 |- frontend/
+|- imgs/
 |- infra/
 |- docs/
 |- .env.example
@@ -65,9 +70,9 @@ Services:
 
 ### 3. Docker development notes
 
-The backend container bind-mounts [backend/src](backend/src) into `/app/src`, so ordinary backend code changes reload automatically inside the container.
+The backend container bind-mounts [backend/src](/d:/FinanceBuddy/backend/src) into `/app/src`, so ordinary backend code changes reload automatically inside the container.
 
-After changing backend dependencies in [backend/pyproject.toml](backend/pyproject.toml) or [backend/uv.lock](backend/uv.lock), rebuild the backend image:
+After changing backend dependencies in [pyproject.toml](/d:/FinanceBuddy/backend/pyproject.toml) or [uv.lock](/d:/FinanceBuddy/backend/uv.lock), rebuild the backend image:
 
 ```powershell
 docker compose up -d --build backend
@@ -82,7 +87,7 @@ postgresql+psycopg://finance_buddy:finance_buddy@db:5432/finance_buddy
 
 ### 4. Run the backend locally
 
-From [backend](backend):
+From [backend](/d:/FinanceBuddy/backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -102,7 +107,7 @@ Running the backend locally is optional if the backend container is already heal
 
 ### 5. Run the frontend
 
-From [frontend](frontend):
+From [frontend](/d:/FinanceBuddy/frontend):
 
 ```powershell
 cd D:\FinanceBuddy\frontend
@@ -116,7 +121,7 @@ The frontend will usually be available at `http://localhost:5173`.
 
 The ingestion script requires the PostgreSQL container to be running. The backend API does not need to be running for this script.
 
-From [backend](/backend):
+From [backend](/d:/FinanceBuddy/backend):
 
 ```powershell
 cd D:\FinanceBuddy\backend
@@ -125,27 +130,48 @@ uv run python scripts/ingest_sources.py
 
 This loads trusted PDF files from the configured data directory, normalizes and chunks them, and stores sources plus document chunks in the database.
 
+### 7. Run retrieval evaluation with MLflow
+
+From [backend](/d:/FinanceBuddy/backend), start MLflow with the persistent local store:
+
+```powershell
+uv run mlflow server --backend-store-uri sqlite:///mlflow.db --default-artifact-root file:./mlartifacts --host 127.0.0.1 --port 5000
+```
+
+Then run an evaluation in another terminal:
+
+```powershell
+uv run python -m evals.run_rag_eval --dataset-path evals/datasets/tax_qa_es_v1.json --manifest-path evals/manifests/tax_qa_es_v1_manifest.json --top-k 5 --log-to-mlflow --run-name baseline_tax_es_top5
+```
+
 ## Current Development Flow
 
 1. Start Docker Desktop and bring up the containers.
 2. Rebuild the backend container after dependency changes.
-3. Run the backend locally only when you want a faster local debug loop.
-4. Run the frontend from [frontend](frontend).
+3. Run the backend locally only when you want a faster debug loop.
+4. Run the frontend from [frontend](/d:/FinanceBuddy/frontend).
 5. Use `POST /chat` to create or continue a conversation.
 6. Use `GET /chat/{conversation_id}` to inspect persisted message history.
 7. Run the ingestion script when you want to load trusted PDF sources into PostgreSQL.
+8. Run retrieval evaluation and compare MLflow runs when testing retriever changes.
 
 ## Notes
 
-- The assistant answer is now generated from retrieved evidence and returned with supporting source references.
-- The current frontend still needs to be updated to fully use `conversation_id` and conversation history.
+- The assistant answer is generated from retrieved evidence and returned with supporting source references.
+- The frontend already supports `conversation_id`, source display, and restore of the last conversation after refresh.
 - Alembic is the official schema management workflow.
 - A reasonable backend optimization for a later step is to preload the sentence-transformer model at application startup and optionally download it during image build, which would trade higher steady backend container memory for lower request latency.
 - Another future capability is a local-first retrieval agent with optional user-authorized public web lookup, where FinanceBuddy answers from internal trusted sources first and only searches approved public sources when the user explicitly allows it.
 
-## Roadmap
+## Documentation Map
 
-See [docs/roadmap.md](/docs/roadmap.md).
+Project roadmap and commands:
 
-Useful commands reference: [docs/dev-commands.md](docs/dev-commands.md).
+- [Roadmap](/d:/FinanceBuddy/docs/roadmap.md)
+- [Dev Commands](/d:/FinanceBuddy/docs/dev-commands.md)
 
+Subsystem documentation:
+
+- [Database Layer](/d:/FinanceBuddy/backend/src/finance_buddy_backend/db/README.md)
+- [Frontend](/d:/FinanceBuddy/frontend/README.md)
+- [Evaluation And MLflow](/d:/FinanceBuddy/backend/evals/README.md)

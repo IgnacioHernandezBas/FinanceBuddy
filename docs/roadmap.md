@@ -34,11 +34,12 @@ This roadmap reflects the incremental build order currently being followed.
 
 ## Next
 
+- [ ] Run systematic retrieval comparisons in MLflow, starting with query normalization on vs off
+- [ ] Turn baseline retrieval findings into concrete retriever improvements and regression checks
 - [ ] Add structured application logging for chat, retrieval, generation, and ingestion flows
 - [ ] Define a minimal observability model for request tracing, latency, retrieval quality, and generation failures
 - [ ] Expose operational metrics and health signals for backend and ingestion workflows
 - [ ] Add error monitoring and a clear debugging workflow for failed chat requests
-- [ ] Compare retrieval variants systematically, starting with query normalization on/off and further retriever tuning
 - [ ] Add generation evaluation with answer artifacts, latency/cost tracking, and LLM-as-a-judge metrics
 
 ## Later
@@ -57,3 +58,4 @@ This roadmap reflects the incremental build order currently being followed.
 - Treat retrieved evidence as the source of truth
 - Add observability before expanding scope so new modules are easier to debug and evaluate
 - Evaluate retrieval and generation separately before trusting end-to-end RAG metrics
+

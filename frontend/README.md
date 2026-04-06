@@ -1,73 +1,120 @@
-# React + TypeScript + Vite
+# FinanceBuddy Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This frontend is the user-facing interface for the FinanceBuddy grounded chat experience.
 
-Currently, two official plugins are available:
+It is built with React, TypeScript, and Vite, and currently focuses on a clean MVP workflow for asking financial questions, receiving grounded answers, and inspecting the supporting sources returned by the backend.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Current UI Capabilities
 
-## React Compiler
+The current interface provides:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- a chat workspace for user and assistant turns
+- an explanation-level toggle with `basic` and `technical` modes
+- conversation persistence through `conversation_id`
+- automatic restoration of the last conversation after refresh
+- an evidence panel showing the sources used in the latest answer
+- per-message source cards inside assistant answers
+- loading, restore, and request-error states
+- a button to reset the current conversation and start a new one
 
-## Expanding the ESLint configuration
+## What The User Can Do
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Ask grounded questions
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+The user can submit questions about taxes, mortgages, and personal finance concepts.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The frontend sends:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- `message`
+- `explanation_level`
+- `conversation_id` when continuing an existing thread
+
+### Switch explanation depth
+
+The UI supports two explanation modes:
+
+- `basic`: simpler explanations for clarity
+- `technical`: deeper wording for more advanced users
+
+### Continue a saved conversation
+
+The frontend stores the current `conversation_id` in local storage and restores the thread from the backend on page reload.
+
+### Inspect supporting evidence
+
+The frontend shows sources in two places:
+
+- inline on each assistant message
+- in a dedicated side panel for the latest answer
+
+For each source, the UI can show:
+
+- title
+- publisher when available
+- link to the original source when available
+- a local-document note when the source comes from trusted stored content
+
+
+## Backend Integration
+
+Current API integration:
+
+- `POST /chat`
+  - sends the user message, explanation level, and optional conversation id
+  - receives the grounded answer, sources, and current conversation id
+
+- `GET /chat/{conversation_id}`
+  - restores the persisted conversation history from the backend
+
+## Current File Focus
+
+The current UI behavior is primarily orchestrated from:
+
+- `[App.tsx](/d:/FinanceBuddy/frontend/src/App.tsx)`
+- `[App.css](/d:/FinanceBuddy/frontend/src/App.css)`
+
+## Local Development
+
+From `[frontend](/d:/FinanceBuddy/frontend)`:
+
+```powershell
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+The frontend expects the backend base URL through:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `VITE_API_BASE_URL`
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Default fallback:
+
+- `http://127.0.0.1:8000`
+
+## UI Screenshots
+
+![FinanceBuddy frontend UI](../imgs/frontend_new.png)
+
+![FinanceBuddy frontend UI (response)](../imgs/App_response.png)
+
+## Current UX Scope
+
+This is intentionally still an MVP.
+
+What is already covered well:
+
+- grounded chat flow
+- visible evidence
+- conversation continuity
+- basic request-state handling
+
+To do next:
+
+- source-inspection drill-down
+- user feedback submission UI
+- conversation list or history browser
+- authentication and multi-user separation
+- advanced observability surfaced in the UI
+
+## Summary
+
+The frontend is designed to make a RAG system understandable to the user. It does not only display answers; it also exposes source evidence, preserves conversation continuity, and lets the user control explanation depth, which makes the product feel more trustworthy and production-oriented.

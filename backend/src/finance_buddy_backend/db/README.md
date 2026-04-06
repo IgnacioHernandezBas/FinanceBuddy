@@ -1,200 +1,283 @@
-# FinanceBuddy Database Structure
+# FinanceBuddy Database Layer
 
-This package contains the persistence foundation for the backend.
+This package contains the persistence layer for the FinanceBuddy backend.
 
-The goal is to keep the database layer separate from:
+The database is a core part of the RAG architecture, not just generic storage. It holds the trusted source corpus, chunk-level retrieval data, conversation history, retrieval traces, and feedback records that make the system inspectable.
 
-- API routes
-- Pydantic request/response schemas
-- application services
+## Database Schema Diagram
 
-That separation matters because the database is a core part of the RAG system. It stores trusted sources, chunk-level retrieval data, conversation history, and traceability records that later let us explain where an answer came from.
+![FinanceBuddy database schema](../../../../imgs/db_schema.png)
 
-## Current Step
+## Why This Schema Works For RAG
 
-Step 9: design the database schema.
+This schema keeps retrieval, chat persistence, and traceability connected without overengineering the MVP.
 
-This README documents the structure we want before implementing the persistence layer in Step 10.
+- `sources` and `document_chunks` support ingestion plus semantic retrieval
+- `conversations` and `messages` support the user-facing product flow
+- `retrieval_events` preserve evidence traces per user turn
+- `message_feedback` leaves room for later feedback and evaluation workflows
 
-## Recommended Package Layout
+## Current Status
 
-```text
-finance_buddy_backend/
-├── api/
-│   └── routes/
-├── core/
-├── db/
-│   ├── README.md
-│   ├── base.py
-│   ├── session.py
-│   └── models/
-│       ├── source.py
-│       ├── conversation.py
-│       ├── retrieval.py
-│       └── feedback.py
-├── repositories/
-│   ├── source_repository.py
-│   ├── conversation_repository.py
-│   ├── retrieval_repository.py
-│   └── feedback_repository.py
-├── schemas/
-└── services/
-```
+The database layer is implemented and backed by PostgreSQL plus pgvector.
 
-## Responsibility of Each Part
+Current schema coverage:
+
+- `sources`
+- `document_chunks`
+- `conversations`
+- `messages`
+- `retrieval_events`
+- `message_feedback`
+
+Current migration chain:
+
+- `d19c80c2de8e_create_initial_schema`
+- `0282135a117f_add_chunk_embeddings`
+
+The second migration enables pgvector usage by creating the `vector` extension if needed and adding the `embedding` column to `document_chunks`.
+
+## Package Layout
+
+Main database-layer files:
+
+- `db/base.py`
+- `db/session.py`
+- `db/models/conversation.py`
+- `db/models/feedback.py`
+- `db/models/retrieval.py`
+- `db/models/source.py`
+- `repositories/conversation_repository.py`
+- `repositories/feedback_repository.py`
+- `repositories/retrieval_repository.py`
+- `repositories/source_repository.py`
+
+## Responsibilities
 
 ### `db/base.py`
 
-This file should define the shared ORM base class.
-
-Why it exists:
-
-- gives all ORM models one common base
-- keeps model definitions consistent
-- provides a single import point for metadata later
-
-Typical responsibility:
-
-- create the SQLAlchemy declarative base
+Defines the shared SQLAlchemy declarative base used by every ORM model.
 
 ### `db/session.py`
 
-This file should manage the database engine and sessions.
+Creates the SQLAlchemy engine and session factory.
 
-Why it exists:
-
-- centralizes database connection setup
-- prevents connection logic from being repeated in routes or repositories
-- becomes the place to configure PostgreSQL and later pgvector support
-
-Typical responsibility:
-
-- create the engine
-- create the session factory
-- expose a dependency/helper for getting a session
+This keeps database connection setup out of routes and repositories.
 
 ### `db/models/`
 
-This folder should contain ORM models only.
+Contains ORM table definitions and relationships only.
 
-Do not put route logic, validation logic, or business workflows here.
+### `repositories/`
 
-Recommended split:
+Contains query and persistence logic.
 
-- `source.py`
-  - `Source`
-  - `DocumentChunk`
-- `conversation.py`
-  - `Conversation`
-  - `Message`
-- `retrieval.py`
-  - `RetrievalEvent`
-- `feedback.py`
-  - `MessageFeedback`
+### `services/`
 
-Why split by domain instead of one large file:
+Coordinates higher-level workflows such as chat, ingestion, retrieval, and generation.
 
-- easier to read and teach
-- clearer ownership of related entities
-- avoids a giant `models.py` as the project grows
+## Schema Overview
 
-## Why These Tables Belong Together
+### `sources`
 
-### `Source` and `DocumentChunk`
+Represents one trusted parent document.
 
-These tables support ingestion and retrieval.
+Key fields:
 
-- `Source` stores the parent trusted document
-- `DocumentChunk` stores chunked fragments used during retrieval
+- `id`: primary key
+- `title`: source title shown in retrieval results and UI
+- `source_type`: source category such as PDF or web content
+- `url`: optional public source URL
+- `publisher`: optional publisher or institution name
+- `language`: optional language metadata
+- `content_text`: normalized full source text
+- `content_hash`: used to detect duplicate or unchanged content during ingestion
+- `ingestion_status`: ingestion lifecycle status
+- `published_at`: optional original publication timestamp
+- `created_at`, `updated_at`: persistence timestamps
 
-This design preserves traceability:
+Relationship:
 
-- chunks can always be linked back to the original source
-- retrieval can operate on small chunks without losing document context
+- one `Source` has many `DocumentChunk` rows
 
-### `Conversation` and `Message`
+### `document_chunks`
 
-These tables support the chat product itself.
+Stores retrieval units derived from a source.
 
-- `Conversation` groups a chat session
-- `Message` stores the ordered transcript
+Key fields:
 
-This separation matters because one conversation contains many messages, and later the assistant will need that history to generate better grounded answers.
+- `id`: primary key
+- `source_id`: foreign key to `sources.id`
+- `chunk_index`: stable order of the chunk inside the parent source
+- `text`: chunk text used for retrieval context
+- `token_count`: token count recorded during chunking
+- `char_start`, `char_end`: character span inside the parent source text
+- `embedding`: `vector(768)` pgvector column used for semantic similarity search
+- `created_at`: insertion timestamp
 
-### `RetrievalEvent`
+Why this table matters:
 
-This table supports observability and answer auditing.
+- retrieval happens at chunk granularity, not whole-document granularity
+- each chunk still stays linked to its parent trusted source
+- pgvector makes semantic search possible directly inside PostgreSQL
 
-It should record which chunks were retrieved for a user message, including ranking and similarity score.
+### `conversations`
 
-Without this table, you can answer a user question, but you cannot reliably inspect why the system answered the way it did.
+Represents a chat thread.
 
-### `MessageFeedback`
+Key fields:
 
-This table supports evaluation and product learning.
+- `id`: primary key
+- `user_identifier`: reserved for future user scoping
+- `title`: optional conversation title
+- `created_at`, `updated_at`: thread timestamps
 
-It should attach user feedback to assistant messages, not to the whole conversation.
+Relationship:
 
-That gives you much better signal when you later want to analyze:
+- one `Conversation` has many `Message` rows
 
-- weak answers
-- poor retrieval quality
-- gaps in your source data
+### `messages`
 
-## Separation of Concerns
+Stores the ordered transcript for a conversation.
 
-Use these rules consistently:
+Key fields:
 
-- `api/routes/` handles HTTP
-- `schemas/` handles request and response validation
-- `db/models/` defines tables and relationships
-- `repositories/` handles database queries
-- `services/` orchestrates application behavior
+- `id`: primary key
+- `conversation_id`: foreign key to `conversations.id`
+- `role`: `user` or `assistant`
+- `content`: raw message text
+- `explanation_level`: requested explanation mode such as `basic` or `technical`
+- `answer_status`: reserved answer outcome metadata
+- `created_at`: insertion timestamp
 
-Routes should not know how SQL queries work.
+Why this table matters:
 
-Repositories should not know how HTTP works.
+- the backend can restore full conversation history
+- user and assistant turns stay tied to the same thread
+- answer metadata is stored with the message that produced it
 
-Services should coordinate workflows using repositories rather than embedding SQL directly.
+### `retrieval_events`
 
-## Recommended Flow Later
+Stores which chunks were retrieved for a user message.
 
-When the chat endpoint becomes real, the flow should look like this:
+Key fields:
 
-1. The route receives the request.
-2. A service coordinates the chat workflow.
-3. A repository stores the user message.
-4. Retrieval logic finds relevant chunks.
-5. Retrieval results are stored as `RetrievalEvent` records.
-6. The grounded assistant answer is stored as a new `Message`.
-7. Feedback can later be stored on that assistant message.
+- `id`: primary key
+- `message_id`: foreign key to `messages.id`
+- `chunk_id`: foreign key to `document_chunks.id`
+- `rank`: retrieval rank for that chunk
+- `similarity_score`: similarity returned by the retriever
+- `created_at`: insertion timestamp
 
-This keeps the architecture modular and interview-ready.
+Why this table matters:
 
-## What We Are Intentionally Not Adding Yet
+- it gives retrieval traceability for each user turn
+- it supports debugging, failure analysis, and later observability
+- it connects a chat answer back to the evidence search stage
 
-To keep the MVP realistic but not over-engineered, we are not adding:
+### `message_feedback`
 
-- a `users` table
-- prompt versioning tables
-- retrieval run parent tables
-- multiple embedding-version tables
-- advanced evaluation experiment tables
+Stores user feedback on assistant answers.
 
-Those can be introduced later when there is a concrete need.
+Key fields:
 
-## Practical Notes for Step 10
+- `id`: primary key
+- `message_id`: foreign key to `messages.id`
+- `rating`: feedback value
+- `comment`: optional free-text note
+- `created_at`: insertion timestamp
 
-When implementing the persistence layer, build in this order:
+Why this table matters:
 
-1. `db/base.py`
-2. `db/session.py`
-3. ORM models in `db/models/`
-4. repository modules
-5. service integration
+- feedback attaches to one answer, not to the whole conversation
+- that makes evaluation and future product learning more precise
 
-That order keeps dependencies clean and reduces rework.
+## Relationship Summary
 
-## Short Interview Explanation
+- `sources` 1:N `document_chunks`
+- `conversations` 1:N `messages`
+- `messages` 1:N `retrieval_events`
+- `document_chunks` 1:N `retrieval_events`
+- `messages` 1:N `message_feedback`
 
-The database structure is organized so that the persistence layer supports grounded generation rather than acting as generic storage. Source and chunk models support retrieval, conversation and message models support the chat product, and retrieval plus feedback records support traceability, debugging, and future evaluation workflows.
+## How pgvector Fits The Schema
+
+FinanceBuddy uses pgvector in the `document_chunks.embedding` column.
+
+Current shape:
+
+- type: `vector(768)`
+- model-side definition: `Vector(768)`
+- migration-side activation: `CREATE EXTENSION IF NOT EXISTS vector`
+
+This lets the retrieval repository run semantic similarity search over stored chunk embeddings instead of scanning raw text.
+
+## How To Check That The Database Is Up To Date
+
+### 1. Check Alembic head
+
+From `[backend](/d:/FinanceBuddy/backend)`:
+
+```powershell
+uv run alembic current
+uv run alembic heads
+```
+
+Expected result:
+
+- current revision should be `0282135a117f`
+- head revision should also be `0282135a117f`
+
+If the current revision is behind, run:
+
+```powershell
+uv run alembic upgrade head
+```
+
+### 2. Check that pgvector is enabled
+
+Inside PostgreSQL:
+
+```sql
+SELECT extname FROM pg_extension WHERE extname = 'vector';
+```
+
+Expected result:
+
+- one row with `vector`
+
+### 3. Check that `document_chunks.embedding` exists
+
+```sql
+SELECT column_name, data_type
+FROM information_schema.columns
+WHERE table_name = 'document_chunks'
+ORDER BY ordinal_position;
+```
+
+Expected result:
+
+- an `embedding` column should be present
+
+### 4. Check the current table set
+
+```sql
+SELECT table_name
+FROM information_schema.tables
+WHERE table_schema = 'public'
+ORDER BY table_name;
+```
+
+Expected result should include:
+
+- `conversations`
+- `document_chunks`
+- `message_feedback`
+- `messages`
+- `retrieval_events`
+- `sources`
+- `alembic_version`
+
+## Summary
+
+FinanceBuddy uses PostgreSQL plus pgvector as a persistence and retrieval backbone. The schema separates trusted sources, chunk embeddings, chat history, retrieval traces, and feedback so the system can generate grounded answers while staying debuggable and extensible.
