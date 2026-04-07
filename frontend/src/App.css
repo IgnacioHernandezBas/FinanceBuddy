@@ -340,6 +340,73 @@
   text-decoration: underline;
 }
 
+.message-feedback {
+  display: grid;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.message-feedback-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a6440;
+}
+
+.message-feedback-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.feedback-button {
+  border: 1px solid rgba(71, 57, 34, 0.12);
+  border-radius: 999px;
+  padding: 9px 14px;
+  background: rgba(255, 252, 246, 0.92);
+  color: #4b3d2a;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.feedback-button--positive.is-selected {
+  background: #2f6a4f;
+  color: #fbf6eb;
+  border-color: #2f6a4f;
+}
+
+.feedback-button--negative.is-selected {
+  background: #9a3f3f;
+  color: #fbf6eb;
+  border-color: #9a3f3f;
+}
+
+.feedback-button:disabled {
+  opacity: 0.6;
+  cursor: wait;
+}
+
+.feedback-button:not(:disabled):hover {
+  background: rgba(246, 239, 225, 0.98);
+}
+
+.feedback-status {
+  margin: 0;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.feedback-status--positive {
+  color: #2f6a4f;
+}
+
+.feedback-status--negative {
+  color: #9a3f3f;
+}
+
 @media (max-width: 1024px) {
   .app-shell {
     padding: 22px 16px 24px;

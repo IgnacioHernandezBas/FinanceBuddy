@@ -19,6 +19,7 @@ class ChatResponse(BaseModel):
     answer: str
     sources: list[ChatSource]
     conversation_id: int
+    message_id: int
 
 
 class ConversationMessage(BaseModel):

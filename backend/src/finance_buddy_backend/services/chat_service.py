@@ -79,7 +79,7 @@ class ChatService:
             )
             answer_status = "no_evidence_found"
 
-        self.conversation_repository.create_message(
+        assistant_message = self.conversation_repository.create_message(
             conversation_id=conversation.id,
             role="assistant",
             content=answer,
@@ -105,6 +105,7 @@ class ChatService:
             answer=answer,
             sources=list(unique_sources.values()),
             conversation_id=conversation.id,
+            message_id=assistant_message.id,
         )
 
     def get_chat_history(self, conversation_id: int) -> ConversationHistoryResponse:

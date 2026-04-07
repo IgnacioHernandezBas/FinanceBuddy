@@ -14,6 +14,7 @@ type ChatResponse = {
   answer: string;
   sources: ChatSource[];
   conversation_id: number;
+  message_id: number;
 };
 
 type ConversationHistoryMessage = {
@@ -31,16 +32,31 @@ type ConversationHistoryResponse = {
   messages: ConversationHistoryMessage[];
 };
 
+type FeedbackRating = "positive" | "negative";
+
+type FeedbackResponse = {
+  message_id: number;
+  rating: FeedbackRating;
+  comment: string | null;
+};
+
 type Message = {
   id: string;
+  backendMessageId?: number;
   role: "user" | "assistant";
   content: string;
   sources?: ChatSource[];
+  feedbackRating?: FeedbackRating;
+  feedbackComment?: string | null;
+  isSubmittingFeedback?: boolean;
 };
 
 function App() {
+  // Main chat and request state.
   const [message, setMessage] = useState("");
-  const [explanationLevel, setExplanationLevel] = useState<"basic" | "technical">("basic");
+  const [explanationLevel, setExplanationLevel] = useState<"basic" | "technical">(
+    "basic",
+  );
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [latestSources, setLatestSources] = useState<ChatSource[]>([]);
@@ -58,6 +74,7 @@ function App() {
     return `Conversation #${conversationId}`;
   }, [conversationId]);
 
+  // Restore the last conversation persisted in local storage.
   useEffect(() => {
     const storedConversationId = window.localStorage.getItem(conversationStorageKey);
     if (!storedConversationId) {
@@ -82,6 +99,7 @@ function App() {
         const data: ConversationHistoryResponse = await response.json();
         const restoredMessages: Message[] = data.messages.map((entry) => ({
           id: `history-${entry.id}`,
+          backendMessageId: entry.id,
           role: entry.role,
           content: entry.content,
           sources: entry.role === "assistant" ? entry.sources : undefined,
@@ -95,7 +113,9 @@ function App() {
         setConversationId(null);
         setMessages([]);
         setLatestSources([]);
-        setError("Could not restore the previous conversation. A new one will start with your next message.");
+        setError(
+          "Could not restore the previous conversation. A new one will start with your next message.",
+        );
       } finally {
         setIsRestoringConversation(false);
       }
@@ -104,6 +124,7 @@ function App() {
     void restoreConversation();
   }, []);
 
+  // Keep the active conversation id available across refreshes.
   useEffect(() => {
     if (conversationId === null) {
       window.localStorage.removeItem(conversationStorageKey);
@@ -121,6 +142,68 @@ function App() {
     window.localStorage.removeItem(conversationStorageKey);
   }
 
+  async function submitFeedback(messageId: string, rating: FeedbackRating) {
+    const targetMessage = messages.find((entry) => entry.id === messageId);
+
+    if (!targetMessage?.backendMessageId) {
+      setError("Could not submit feedback for this message.");
+      return;
+    }
+
+    setError("");
+    setMessages((current) =>
+      current.map((entry) =>
+        entry.id === messageId
+          ? { ...entry, isSubmittingFeedback: true }
+          : entry,
+      ),
+    );
+
+    try {
+      const response = await fetch(
+        `${apiBaseUrl}/chat/${targetMessage.backendMessageId}/feedback`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            rating,
+            comment: null,
+          }),
+        },
+      );
+
+      if (!response.ok) {
+        throw new Error("Feedback request failed");
+      }
+      const data: FeedbackResponse = await response.json();
+
+      setMessages((current) =>
+        current.map((entry) =>
+          entry.id === messageId
+            ? {
+                ...entry,
+                feedbackRating: data.rating,
+                feedbackComment: data.comment,
+                isSubmittingFeedback: false,
+              }
+            : entry,
+        ),
+      );
+    } catch {
+      setError("Could not submit feedback right now.");
+      setMessages((current) =>
+        current.map((entry) =>
+          entry.id === messageId
+            ? { ...entry, isSubmittingFeedback: false }
+            : entry,
+        ),
+      );
+    }
+  }
+
+  // Send a new user question and append the grounded assistant answer.
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
@@ -159,7 +242,8 @@ function App() {
 
       const data: ChatResponse = await backendResponse.json();
       const assistantMessage: Message = {
-        id: `assistant-${Date.now()}`,
+        id: `assistant-${data.message_id}`,
+        backendMessageId: data.message_id,
         role: "assistant",
         content: data.answer,
         sources: data.sources,
@@ -178,6 +262,7 @@ function App() {
 
   return (
     <main className="app-shell">
+      {/* Product intro and current session metadata. */}
       <section className="hero-panel">
         <div className="hero-copy">
           <p className="eyebrow">Grounded Financial Guidance</p>
@@ -201,6 +286,7 @@ function App() {
         </div>
       </section>
 
+      {/* Main chat area plus the latest-answer evidence panel. */}
       <section className="workspace">
         <div className="conversation-panel">
           <div className="panel-header">
@@ -213,8 +299,8 @@ function App() {
                 {isRestoringConversation
                   ? "Restoring conversation..."
                   : isLoading
-                    ? "Generating answer..."
-                    : "Ready"}
+                  ? "Generating answer..."
+                  : "Ready"}
               </span>
               <button
                 type="button"
@@ -253,6 +339,51 @@ function App() {
                     </span>
                   </header>
                   <p className="message-content">{entry.content}</p>
+                  {entry.role === "assistant" && entry.backendMessageId ? (
+                    <div className="message-feedback">
+                      <span className="message-feedback-label">Was this helpful?</span>
+                      <div className="message-feedback-actions">
+                        <button
+                          type="button"
+                          className={
+                            entry.feedbackRating === "positive"
+                              ? "feedback-button feedback-button--positive is-selected"
+                              : "feedback-button feedback-button--positive"
+                          }
+                          onClick={() => void submitFeedback(entry.id, "positive")}
+                          disabled={entry.isSubmittingFeedback}
+                        >
+                          Helpful
+                        </button>
+                        <button
+                          type="button"
+                          className={
+                            entry.feedbackRating === "negative"
+                              ? "feedback-button feedback-button--negative is-selected"
+                              : "feedback-button feedback-button--negative"
+                          }
+                          onClick={() => void submitFeedback(entry.id, "negative")}
+                          disabled={entry.isSubmittingFeedback}
+                        >
+                          Not helpful
+                        </button>
+                      </div>
+                      {entry.feedbackRating ? (
+                        <p
+                          className={
+                            entry.feedbackRating === "positive"
+                              ? "feedback-status feedback-status--positive"
+                              : "feedback-status feedback-status--negative"
+                          }
+                        >
+                          {entry.feedbackRating === "positive"
+                            ? "You marked this answer as helpful."
+                            : "You marked this answer as not helpful."}
+                        </p>
+                      ) : null}
+                    </div>
+                  ) : null}
+
                   {entry.role === "assistant" && entry.sources && entry.sources.length > 0 ? (
                     <div className="message-sources">
                       <span className="message-sources-label">Sources</span>
@@ -282,6 +413,7 @@ function App() {
             )}
           </div>
 
+          {/* Question composer and explanation-level controls. */}
           <form className="composer" onSubmit={handleSubmit}>
             <div className="composer-controls">
               <div className="segmented-control" role="radiogroup" aria-label="Explanation level">
@@ -315,7 +447,13 @@ function App() {
             />
 
             <div className="composer-actions">
-              {error ? <p className="error-text">{error}</p> : <span className="helper-text">Grounded answers only from retrieved evidence.</span>}
+              {error ? (
+                <p className="error-text">{error}</p>
+              ) : (
+                <span className="helper-text">
+                  Grounded answers only from retrieved evidence.
+                </span>
+              )}
               <button type="submit" disabled={!canSubmit || isRestoringConversation}>
                 {isLoading ? "Working..." : "Send question"}
               </button>
@@ -323,6 +461,7 @@ function App() {
           </form>
         </div>
 
+        {/* Dedicated panel for the sources used in the latest answer. */}
         <aside className="sources-panel">
           <div className="panel-header">
             <div>

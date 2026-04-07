@@ -5,18 +5,18 @@ This roadmap reflects the incremental build order currently being followed.
 ## Completed
 
 - [x] Define initial repository structure
-- [x] Initialize backend using `uv` and `pyproject.toml`
+- [x] Initialize backend using uv and pyproject.toml
 - [x] Clean backend architecture for routes and schemas
-- [x] Implement `GET /health`
-- [x] Implement mock `POST /chat`
+- [x] Implement GET /health
+- [x] Implement mock POST /chat
 - [x] Initialize frontend with React + TypeScript + Vite
-- [x] Connect frontend to backend mock `/chat`
+- [x] Connect frontend to backend mock /chat
 - [x] Setup Docker Compose for frontend, backend, and database
 - [x] Design the initial database schema
 - [x] Add the initial persistence layer
 - [x] Setup Alembic and apply the first migration
 - [x] Persist conversations and messages through repository and service layers
-- [x] Add `GET /chat/{conversation_id}` for conversation history
+- [x] Add GET /chat/{conversation_id} for conversation history
 - [x] Build the document ingestion pipeline baseline
 - [x] Add a local ingestion script for trusted PDF sources
 - [x] Implement retrieval over persisted chunks
@@ -25,15 +25,21 @@ This roadmap reflects the incremental build order currently being followed.
 - [x] Implement grounded answer generation from retrieved evidence
 - [x] Connect the frontend to the conversation-aware grounded chat API
 - [x] Display supporting sources in the frontend chat UI
-- [x] Preserve `conversation_id` across follow-up turns
+- [x] Preserve conversation_id across follow-up turns
 - [x] Restore persisted conversation history in the frontend after refresh
 - [x] Improve retrieval for multilingual tax queries through query normalization
 - [x] Create a first retrieval evaluation dataset and manifest grounded in the Agencia Tributaria corpus
 - [x] Build a retrieval-only evaluation runner with MLflow experiment tracking
 - [x] Log baseline retrieval runs, per-example results, and failure summaries to MLflow
+- [x] Add a backend feedback endpoint with persistence-backed create/update behavior for assistant messages
+- [x] Return persisted assistant message ids to the frontend chat flow
+- [x] Add frontend thumbs up/down feedback controls for assistant answers
 
 ## Next
 
+- [ ] Add optional negative-feedback comments in the frontend and backend flow
+- [ ] Add a simple review path for low-rated answers
+- [ ] Use real user feedback to identify the highest-value retrieval, prompting, and UX fixes before expanding scope
 - [ ] Run systematic retrieval comparisons in MLflow, starting with query normalization on vs off
 - [ ] Turn baseline retrieval findings into concrete retriever improvements and regression checks
 - [ ] Add structured application logging for chat, retrieval, generation, and ingestion flows
@@ -54,8 +60,10 @@ This roadmap reflects the incremental build order currently being followed.
 
 - Keep steps small and testable
 - Explain decisions before coding
+- Prefer guided implementation so new milestones are learned and built incrementally
 - Prefer clear boundaries over premature complexity
 - Treat retrieved evidence as the source of truth
 - Add observability before expanding scope so new modules are easier to debug and evaluate
 - Evaluate retrieval and generation separately before trusting end-to-end RAG metrics
+
 

@@ -38,3 +38,5 @@ class ConversationRepository:
     def list_messages_by_conversation(self, conversation_id: int) -> list[Message]:
         return self.db.query(Message).filter(Message.conversation_id == conversation_id).order_by(Message.created_at).all()
   
+    def get_message_by_id(self, message_id: int) -> Message | None:
+        return self.db.query(Message).filter(Message.id == message_id).first()
