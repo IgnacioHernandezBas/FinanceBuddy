@@ -168,6 +168,7 @@ uv run python -m evals.run_rag_eval --dataset-path evals/datasets/tax_qa_es_v1.j
 Project roadmap and commands:
 
 - [Roadmap](docs/roadmap.md)
+- [Agentic V1 Architecture](docs/agentic-v1-architecture.md)
 - [Dev Commands](docs/dev-commands.md)
 
 Subsystem documentation:
@@ -175,5 +176,4 @@ Subsystem documentation:
 - [Database Layer](backend/src/finance_buddy_backend/db/README.md)
 - [Frontend](frontend/README.md)
 - [Evaluation And MLflow](backend/evals/README.md)
-
 

@@ -2,6 +2,24 @@
 
 This roadmap reflects the incremental build order currently being followed.
 
+## Active Branch Focus
+
+Current active branch: `agentic_v1`
+
+Branch objective:
+- design and implement a LangGraph-based agent workflow in parallel to the existing RAG path
+- keep the current production RAG flow stable and unchanged as the baseline
+- add internal-first decision-making before any optional public web lookup
+- define explicit agent state, nodes, edges, and runtime trace events
+- evaluate the agent path against the baseline before considering any merge into `main`
+
+Branch constraints:
+- do not replace the existing default chat path during `agentic_v1`
+- do not introduce unconstrained autonomous tool use
+- do not let public web lookup bypass trusted internal retrieval
+- do not use MLflow as the primary runtime tracing system
+- keep source provenance explicit when mixing trusted and public sources
+
 ## Completed
 
 - [x] Define initial repository structure
@@ -47,6 +65,12 @@ This roadmap reflects the incremental build order currently being followed.
 - [ ] Expose operational metrics and health signals for backend and ingestion workflows
 - [ ] Add error monitoring and a clear debugging workflow for failed chat requests
 - [ ] Add generation evaluation with answer artifacts, latency/cost tracking, and LLM-as-a-judge metrics
+- [ ] Design the LangGraph agent architecture for `agentic_v1`, including state, nodes, edges, and policy rules
+- [ ] Add a parallel agent execution path without changing the default RAG endpoint behavior
+- [ ] Implement internal-first evidence assessment before any optional public web lookup
+- [ ] Define and persist runtime trace events for agent node execution and branch decisions
+- [ ] Add constrained, user-authorized web lookup as a later node in the agent path
+- [ ] Compare the agent path against the baseline RAG path with evaluation artifacts before merge
 
 ## Later
 
@@ -65,5 +89,5 @@ This roadmap reflects the incremental build order currently being followed.
 - Treat retrieved evidence as the source of truth
 - Add observability before expanding scope so new modules are easier to debug and evaluate
 - Evaluate retrieval and generation separately before trusting end-to-end RAG metrics
-
-
+- Evolve from deterministic RAG to agentic behavior only through explicit, reviewable workflow control
+- Keep the baseline path intact long enough to compare agent behavior against a stable reference
