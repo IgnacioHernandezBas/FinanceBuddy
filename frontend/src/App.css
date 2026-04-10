@@ -67,6 +67,11 @@
   font-size: 1.05rem;
 }
 
+.meta-subtext {
+  color: #6c5b43;
+  font-size: 0.85rem;
+}
+
 .workspace {
   margin-top: 26px;
   display: grid;
@@ -209,6 +214,8 @@
 .composer-controls {
   display: flex;
   justify-content: flex-start;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .segmented-control {
@@ -324,6 +331,66 @@
 .sources-list {
   display: grid;
   gap: 14px;
+}
+
+.trace-panel {
+  margin-top: 18px;
+  display: grid;
+  gap: 14px;
+}
+
+.trace-list {
+  display: grid;
+  gap: 12px;
+}
+
+.trace-card {
+  border: 1px solid rgba(75, 62, 44, 0.1);
+  border-radius: 18px;
+  background: rgba(255, 253, 248, 0.92);
+  box-shadow: 0 10px 24px rgba(48, 35, 18, 0.05);
+  padding: 16px;
+  display: grid;
+  gap: 10px;
+}
+
+.trace-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+}
+
+.trace-card-header strong {
+  color: #2a2117;
+}
+
+.trace-status {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(31, 60, 52, 0.12);
+  color: #1f3c34;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.trace-summary {
+  margin: 0;
+  color: #3b3123;
+}
+
+.trace-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.trace-meta span {
+  font-size: 0.83rem;
+  color: #665844;
+  background: rgba(118, 96, 58, 0.07);
+  border-radius: 999px;
+  padding: 6px 10px;
 }
 
 .source-card {

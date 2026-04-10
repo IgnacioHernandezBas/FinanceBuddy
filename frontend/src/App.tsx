@@ -17,6 +17,35 @@ type ChatResponse = {
   message_id: number;
 };
 
+type AgentTraceEvent = {
+  node_name: string;
+  status: string;
+  summary?: string | null;
+  retrieval_status?: string | null;
+  retrieval_query?: string | null;
+  scores?: number[];
+  decision?: string | null;
+  chunk_count?: number | null;
+  source_count?: number | null;
+  answer_status?: string | null;
+  request_type?: string | null;
+  internal_evidence_status?: string | null;
+};
+
+type AgentRetrievedChunk = {
+  source_id?: number | null;
+  source_title?: string | null;
+  source_url?: string | null;
+  source_publisher?: string | null;
+  score?: number | null;
+  text?: string | null;
+};
+
+type AgentChatResponse = ChatResponse & {
+  trace_events?: AgentTraceEvent[];
+  retrieved_chunks?: AgentRetrievedChunk[];
+};
+
 type ConversationHistoryMessage = {
   id: number;
   role: "user" | "assistant";
@@ -40,6 +69,8 @@ type FeedbackResponse = {
   comment: string | null;
 };
 
+type ChatMode = "baseline" | "agent";
+
 type Message = {
   id: string;
   backendMessageId?: number;
@@ -57,14 +88,18 @@ function App() {
   const [explanationLevel, setExplanationLevel] = useState<"basic" | "technical">(
     "basic",
   );
+  const [chatMode, setChatMode] = useState<ChatMode>("baseline");
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [latestSources, setLatestSources] = useState<ChatSource[]>([]);
+  const [latestTraceEvents, setLatestTraceEvents] = useState<AgentTraceEvent[]>([]);
+  const [latestRetrievedChunks, setLatestRetrievedChunks] = useState<AgentRetrievedChunk[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isRestoringConversation, setIsRestoringConversation] = useState(true);
 
   const canSubmit = message.trim().length > 0 && !isLoading;
+  const chatEndpoint = chatMode === "agent" ? "/agent/chat" : "/chat";
 
   const conversationLabel = useMemo(() => {
     if (conversationId === null) {
@@ -108,11 +143,15 @@ function App() {
         setConversationId(data.conversation_id);
         setMessages(restoredMessages);
         setLatestSources([]);
+        setLatestTraceEvents([]);
+        setLatestRetrievedChunks([]);
       } catch {
         window.localStorage.removeItem(conversationStorageKey);
         setConversationId(null);
         setMessages([]);
         setLatestSources([]);
+        setLatestTraceEvents([]);
+        setLatestRetrievedChunks([]);
         setError(
           "Could not restore the previous conversation. A new one will start with your next message.",
         );
@@ -138,6 +177,8 @@ function App() {
     setConversationId(null);
     setMessages([]);
     setLatestSources([]);
+    setLatestTraceEvents([]);
+    setLatestRetrievedChunks([]);
     setError("");
     window.localStorage.removeItem(conversationStorageKey);
   }
@@ -224,7 +265,7 @@ function App() {
     setIsLoading(true);
 
     try {
-      const backendResponse = await fetch(`${apiBaseUrl}/chat`, {
+      const backendResponse = await fetch(`${apiBaseUrl}${chatEndpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -240,7 +281,7 @@ function App() {
         throw new Error("Request failed");
       }
 
-      const data: ChatResponse = await backendResponse.json();
+      const data: AgentChatResponse = await backendResponse.json();
       const assistantMessage: Message = {
         id: `assistant-${data.message_id}`,
         backendMessageId: data.message_id,
@@ -251,10 +292,14 @@ function App() {
 
       setConversationId(data.conversation_id);
       setLatestSources(data.sources);
+      setLatestTraceEvents(chatMode === "agent" ? (data.trace_events ?? []) : []);
+      setLatestRetrievedChunks(chatMode === "agent" ? (data.retrieved_chunks ?? []) : []);
       setMessages((current) => [...current, assistantMessage]);
     } catch {
       setError("Could not connect to the backend or generate a response.");
       setMessages((current) => current.slice(0, -1));
+      setLatestTraceEvents([]);
+      setLatestRetrievedChunks([]);
     } finally {
       setIsLoading(false);
     }
@@ -282,6 +327,9 @@ function App() {
           <div className="meta-card">
             <span className="meta-label">Mode</span>
             <strong>{explanationLevel === "basic" ? "Basic clarity" : "Technical depth"}</strong>
+            <span className="meta-subtext">
+              {chatMode === "agent" ? "Agent V1 path" : "Baseline RAG path"}
+            </span>
           </div>
         </div>
       </section>
@@ -416,6 +464,24 @@ function App() {
           {/* Question composer and explanation-level controls. */}
           <form className="composer" onSubmit={handleSubmit}>
             <div className="composer-controls">
+              <div className="segmented-control" role="radiogroup" aria-label="Chat backend path">
+                <button
+                  type="button"
+                  className={chatMode === "baseline" ? "is-active" : ""}
+                  onClick={() => setChatMode("baseline")}
+                  disabled={isLoading || isRestoringConversation}
+                >
+                  Baseline RAG
+                </button>
+                <button
+                  type="button"
+                  className={chatMode === "agent" ? "is-active" : ""}
+                  onClick={() => setChatMode("agent")}
+                  disabled={isLoading || isRestoringConversation}
+                >
+                  Agent V1
+                </button>
+              </div>
               <div className="segmented-control" role="radiogroup" aria-label="Explanation level">
                 <button
                   type="button"
@@ -497,6 +563,73 @@ function App() {
               ))
             )}
           </div>
+
+          {chatMode === "agent" && latestTraceEvents.length > 0 ? (
+            <div className="trace-panel">
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">Agent Trace</p>
+                  <h2>Latest agent execution</h2>
+                </div>
+              </div>
+
+              <div className="trace-list">
+                {latestTraceEvents.map((event, index) => (
+                  <article className="trace-card" key={`${event.node_name}-${index}`}>
+                    <div className="trace-card-header">
+                      <strong>{event.node_name}</strong>
+                      <span className="trace-status">{event.status}</span>
+                    </div>
+                    {event.summary ? <p className="trace-summary">{event.summary}</p> : null}
+                    <div className="trace-meta">
+                      {event.decision ? <span>Decision: {event.decision}</span> : null}
+                      {event.retrieval_status ? (
+                        <span>Retrieval: {event.retrieval_status}</span>
+                      ) : null}
+                      {event.answer_status ? <span>Answer: {event.answer_status}</span> : null}
+                      {typeof event.chunk_count === "number" ? (
+                        <span>Chunks: {event.chunk_count}</span>
+                      ) : null}
+                      {event.scores && event.scores.length > 0 ? (
+                        <span>Scores: {event.scores.map((score) => score.toFixed(3)).join(", ")}</span>
+                      ) : null}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {chatMode === "agent" && latestRetrievedChunks.length > 0 ? (
+            <div className="trace-panel">
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">Retrieved Chunks</p>
+                  <h2>Chunk scores</h2>
+                </div>
+              </div>
+
+              <div className="trace-list">
+                {latestRetrievedChunks.map((chunk, index) => (
+                  <article className="trace-card" key={`${chunk.source_id ?? "chunk"}-${index}`}>
+                    <div className="trace-card-header">
+                      <strong>{chunk.source_title ?? `Chunk ${index + 1}`}</strong>
+                      {typeof chunk.score === "number" ? (
+                        <span className="trace-status">{chunk.score.toFixed(3)}</span>
+                      ) : null}
+                    </div>
+                    <div className="trace-meta">
+                      {chunk.source_publisher ? <span>{chunk.source_publisher}</span> : null}
+                      {typeof chunk.source_id === "number" ? <span>Source ID: {chunk.source_id}</span> : null}
+                    </div>
+                    {chunk.text ? (
+                      <p className="trace-summary">{chunk.text.slice(0, 220)}...</p>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
         </aside>
       </section>
     </main>

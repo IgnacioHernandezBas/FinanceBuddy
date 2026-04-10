@@ -22,6 +22,35 @@ class ChatResponse(BaseModel):
     message_id: int
 
 
+class AgentTraceEvent(BaseModel):
+    node_name: str
+    status: str
+    summary: str | None = None
+    retrieval_status: str | None = None
+    retrieval_query: str | None = None
+    scores: list[float] = Field(default_factory=list)
+    decision: str | None = None
+    chunk_count: int | None = None
+    source_count: int | None = None
+    answer_status: str | None = None
+    request_type: str | None = None
+    internal_evidence_status: str | None = None
+
+
+class AgentRetrievedChunk(BaseModel):
+    source_id: int | None = None
+    source_title: str | None = None
+    source_url: str | None = None
+    source_publisher: str | None = None
+    score: float | None = None
+    text: str | None = None
+
+
+class AgentChatResponse(ChatResponse):
+    trace_events: list[AgentTraceEvent] = Field(default_factory=list)
+    retrieved_chunks: list[AgentRetrievedChunk] = Field(default_factory=list)
+
+
 class ConversationMessage(BaseModel):
     id: int
     role: str

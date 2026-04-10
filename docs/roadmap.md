@@ -65,12 +65,14 @@ Branch constraints:
 - [ ] Expose operational metrics and health signals for backend and ingestion workflows
 - [ ] Add error monitoring and a clear debugging workflow for failed chat requests
 - [ ] Add generation evaluation with answer artifacts, latency/cost tracking, and LLM-as-a-judge metrics
-- [ ] Design the LangGraph agent architecture for `agentic_v1`, including state, nodes, edges, and policy rules
-- [ ] Add a parallel agent execution path without changing the default RAG endpoint behavior
-- [ ] Implement internal-first evidence assessment before any optional public web lookup
+- [x] Design the LangGraph agent architecture for `agentic_v1`, including state, nodes, edges, and policy rules
+- [x] Add a parallel agent execution path without changing the default RAG endpoint behavior
+- [x] Implement internal-first evidence assessment before any optional public web lookup
 - [ ] Define and persist runtime trace events for agent node execution and branch decisions
 - [ ] Add constrained, user-authorized web lookup as a later node in the agent path
 - [ ] Compare the agent path against the baseline RAG path with evaluation artifacts before merge
+- [ ] Formalize the FinanceBuddy agent capability model so internal retrieval, web search, and document workflows remain explicit graph-controlled tools rather than unconstrained LLM-selected tools
+- [ ] Decide which agent capabilities are deterministic, which are policy-gated, and which later decisions may be model-assisted
 
 ## Later
 
@@ -79,6 +81,26 @@ Branch constraints:
 - [ ] Add source tracing
 - [ ] Add a bills and invoices (`facturas`) document-analysis module
 - [ ] Expand beyond tax education into broader personal-finance and mortgage workflows
+
+## Agentic V1 Progress Snapshot
+
+Current implemented `agentic_v1` slice:
+
+- `/agent/chat` runs a separate LangGraph-backed path while `/chat` remains the baseline RAG path
+- `AgentState` is defined and initialized explicitly
+- implemented nodes: `load_request`, `classify_request`, `internal_retrieve`, `assess_internal_evidence`, `generate_internal_only_response`
+- internal evidence assessment now uses retrieval similarity thresholds instead of the old "any chunk means sufficient" rule
+- the frontend can switch between baseline RAG and Agent V1 without changing history or feedback persistence
+- the agent path returns runtime `trace_events` plus retrieved chunk scores for debugging in the frontend
+
+Still missing before V1 is complete:
+
+- `check_web_search_policy`
+- `web_search`
+- `generate_mixed_response`
+- `validate_answer_policy`
+- persistence-backed runtime traces
+- evaluation of agent behavior against the baseline path
 
 ## Guiding Principles
 
