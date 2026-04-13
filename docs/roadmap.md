@@ -55,24 +55,33 @@ Branch constraints:
 
 ## Next
 
+### Primary track: complete `agentic_v1`
+
+- [x] Design the LangGraph agent architecture for `agentic_v1`, including state, nodes, edges, and policy rules
+- [x] Add a parallel agent execution path without changing the default RAG endpoint behavior
+- [x] Implement internal-first evidence assessment before any optional public web lookup
+- [x] Add constrained, user-authorized web lookup as a later node in the agent path
+- [x] Implement the remaining V1 graph nodes: `check_web_search_policy`, `web_search`, `generate_mixed_response`, and `validate_answer_policy`
+- [x] Define and persist runtime trace events for agent node execution and branch decisions
+- [ ] Formalize the FinanceBuddy agent capability model so internal retrieval, web search, and document workflows remain explicit graph-controlled tools rather than unconstrained LLM-selected tools
+- [ ] Decide which agent capabilities are deterministic, which are policy-gated, and which later decisions may be model-assisted
+- [ ] Compare the agent path against the baseline RAG path with evaluation artifacts before merge
+
+### Secondary track: improve the baseline product loop
+
 - [ ] Add optional negative-feedback comments in the frontend and backend flow
 - [ ] Add a simple review path for low-rated answers
 - [ ] Use real user feedback to identify the highest-value retrieval, prompting, and UX fixes before expanding scope
 - [ ] Run systematic retrieval comparisons in MLflow, starting with query normalization on vs off
 - [ ] Turn baseline retrieval findings into concrete retriever improvements and regression checks
+- [ ] Add generation evaluation with answer artifacts, latency/cost tracking, and LLM-as-a-judge metrics
+
+### Supporting track: operational readiness
+
 - [ ] Add structured application logging for chat, retrieval, generation, and ingestion flows
 - [ ] Define a minimal observability model for request tracing, latency, retrieval quality, and generation failures
 - [ ] Expose operational metrics and health signals for backend and ingestion workflows
 - [ ] Add error monitoring and a clear debugging workflow for failed chat requests
-- [ ] Add generation evaluation with answer artifacts, latency/cost tracking, and LLM-as-a-judge metrics
-- [x] Design the LangGraph agent architecture for `agentic_v1`, including state, nodes, edges, and policy rules
-- [x] Add a parallel agent execution path without changing the default RAG endpoint behavior
-- [x] Implement internal-first evidence assessment before any optional public web lookup
-- [ ] Define and persist runtime trace events for agent node execution and branch decisions
-- [ ] Add constrained, user-authorized web lookup as a later node in the agent path
-- [ ] Compare the agent path against the baseline RAG path with evaluation artifacts before merge
-- [ ] Formalize the FinanceBuddy agent capability model so internal retrieval, web search, and document workflows remain explicit graph-controlled tools rather than unconstrained LLM-selected tools
-- [ ] Decide which agent capabilities are deterministic, which are policy-gated, and which later decisions may be model-assisted
 
 ## Later
 
@@ -88,19 +97,45 @@ Current implemented `agentic_v1` slice:
 
 - `/agent/chat` runs a separate LangGraph-backed path while `/chat` remains the baseline RAG path
 - `AgentState` is defined and initialized explicitly
-- implemented nodes: `load_request`, `classify_request`, `internal_retrieve`, `assess_internal_evidence`, `generate_internal_only_response`
+- implemented nodes: `load_request`, `classify_request`, `internal_retrieve`, `assess_internal_evidence`, `check_web_search_policy`, `web_search`, `generate_internal_only_response`, `generate_mixed_response`, `validate_answer_policy`
 - internal evidence assessment now uses retrieval similarity thresholds instead of the old "any chunk means sufficient" rule
+- approved-domain LangSearch fallback is available when the request authorizes public web lookup
 - the frontend can switch between baseline RAG and Agent V1 without changing history or feedback persistence
-- the agent path returns runtime `trace_events` plus retrieved chunk scores for debugging in the frontend
+- runtime `trace_events` are persisted in the database and still returned to the frontend for debugging
+- the frontend exposes a developer debug view for trace events, internal chunk scores, and raw web-search results
 
 Still missing before V1 is complete:
 
-- `check_web_search_policy`
-- `web_search`
-- `generate_mixed_response`
-- `validate_answer_policy`
-- persistence-backed runtime traces
 - evaluation of agent behavior against the baseline path
+
+## Agentic V1 Status
+
+`agentic_v1` is now functionally successful.
+
+That means the branch demonstrates the intended product behavior:
+
+- a separate graph-controlled agent path
+- internal-first retrieval
+- policy-gated public web fallback
+- mixed-source answer generation with explicit provenance
+- persisted runtime traces for later inspection
+
+The remaining work is closure work, not core capability creation:
+
+- baseline-vs-agent evaluation
+- capability/policy cleanup and documentation tightening
+- production hardening around observability and debugging workflows
+
+## Recommended Next Step
+
+The next highest-value step is to evaluate `agentic_v1` against the baseline path and turn the result into merge criteria.
+
+Recommended implementation order inside that step:
+
+1. Define a small comparison dataset that mixes internal-answerable questions with questions expected to trigger approved web fallback.
+2. Capture baseline RAG outputs and Agent V1 outputs as comparable artifacts.
+3. Review failure modes across retrieval quality, policy gating, and mixed-source answer quality.
+4. Turn the comparison into explicit merge criteria for the branch.
 
 ## Guiding Principles
 

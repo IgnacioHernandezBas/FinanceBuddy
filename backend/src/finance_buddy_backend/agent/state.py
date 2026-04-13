@@ -26,6 +26,7 @@ class AgentState(TypedDict, total=False):
     user_message_id: int | None
     question: str
     explanation_level: ExplanationLevel
+    user_allows_web_search: bool
 
     # Routing
     request_type: RequestType | None
@@ -33,6 +34,7 @@ class AgentState(TypedDict, total=False):
 
     # Policies
     web_access_mode: WebAccessMode
+    allowed_web_domains: list[str]
     web_search_policy_reason: str | None
 
     # Retrieval

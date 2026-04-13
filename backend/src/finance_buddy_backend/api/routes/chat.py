@@ -55,4 +55,5 @@ def create_agent_chat_response(
         message=payload.message,
         explanation_level=payload.explanation_level,
         conversation_id=payload.conversation_id,
+        allow_web_search=payload.allow_web_search,
     )

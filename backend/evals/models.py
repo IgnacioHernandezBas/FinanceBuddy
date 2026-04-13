@@ -64,3 +64,34 @@ class AggregateEvaluationResult(BaseModel):
     total_examples: int
     aggregate_metrics: dict[str, float] = Field(default_factory=dict)
     per_example_results: list[PerExampleResult] = Field(default_factory=list)
+
+
+class SystemSourceResult(BaseModel):
+    title: str
+    url: str | None = None
+    publisher: str | None = None
+
+
+class SystemPerExampleResult(BaseModel):
+    question_id: str
+    question: str
+    system_name: str
+    answer: str
+    answer_status: str | None = None
+    latency_ms: float
+    source_count: int = 0
+    sources: list[SystemSourceResult] = Field(default_factory=list)
+    matched_expected_source_count: int = 0
+    used_web_search: bool = False
+    trace_event_count: int = 0
+    expected_source_titles: list[str] = Field(default_factory=list)
+    expected_answer_points: list[str] = Field(default_factory=list)
+
+
+class SystemAggregateEvaluationResult(BaseModel):
+    dataset_name: str
+    dataset_version: str
+    system_name: str
+    total_examples: int
+    aggregate_metrics: dict[str, float] = Field(default_factory=dict)
+    per_example_results: list[SystemPerExampleResult] = Field(default_factory=list)

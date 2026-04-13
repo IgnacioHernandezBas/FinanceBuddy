@@ -15,6 +15,7 @@ This schema keeps retrieval, chat persistence, and traceability connected withou
 - `sources` and `document_chunks` support ingestion plus semantic retrieval
 - `conversations` and `messages` support the user-facing product flow
 - `retrieval_events` preserve evidence traces per user turn
+- `agent_trace_events` preserve graph execution traces per agent turn
 - `message_feedback` leaves room for later feedback and evaluation workflows
 
 ## Current Status
@@ -28,12 +29,14 @@ Current schema coverage:
 - `conversations`
 - `messages`
 - `retrieval_events`
+- `agent_trace_events`
 - `message_feedback`
 
 Current migration chain:
 
 - `d19c80c2de8e_create_initial_schema`
 - `0282135a117f_add_chunk_embeddings`
+- `4e0e7c4d6a11_add_agent_trace_events`
 
 The second migration enables pgvector usage by creating the `vector` extension if needed and adding the `embedding` column to `document_chunks`.
 
@@ -49,6 +52,7 @@ Main database-layer files:
 - `db/models/source.py`
 - `repositories/conversation_repository.py`
 - `repositories/feedback_repository.py`
+- `repositories/agent_trace_repository.py`
 - `repositories/retrieval_repository.py`
 - `repositories/source_repository.py`
 
@@ -192,11 +196,33 @@ Why this table matters:
 - feedback attaches to one answer, not to the whole conversation
 - that makes evaluation and future product learning more precise
 
+### `agent_trace_events`
+
+Stores persisted LangGraph runtime events for one agent turn.
+
+Key fields:
+
+- `id`: primary key
+- `conversation_id`: foreign key to `conversations.id`
+- `user_message_id`: foreign key to the triggering user turn
+- `assistant_message_id`: foreign key to the resulting assistant turn
+- `event_index`: stable order of the event inside the graph run
+- `payload`: JSON payload containing the trace event fields
+- `created_at`: insertion timestamp
+
+Why this table matters:
+
+- it preserves graph execution beyond the transient API response
+- it keeps branch decisions tied to a concrete user/assistant turn pair
+- it avoids freezing the trace schema too early because the event payload remains flexible
+
 ## Relationship Summary
 
 - `sources` 1:N `document_chunks`
 - `conversations` 1:N `messages`
 - `messages` 1:N `retrieval_events`
+- `messages` 1:N `agent_trace_events` as triggering user turns
+- `messages` 1:N `agent_trace_events` as resulting assistant turns
 - `document_chunks` 1:N `retrieval_events`
 - `messages` 1:N `message_feedback`
 
@@ -225,8 +251,8 @@ uv run alembic heads
 
 Expected result:
 
-- current revision should be `0282135a117f`
-- head revision should also be `0282135a117f`
+- current revision should be `4e0e7c4d6a11`
+- head revision should also be `4e0e7c4d6a11`
 
 If the current revision is behind, run:
 
@@ -273,6 +299,7 @@ Expected result should include:
 - `conversations`
 - `document_chunks`
 - `message_feedback`
+- `agent_trace_events`
 - `messages`
 - `retrieval_events`
 - `sources`

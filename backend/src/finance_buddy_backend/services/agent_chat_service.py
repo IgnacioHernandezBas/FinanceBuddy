@@ -4,17 +4,20 @@ from sqlalchemy.orm import Session
 from finance_buddy_backend.agent.graph import build_agent_graph
 from finance_buddy_backend.agent.state import AgentState
 from finance_buddy_backend.core.config import settings
+from finance_buddy_backend.repositories.agent_trace_repository import AgentTraceRepository
 from finance_buddy_backend.repositories.conversation_repository import ConversationRepository
 from finance_buddy_backend.repositories.retrieval_repository import RetrievalRepository
 from finance_buddy_backend.schemas.chat import (
     AgentChatResponse,
     AgentRetrievedChunk,
+    AgentWebResult,
     ChatSource,
 )
 from finance_buddy_backend.services.embedding_service import EmbeddingService
 from finance_buddy_backend.services.generation_service import GenerationService
 from finance_buddy_backend.services.query_normalization_service import QueryNormalizationService
 from finance_buddy_backend.services.retrieval_service import RetrievalService
+from finance_buddy_backend.services.web_search_service import WebSearchService
 
 
 class AgentChatService:
@@ -22,6 +25,7 @@ class AgentChatService:
         self.db = db
         self.generation_service = GenerationService()
         self.conversation_repository = ConversationRepository(db)
+        self.agent_trace_repository = AgentTraceRepository(db)
         self.retrieval_repository = RetrievalRepository(db)
         self.embedding_service = EmbeddingService()
         self.query_normalization_service = QueryNormalizationService()
@@ -30,9 +34,11 @@ class AgentChatService:
             embedding_service=self.embedding_service,
             query_normalization_service=self.query_normalization_service,
         )
+        self.web_search_service = WebSearchService()
         self.graph = build_agent_graph(
             retrieval_service=self.retrieval_service,
             generation_service=self.generation_service,
+            web_search_service=self.web_search_service,
         )
 
     def build_initial_state(
@@ -41,13 +47,20 @@ class AgentChatService:
         user_message_id: int,
         message: str,
         explanation_level: str,
+        allow_web_search: bool,
     ) -> AgentState:
         return {
             "conversation_id": conversation_id,
             "user_message_id": user_message_id,
             "question": message,
             "explanation_level": explanation_level,
+            "user_allows_web_search": allow_web_search,
             "web_access_mode": settings.agent_web_access_mode,
+            "allowed_web_domains": [
+                domain.strip()
+                for domain in settings.agent_web_search_allowed_domains.split(",")
+                if domain.strip()
+            ],
             "errors": [],
         }
 
@@ -56,6 +69,7 @@ class AgentChatService:
         message: str,
         explanation_level: str,
         conversation_id: int | None = None,
+        allow_web_search: bool = False,
     ) -> AgentChatResponse:
         if conversation_id is None:
             conversation = self.conversation_repository.create_conversation(
@@ -82,6 +96,7 @@ class AgentChatService:
             user_message_id=user_message.id,
             message=message,
             explanation_level=explanation_level,
+            allow_web_search=allow_web_search,
         )
 
         final_state = self.graph.invoke(initial_state)
@@ -109,6 +124,25 @@ class AgentChatService:
                     else None,
                     score=float(score) if isinstance(score, (int, float)) else None,
                     text=chunk.get("text") if isinstance(chunk.get("text"), str) else None,
+                )
+            )
+
+        debug_web_results: list[AgentWebResult] = []
+        for result in final_state.get("web_results", []):
+            debug_web_results.append(
+                AgentWebResult(
+                    title=result.get("title") if isinstance(result.get("title"), str) else None,
+                    url=result.get("url") if isinstance(result.get("url"), str) else None,
+                    publisher=(
+                        result.get("publisher")
+                        if isinstance(result.get("publisher"), str)
+                        else None
+                    ),
+                    snippet=(
+                        result.get("snippet")
+                        if isinstance(result.get("snippet"), str)
+                        else None
+                    ),
                 )
             )
 
@@ -150,11 +184,23 @@ class AgentChatService:
             answer_status=answer_status,
         )
 
+        trace_events = final_state.get("trace_events", [])
+        if trace_events:
+            self.agent_trace_repository.create_trace_events(
+                conversation_id=conversation.id,
+                user_message_id=user_message.id,
+                assistant_message_id=assistant_message.id,
+                trace_events=[
+                    event for event in trace_events if isinstance(event, dict)
+                ],
+            )
+
         return AgentChatResponse(
             answer=answer,
             sources=chat_sources,
             conversation_id=conversation.id,
             message_id=assistant_message.id,
-            trace_events=final_state.get("trace_events", []),
+            trace_events=trace_events,
             retrieved_chunks=debug_chunks,
+            web_results=debug_web_results,
         )

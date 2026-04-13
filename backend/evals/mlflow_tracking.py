@@ -8,7 +8,13 @@ import pandas as pd
 
 from finance_buddy_backend.core.config import settings
 
-from .models import AggregateEvaluationResult, EvaluationManifest, PerExampleResult
+from .models import (
+    AggregateEvaluationResult,
+    EvaluationManifest,
+    PerExampleResult,
+    SystemAggregateEvaluationResult,
+    SystemPerExampleResult,
+)
 
 
 class MLflowTrackingClient:
@@ -88,6 +94,72 @@ class MLflowTrackingClient:
 
             return run.info.run_id
 
+    def log_system_evaluation(
+        self,
+        *,
+        result: SystemAggregateEvaluationResult,
+        manifest: EvaluationManifest,
+        dataset_path: str,
+        manifest_path: str,
+        explanation_level: str,
+        allow_web_search: bool,
+        run_name: str | None = None,
+    ) -> str | None:
+        if not self.enabled:
+            return None
+
+        with mlflow.start_run(run_name=run_name) as run:
+            tracked_dataset = self._build_tracked_dataset(
+                dataset_path=dataset_path,
+                dataset_name=manifest.dataset_name,
+            )
+            mlflow.log_input(tracked_dataset, context="evaluation")
+
+            mlflow.log_params(
+                {
+                    "run_type": "system_eval",
+                    "system_name": result.system_name,
+                    "dataset_name": manifest.dataset_name,
+                    "dataset_version": manifest.dataset_version,
+                    "dataset_language": manifest.language,
+                    "domain": manifest.domain,
+                    "source_family": manifest.source_family,
+                    "record_count": result.total_examples,
+                    "explanation_level": explanation_level,
+                    "allow_web_search": allow_web_search,
+                }
+            )
+
+            mlflow.log_metrics(result.aggregate_metrics)
+            mlflow.log_artifact(dataset_path, artifact_path="inputs")
+            mlflow.log_artifact(manifest_path, artifact_path="inputs")
+
+            with tempfile.TemporaryDirectory() as temp_dir:
+                temp_path = Path(temp_dir)
+
+                output_path = temp_path / "system_aggregate_evaluation_result.json"
+                output_path.write_text(
+                    result.model_dump_json(indent=2),
+                    encoding="utf-8",
+                )
+                mlflow.log_artifact(str(output_path), artifact_path="outputs")
+
+                per_example_path = temp_path / "system_per_example_results.json"
+                per_example_path.write_text(
+                    self._dump_system_per_example_results(result.per_example_results),
+                    encoding="utf-8",
+                )
+                mlflow.log_artifact(str(per_example_path), artifact_path="outputs")
+
+                notes_path = temp_path / "system_evaluation_notes.md"
+                notes_path.write_text(
+                    self._build_system_evaluation_notes(),
+                    encoding="utf-8",
+                )
+                mlflow.log_artifact(str(notes_path), artifact_path="outputs")
+
+            return run.info.run_id
+
     def _dump_per_example_results(
         self,
         per_example_results: list[PerExampleResult],
@@ -132,6 +204,14 @@ class MLflowTrackingClient:
 
         return "\n".join(lines)
 
+    def _dump_system_per_example_results(
+        self,
+        per_example_results: list[SystemPerExampleResult],
+    ) -> str:
+        return "[\n" + ",\n".join(
+            result.model_dump_json(indent=2) for result in per_example_results
+        ) + "\n]"
+
     def _build_evaluation_notes(self) -> str:
         return (
             "# Evaluation Notes\n\n"
@@ -139,6 +219,15 @@ class MLflowTrackingClient:
             "- Matching is title-based in v1 using expected_source_titles.\n"
             "- Retrieved source_id is logged for debugging and local inspection.\n"
             "- Generation quality and LLM-as-a-judge metrics are not included in this run.\n"
+        )
+
+    def _build_system_evaluation_notes(self) -> str:
+        return (
+            "# System Evaluation Notes\n\n"
+            "- This run evaluates end-to-end system behavior rather than retrieval alone.\n"
+            "- Metrics currently focus on latency, returned-source coverage, and web-search usage.\n"
+            "- Answer quality scoring is not automated yet in this run.\n"
+            "- Compare these runs side by side in MLflow using the same dataset and manifest.\n"
         )
 
     def _build_tracked_dataset(

@@ -5,6 +5,7 @@ This folder contains the first evaluation workflow for FinanceBuddy.
 Current scope:
 
 - retrieval-only evaluation
+- end-to-end system comparison for baseline RAG and Agent V1
 - dataset and manifest loading
 - deterministic retrieval metrics
 - MLflow tracking for baseline and comparison runs
@@ -46,6 +47,12 @@ This is intentionally separated from answer generation so retrieval quality can 
 
 - `[run_rag_eval.py](run_rag_eval.py)`
   CLI entrypoint for evaluation runs.
+
+- `[system_evaluator.py](system_evaluator.py)`
+  Runs end-to-end system evaluation through the real baseline and Agent V1 service paths.
+
+- `[run_system_eval.py](run_system_eval.py)`
+  CLI entrypoint for end-to-end baseline-vs-agent comparison runs.
 
 - `metrics.py`
   Reserved for shared metric helpers. It is not the main scoring entrypoint yet because the first retrieval metrics are currently implemented directly in the evaluator.
@@ -124,6 +131,21 @@ Then run an evaluation in another terminal:
 ```powershell
 uv run python -m evals.run_rag_eval --dataset-path evals/datasets/tax_qa_es_v1.json --manifest-path evals/manifests/tax_qa_es_v1_manifest.json --top-k 5 --log-to-mlflow --run-name baseline_tax_es_top5
 ```
+
+For end-to-end comparison, run the same dataset twice:
+
+```powershell
+uv run python -m evals.run_system_eval --dataset-path evals/datasets/tax_qa_es_v1.json --manifest-path evals/manifests/tax_qa_es_v1_manifest.json --system-name baseline_rag --max-examples 5 --sleep-seconds 15 --log-to-mlflow --run-name system_baseline_rag_v1
+uv run python -m evals.run_system_eval --dataset-path evals/datasets/tax_qa_es_v1.json --manifest-path evals/manifests/tax_qa_es_v1_manifest.json --system-name agentic_v1 --allow-web-search --max-examples 5 --sleep-seconds 15 --log-to-mlflow --run-name system_agentic_v1_web_v1
+```
+
+Useful throttling flags:
+
+- `--max-examples 5`
+  Use a small curated subset when your model quota is tight.
+
+- `--sleep-seconds 15`
+  Adds a pause between examples so low request-per-minute limits do not trigger rate-limit failures.
 
 ## Model Reference
 
@@ -285,6 +307,13 @@ Current MLflow outputs include:
 - failure summary Markdown
 - evaluation notes Markdown
 
+System evaluation runs currently log:
+
+- params for `system_name`, explanation level, and web-search allowance
+- aggregate metrics such as average latency, source hit rate, average source count, and web usage rate
+- per-example JSON results with answers, sources, and basic trace-derived usage signals
+- notes that explain the current comparison scope
+
 ## Current Baseline Findings
 
 The first retrieval comparisons already showed:
@@ -324,6 +353,7 @@ Use this artifact to document the scope and limits of the current evaluation sta
 ## Next Planned Evaluation Steps
 
 - compare query normalization on vs off
+- compare baseline RAG vs Agent V1 on the same dataset in MLflow
 - turn the `top_k` findings into a default retrieval configuration decision and regression checks
 - improve retrieval artifacts and failure analysis
 - add generation evaluation later

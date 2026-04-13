@@ -7,6 +7,7 @@ class ChatRequest(BaseModel):
     message: str
     explanation_level: str
     conversation_id: int | None = None
+    allow_web_search: bool = False
 
 
 class ChatSource(BaseModel):
@@ -46,9 +47,17 @@ class AgentRetrievedChunk(BaseModel):
     text: str | None = None
 
 
+class AgentWebResult(BaseModel):
+    title: str | None = None
+    url: str | None = None
+    publisher: str | None = None
+    snippet: str | None = None
+
+
 class AgentChatResponse(ChatResponse):
     trace_events: list[AgentTraceEvent] = Field(default_factory=list)
     retrieved_chunks: list[AgentRetrievedChunk] = Field(default_factory=list)
+    web_results: list[AgentWebResult] = Field(default_factory=list)
 
 
 class ConversationMessage(BaseModel):

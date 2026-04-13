@@ -26,7 +26,8 @@ Current implemented scope includes:
 - frontend conversation persistence through `conversation_id`
 - visible source evidence in the UI
 - frontend toggle between baseline RAG and Agent V1
-- debug-only agent trace visibility and retrieved chunk scores in the frontend
+- persisted agent runtime traces linked to each Agent V1 turn
+- debug-only agent trace visibility, retrieved chunk scores, and raw web-search results in the frontend
 - retrieval evaluation datasets, manifests, and MLflow tracking
 
 ## Repository Structure
@@ -165,7 +166,7 @@ uv run python -m evals.run_rag_eval --dataset-path evals/datasets/tax_qa_es_v1.j
 - The assistant answer is generated from retrieved evidence and returned with supporting source references.
 - The frontend already supports `conversation_id`, source display, and restore of the last conversation after refresh.
 - Agent V1 currently shares the same persistence tables as the baseline path, so conversation restore and feedback continue to work while comparing both modes.
-- Agent V1 currently exposes debug-only trace events and retrieved chunk scores so graph decisions can be inspected from the frontend while the branch is still evolving.
+- Agent V1 now persists runtime trace events per turn and also exposes debug-only trace events, retrieved chunk scores, and web-search results in the frontend while the branch is still evolving.
 - Alembic is the official schema management workflow.
 - A reasonable backend optimization for a later step is to preload the sentence-transformer model at application startup and optionally download it during image build, which would trade higher steady backend container memory for lower request latency.
 - Another future capability is a local-first retrieval agent with optional user-authorized public web lookup, where FinanceBuddy answers from internal trusted sources first and only searches approved public sources when the user explicitly allows it.

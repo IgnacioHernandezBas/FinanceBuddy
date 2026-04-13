@@ -41,9 +41,17 @@ type AgentRetrievedChunk = {
   text?: string | null;
 };
 
+type AgentWebResult = {
+  title?: string | null;
+  url?: string | null;
+  publisher?: string | null;
+  snippet?: string | null;
+};
+
 type AgentChatResponse = ChatResponse & {
   trace_events?: AgentTraceEvent[];
   retrieved_chunks?: AgentRetrievedChunk[];
+  web_results?: AgentWebResult[];
 };
 
 type ConversationHistoryMessage = {
@@ -89,11 +97,14 @@ function App() {
     "basic",
   );
   const [chatMode, setChatMode] = useState<ChatMode>("baseline");
+  const [allowWebSearch, setAllowWebSearch] = useState(false);
+  const [showDeveloperDebug, setShowDeveloperDebug] = useState(false);
   const [conversationId, setConversationId] = useState<number | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [latestSources, setLatestSources] = useState<ChatSource[]>([]);
   const [latestTraceEvents, setLatestTraceEvents] = useState<AgentTraceEvent[]>([]);
   const [latestRetrievedChunks, setLatestRetrievedChunks] = useState<AgentRetrievedChunk[]>([]);
+  const [latestWebResults, setLatestWebResults] = useState<AgentWebResult[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [isRestoringConversation, setIsRestoringConversation] = useState(true);
@@ -145,6 +156,7 @@ function App() {
         setLatestSources([]);
         setLatestTraceEvents([]);
         setLatestRetrievedChunks([]);
+        setLatestWebResults([]);
       } catch {
         window.localStorage.removeItem(conversationStorageKey);
         setConversationId(null);
@@ -152,6 +164,7 @@ function App() {
         setLatestSources([]);
         setLatestTraceEvents([]);
         setLatestRetrievedChunks([]);
+        setLatestWebResults([]);
         setError(
           "Could not restore the previous conversation. A new one will start with your next message.",
         );
@@ -179,6 +192,7 @@ function App() {
     setLatestSources([]);
     setLatestTraceEvents([]);
     setLatestRetrievedChunks([]);
+    setLatestWebResults([]);
     setError("");
     window.localStorage.removeItem(conversationStorageKey);
   }
@@ -274,6 +288,7 @@ function App() {
           message: trimmedMessage,
           explanation_level: explanationLevel,
           conversation_id: conversationId,
+          allow_web_search: chatMode === "agent" ? allowWebSearch : false,
         }),
       });
 
@@ -294,12 +309,14 @@ function App() {
       setLatestSources(data.sources);
       setLatestTraceEvents(chatMode === "agent" ? (data.trace_events ?? []) : []);
       setLatestRetrievedChunks(chatMode === "agent" ? (data.retrieved_chunks ?? []) : []);
+      setLatestWebResults(chatMode === "agent" ? (data.web_results ?? []) : []);
       setMessages((current) => [...current, assistantMessage]);
     } catch {
       setError("Could not connect to the backend or generate a response.");
       setMessages((current) => current.slice(0, -1));
       setLatestTraceEvents([]);
       setLatestRetrievedChunks([]);
+      setLatestWebResults([]);
     } finally {
       setIsLoading(false);
     }
@@ -500,6 +517,32 @@ function App() {
               </div>
             </div>
 
+            {chatMode === "agent" ? (
+              <div className="agent-toggle-group">
+                <label className="web-search-toggle">
+                  <input
+                    type="checkbox"
+                    checked={allowWebSearch}
+                    onChange={(event) => setAllowWebSearch(event.target.checked)}
+                    disabled={isLoading || isRestoringConversation}
+                  />
+                  <span>
+                    Allow approved public web search when internal evidence is insufficient
+                  </span>
+                </label>
+
+                <label className="web-search-toggle">
+                  <input
+                    type="checkbox"
+                    checked={showDeveloperDebug}
+                    onChange={(event) => setShowDeveloperDebug(event.target.checked)}
+                    disabled={isLoading || isRestoringConversation}
+                  />
+                  <span>Developer debug view for scores and LangSearch results</span>
+                </label>
+              </div>
+            ) : null}
+
             <label className="composer-label" htmlFor="message">
               Your question
             </label>
@@ -564,7 +607,7 @@ function App() {
             )}
           </div>
 
-          {chatMode === "agent" && latestTraceEvents.length > 0 ? (
+          {chatMode === "agent" && showDeveloperDebug && latestTraceEvents.length > 0 ? (
             <div className="trace-panel">
               <div className="panel-header">
                 <div>
@@ -600,7 +643,7 @@ function App() {
             </div>
           ) : null}
 
-          {chatMode === "agent" && latestRetrievedChunks.length > 0 ? (
+          {chatMode === "agent" && showDeveloperDebug && latestRetrievedChunks.length > 0 ? (
             <div className="trace-panel">
               <div className="panel-header">
                 <div>
@@ -624,6 +667,37 @@ function App() {
                     </div>
                     {chunk.text ? (
                       <p className="trace-summary">{chunk.text.slice(0, 220)}...</p>
+                    ) : null}
+                  </article>
+                ))}
+              </div>
+            </div>
+          ) : null}
+
+          {chatMode === "agent" && showDeveloperDebug && latestWebResults.length > 0 ? (
+            <div className="trace-panel">
+              <div className="panel-header">
+                <div>
+                  <p className="panel-kicker">LangSearch Results</p>
+                  <h2>Raw web retrieval payload</h2>
+                </div>
+              </div>
+
+              <div className="trace-list">
+                {latestWebResults.map((result, index) => (
+                  <article className="trace-card" key={`${result.url ?? "web"}-${index}`}>
+                    <div className="trace-card-header">
+                      <strong>{result.title ?? `Web result ${index + 1}`}</strong>
+                      <span className="trace-status">Web</span>
+                    </div>
+                    <div className="trace-meta">
+                      {result.publisher ? <span>{result.publisher}</span> : null}
+                      {result.url ? (
+                        <span className="trace-url">{result.url}</span>
+                      ) : null}
+                    </div>
+                    {result.snippet ? (
+                      <p className="trace-summary">{result.snippet}</p>
                     ) : null}
                   </article>
                 ))}

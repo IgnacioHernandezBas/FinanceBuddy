@@ -11,11 +11,17 @@ class Settings(BaseSettings):
 
     gemini_api_key: str | None = None
     gemini_model: str = "gemini-3-flash-preview"
+    langsearch_api_key: str | None = None
 
     agent_enabled: bool = False
     agent_use_separate_endpoint: bool = True
     agent_graph_version: str = "agentic_v1"
-    agent_web_access_mode: str = "disabled"
+    agent_web_access_mode: str = "allowed" # disabled,fallback_only,allowed
+    agent_require_web_search_consent: bool = True 
+    agent_web_search_provider: str = "langsearch"
+    agent_web_search_api_key: str | None = None
+    agent_web_search_max_results: int = 5
+    agent_web_search_allowed_domains: str = "agenciatributaria.gob.es,cnmv.es,bde.es"
 
     model_config = SettingsConfigDict(
         env_file=BASE_DIR / ".env",
