@@ -31,4 +31,3 @@ backend/data/raw/cnmv
 #Mlflow artifacts
 backend/mlartifacts
 backend/mlflow.db
-

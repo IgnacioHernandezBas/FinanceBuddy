@@ -1,0 +1,76 @@
+{
+  "dataset_name": "tax_qa_es_v2",
+  "dataset_version": "v2",
+  "description": "Spanish tax evaluation set focused on current, official AEAT facts that should require web-search fallback in agentic_v1 rather than answers from the static educational corpus.",
+  "language": "es",
+  "domain": "tax_official_updates",
+  "record_count": 10,
+  "created_on": "2026-04-14",
+  "authoring_status": "draft_web_fallback",
+  "source_family": "agencia_tributaria_live_web",
+  "source_documents": [
+    "https://sede.agenciatributaria.gob.es/Sede/Renta.html?menu=2",
+    "https://sede.agenciatributaria.gob.es/Sede/todas-noticias/2026/abril/8/inicio-campana-renta-patrimonio-2025.html",
+    "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/irpf-2025/guia-principales-novedades/gestion-impuesto.html",
+    "https://sede.agenciatributaria.gob.es/Sede/ayuda/calendario-contribuyente/calendario-contribuyente-2026/recuerde/fechas-campana-renta-patrimonio.html",
+    "https://sede.agenciatributaria.gob.es/Sede/ayuda/calendario-contribuyente/calendario-contribuyente-2026.html",
+    "https://sede.agenciatributaria.gob.es/Sede/todas-gestiones/impuestos-tasas/iva/modelo-390-iva-declaracion-resumen-anual_/plazos-presentacion.html",
+    "https://sede.agenciatributaria.gob.es/Sede/todas-gestiones/impuestos-tasas/declaraciones-informativas/modelo-349-decla_____n-recapitulativa-operaciones-intracomunitarias_/plazos-presentacion.html",
+    "https://sede.agenciatributaria.gob.es/Sede/iva/sistemas-informaticos-facturacion-verifactu/nota-informativa-ampliacion-plazo-adaptacion-facturacion.html",
+    "https://sede.agenciatributaria.gob.es/Sede/todas-noticias/2025/diciembre/11/orden-modulos-2026.html"
+  ],
+  "stored_source_titles": [],
+  "intended_use": [
+    "agentic_v1 system evaluation",
+    "web-search fallback regression checks",
+    "current-facts groundedness checks",
+    "answer-with-evidence behavior checks"
+  ],
+  "scoring_targets": [
+    "answer_non_empty_rate",
+    "citation_presence_rate",
+    "groundedness_score",
+    "relevance_to_query_score",
+    "answer_completeness_score",
+    "average_latency_ms",
+    "web_usage_rate"
+  ],
+  "required_record_fields": [
+    "question_id",
+    "question",
+    "language",
+    "difficulty",
+    "expected_topics",
+    "expected_source_titles",
+    "expected_source_ids",
+    "expected_answer_points",
+    "must_refuse_without_evidence",
+    "notes"
+  ],
+  "corpus_assumptions": {
+    "source_type": "trusted_public_tax_web_pages",
+    "publisher": "agencia_tributaria",
+    "primary_language": "es",
+    "stored_title_rule": "not fixed for v2 because titles come from live web results",
+    "notes": "This dataset is intentionally date-sensitive and optimized for agentic_v1 with allow_web_search enabled. expected_source_titles are left empty because live web-result titles can vary slightly across provider responses."
+  },
+  "comparison_policy": {
+    "keep_dataset_fixed_across_prompt_and_agent comparisons": true,
+    "change_one_major_variable_per_run": true,
+    "baseline_required": false
+  },
+  "baseline_configuration_expectations": {
+    "run_type": "end_to_end_system_eval",
+    "system_name": "agentic_v1",
+    "allow_web_search": true,
+    "language_scope": "es",
+    "approved_domains_expected": [
+      "agenciatributaria.gob.es"
+    ]
+  },
+  "known_limitations": [
+    "This dataset is intentionally temporal and will require periodic refresh as AEAT campaign dates, procedures, and deadlines change.",
+    "Exact source-title matching is intentionally not used in v2 because the live web search provider may return slightly different page titles or mirrored hostnames.",
+    "Some questions can only be scored robustly with human review or LLM-as-a-judge because deterministic source-hit metrics are weaker for live web results."
+  ]
+}
