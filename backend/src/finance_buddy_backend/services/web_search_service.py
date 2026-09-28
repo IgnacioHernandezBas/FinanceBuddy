@@ -1,8 +1,12 @@
 from urllib.parse import urlparse
 
 import httpx
+from google import genai
+from google.genai import types
 
 from finance_buddy_backend.core.config import settings
+
+GEMINI_SEARCH_TIMEOUT_MS = 60_000
 
 
 class WebSearchService:
@@ -22,11 +26,80 @@ class WebSearchService:
         if not query.strip() or not allowed_domains:
             return []
 
+        if self.provider == "gemini_google_search":
+            return self._search_with_gemini(query, allowed_domains)
+
         if self.provider != "langsearch":
             raise ValueError(
                 f"Unsupported web search provider configured: {self.provider}"
             )
 
+        return self._search_with_langsearch(query, allowed_domains)
+
+    def _search_with_gemini(
+        self,
+        query: str,
+        allowed_domains: list[str],
+    ) -> list[dict[str, object]]:
+        client = genai.Client(
+            api_key=settings.gemini_api_key,
+            http_options=types.HttpOptions(timeout=GEMINI_SEARCH_TIMEOUT_MS),
+        )
+        prompt = (
+            f"{query}\n\n"
+            f"Use only official sources from these domains: {', '.join(allowed_domains)}."
+        )
+        response = client.models.generate_content(
+            model=settings.gemini_model,
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                tools=[types.Tool(google_search=types.GoogleSearch())],
+            ),
+        )
+
+        candidates = response.candidates or []
+        metadata = candidates[0].grounding_metadata if candidates else None
+        if metadata is None:
+            return []
+
+        # Gemini API leaves web.domain empty and puts the domain in web.title; uri is a Google redirect.
+        snippets_by_chunk: dict[int, list[str]] = {}
+        for support in metadata.grounding_supports or []:
+            text = support.segment.text if support.segment else None
+            if not text:
+                continue
+            for index in support.grounding_chunk_indices or []:
+                snippets_by_chunk.setdefault(index, []).append(text.strip())
+
+        results: list[dict[str, object]] = []
+        for index, chunk in enumerate(metadata.grounding_chunks or []):
+            web = chunk.web
+            if web is None or not web.uri or index not in snippets_by_chunk:
+                continue
+
+            domain = (web.domain or web.title or "").lower()
+            if not self._is_allowed_domain(domain, allowed_domains):
+                continue
+
+            results.append(
+                {
+                    "title": web.title,
+                    "url": web.uri,
+                    "snippet": " ".join(snippets_by_chunk[index]),
+                    "publisher": domain,
+                }
+            )
+
+            if len(results) >= self.max_results:
+                break
+
+        return results
+
+    def _search_with_langsearch(
+        self,
+        query: str,
+        allowed_domains: list[str],
+    ) -> list[dict[str, object]]:
         if not self.api_key:
             raise RuntimeError(
                 "Web search is enabled but no agent web search API key is configured."

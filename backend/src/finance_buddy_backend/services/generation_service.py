@@ -1,9 +1,35 @@
+import time
+
 from google import genai
+from google.genai.errors import ServerError
+from google.genai.types import HttpOptions
 from finance_buddy_backend.core.config import settings
+
+MAX_GENERATION_ATTEMPTS = 4
+RETRY_BACKOFF_SECONDS = 2.0
+REQUEST_TIMEOUT_MS = 30_000
 
 class GenerationService:
     def __init__(self)->None:
-         self.gemini_client = genai.Client(api_key=settings.gemini_api_key)
+         self.gemini_client = genai.Client(
+             api_key=settings.gemini_api_key,
+             http_options=HttpOptions(timeout=REQUEST_TIMEOUT_MS),
+         )
+
+    def _generate_content_with_retry(self, prompt: str):
+        for attempt in range(1, MAX_GENERATION_ATTEMPTS):
+            try:
+                return self.gemini_client.models.generate_content(
+                    model=settings.gemini_model,
+                    contents=prompt,
+                )
+            except ServerError:
+                time.sleep(RETRY_BACKOFF_SECONDS * (2 ** (attempt - 1)))
+
+        return self.gemini_client.models.generate_content(
+            model=settings.gemini_model,
+            contents=prompt,
+        )
 
     def generate_response(
             self,
@@ -20,11 +46,7 @@ class GenerationService:
                 retrieved_chunks=retrieved_chunks,
             )
 
-            response = self.gemini_client.models.generate_content(
-                model=settings.gemini_model,
-                contents=prompt
-                
-            )
+            response = self._generate_content_with_retry(prompt)
 
             return response.text
 
@@ -48,13 +70,10 @@ class GenerationService:
                 web_results=web_results,
             )
 
-            response = self.gemini_client.models.generate_content(
-                model=settings.gemini_model,
-                contents=prompt
-            )
+            response = self._generate_content_with_retry(prompt)
 
             return response.text
-    
+
     def _build_prompt(self,question: str,explanation_level: str,
                       retrieved_chunks: list[dict[str, int | float | str | None]],) -> str:
         prompt = (

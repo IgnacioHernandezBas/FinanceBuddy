@@ -154,10 +154,10 @@
     "expected_source_ids": [],
     "expected_answer_points": [
       "se mantiene una reducción del 5 por ciento sobre el rendimiento neto de módulos",
-      "la renuncia o revocación para 2026 podía ejercerse hasta el 31 de diciembre de 2025",
+      "la renuncia o revocación para 2026 podía ejercerse hasta el 16 de febrero de 2026 tras la ampliación del plazo",
       "la respuesta debe situarlo en la orden de módulos para 2026"
     ],
     "must_refuse_without_evidence": true,
-    "notes": "2026 normative update from AEAT news"
+    "notes": "2026 normative update from AEAT news. Renuncia deadline was extended from 31 Dec 2025 to 16 Feb 2026 by the February 2026 Real Decreto-ley."
   }
 ]

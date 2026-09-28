@@ -3,7 +3,7 @@ from finance_buddy_backend.agent.state import AgentState
 
 MIN_RELEVANT_SCORE = 0.35
 STRONG_TOP_SCORE = 0.70
-STRONG_SECOND_SCORE = 0.50
+STRONG_SECOND_SCORE = 0.65
 
 
 def _build_trace_event(
