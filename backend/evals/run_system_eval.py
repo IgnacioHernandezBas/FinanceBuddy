@@ -1,7 +1,9 @@
 import argparse
 
 from finance_buddy_backend.db.session import SessionLocal
+from finance_buddy_backend.services.generation_service import GenerationService
 
+from .answer_quality import AnswerJudge
 from .loaders import load_dataset, load_manifest, validate_dataset_against_manifest
 from .mlflow_tracking import MLflowTrackingClient
 from .models import EvaluationManifest, SystemAggregateEvaluationResult
@@ -19,6 +21,7 @@ class SystemEvalRunner:
         allow_web_search: bool,
         max_examples: int | None,
         sleep_seconds: float,
+        judge_enabled: bool,
     ) -> tuple[SystemAggregateEvaluationResult, EvaluationManifest]:
         dataset = load_dataset(dataset_path)
         manifest = load_manifest(manifest_path)
@@ -26,8 +29,10 @@ class SystemEvalRunner:
         if max_examples is not None:
             dataset = dataset[:max_examples]
 
+        judge = AnswerJudge(GenerationService()) if judge_enabled else None
+
         with SessionLocal() as session:
-            evaluator = SystemEvaluator(db=session)
+            evaluator = SystemEvaluator(db=session, judge=judge)
             result = evaluator.evaluate_system(
                 system_name=system_name,
                 dataset=dataset,
@@ -84,6 +89,11 @@ if __name__ == "__main__":
         help="Seconds to sleep between examples to respect model rate limits.",
     )
     parser.add_argument(
+        "--judge",
+        action="store_true",
+        help="Score answers against expected_answer_points with an LLM judge (one extra Gemini call per example).",
+    )
+    parser.add_argument(
         "--log-to-mlflow",
         action="store_true",
         help="Log the evaluation run to the configured MLflow tracking server.",
@@ -105,6 +115,7 @@ if __name__ == "__main__":
         allow_web_search=args.allow_web_search,
         max_examples=args.max_examples,
         sleep_seconds=args.sleep_seconds,
+        judge_enabled=args.judge,
     )
 
     if args.log_to_mlflow:
@@ -116,6 +127,7 @@ if __name__ == "__main__":
             manifest_path=args.manifest_path,
             explanation_level=args.explanation_level,
             allow_web_search=args.allow_web_search,
+            judge_enabled=args.judge,
             run_name=args.run_name,
         )
         if run_id is not None:

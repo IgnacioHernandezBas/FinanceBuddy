@@ -9,6 +9,8 @@ class EvaluationExample(BaseModel):
     expected_source_titles: list[str] = Field(default_factory=list)
     expected_source_ids: list[int] = Field(default_factory=list)
     expected_answer_points: list[str] = Field(default_factory=list)
+    # Each fact is a "|"-separated list of accepted spellings, matched on whole words.
+    expected_facts: list[str] = Field(default_factory=list)
     must_refuse_without_evidence: bool = False
     notes: str | None = None
 
@@ -86,6 +88,14 @@ class SystemPerExampleResult(BaseModel):
     trace_event_count: int = 0
     expected_source_titles: list[str] = Field(default_factory=list)
     expected_answer_points: list[str] = Field(default_factory=list)
+    answer_success: bool = False
+    expected_facts: list[str] = Field(default_factory=list)
+    matched_facts: list[str] = Field(default_factory=list)
+    fact_recall: float | None = None
+    judge_point_verdicts: list[bool] = Field(default_factory=list)
+    judge_point_coverage: float | None = None
+    judge_error: str | None = None
+    needs_review: bool = False
 
 
 class SystemAggregateEvaluationResult(BaseModel):

@@ -2,7 +2,7 @@ import time
 
 from google import genai
 from google.genai.errors import ServerError
-from google.genai.types import HttpOptions
+from google.genai.types import GenerateContentConfig, HttpOptions
 from finance_buddy_backend.core.config import settings
 
 MAX_GENERATION_ATTEMPTS = 4
@@ -16,12 +16,17 @@ class GenerationService:
              http_options=HttpOptions(timeout=REQUEST_TIMEOUT_MS),
          )
 
-    def _generate_content_with_retry(self, prompt: str):
+    def generate_content_with_retry(
+        self,
+        prompt: str,
+        config: GenerateContentConfig | None = None,
+    ):
         for attempt in range(1, MAX_GENERATION_ATTEMPTS):
             try:
                 return self.gemini_client.models.generate_content(
                     model=settings.gemini_model,
                     contents=prompt,
+                    config=config,
                 )
             except ServerError:
                 time.sleep(RETRY_BACKOFF_SECONDS * (2 ** (attempt - 1)))
@@ -29,6 +34,7 @@ class GenerationService:
         return self.gemini_client.models.generate_content(
             model=settings.gemini_model,
             contents=prompt,
+            config=config,
         )
 
     def generate_response(
@@ -46,7 +52,7 @@ class GenerationService:
                 retrieved_chunks=retrieved_chunks,
             )
 
-            response = self._generate_content_with_retry(prompt)
+            response = self.generate_content_with_retry(prompt)
 
             return response.text
 
@@ -70,7 +76,7 @@ class GenerationService:
                 web_results=web_results,
             )
 
-            response = self._generate_content_with_retry(prompt)
+            response = self.generate_content_with_retry(prompt)
 
             return response.text
 

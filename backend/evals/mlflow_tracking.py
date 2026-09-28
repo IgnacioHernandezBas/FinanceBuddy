@@ -103,6 +103,7 @@ class MLflowTrackingClient:
         manifest_path: str,
         explanation_level: str,
         allow_web_search: bool,
+        judge_enabled: bool = False,
         run_name: str | None = None,
     ) -> str | None:
         if not self.enabled:
@@ -118,6 +119,7 @@ class MLflowTrackingClient:
             mlflow.log_params(
                 {
                     "run_type": "system_eval",
+                    "judge_enabled": judge_enabled,
                     "system_name": result.system_name,
                     "dataset_name": manifest.dataset_name,
                     "dataset_version": manifest.dataset_version,
@@ -225,8 +227,16 @@ class MLflowTrackingClient:
         return (
             "# System Evaluation Notes\n\n"
             "- This run evaluates end-to-end system behavior rather than retrieval alone.\n"
-            "- Metrics currently focus on latency, returned-source coverage, and web-search usage.\n"
-            "- Answer quality scoring is not automated yet in this run.\n"
+            "- answer_success_rate: share of answers with status answered_internal, "
+            "answered_mixed_sources or generated. A success can still be an answer that "
+            "says the evidence is insufficient.\n"
+            "- fact_recall: deterministic whole-word, accent-insensitive match of each "
+            "example's expected_facts in the answer.\n"
+            "- judge_point_coverage (only when judge_enabled): share of "
+            "expected_answer_points an LLM judge marks as covered. The judge uses the "
+            "same Gemini model that generates the answers, so treat it as indicative.\n"
+            "- needs_review marks examples where fact_recall and judge coverage differ "
+            "by 0.5 or more; check those by hand.\n"
             "- Compare these runs side by side in MLflow using the same dataset and manifest.\n"
         )
 
