@@ -1,0 +1,183 @@
+[
+{
+  "question_id": "tax-es-001",
+  "question": "¿Para qué sirven los impuestos en una sociedad?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 637.0379999862053,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los impuestos financian bienes y servicios públicos",
+    "permiten cubrir necesidades colectivas",
+    "constituyen una aportación obligatoria por ley"
+  ]
+},
+{
+  "question_id": "tax-es-002",
+  "question": "¿Qué son los bienes y servicios públicos?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 482.8177000163123,
+  "source_count": 4,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "satisfacen necesidades que no pueden cubrirse individualmente",
+    "se financian con recursos públicos",
+    "benefician al conjunto de la sociedad"
+  ]
+},
+{
+  "question_id": "tax-es-003",
+  "question": "¿Qué es el gasto público?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 469.35189998475835,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "es el empleo de caudales públicos",
+    "sirve para satisfacer necesidades públicas",
+    "incluye ejemplos como sanidad o educación"
+  ]
+},
+{
+  "question_id": "tax-es-004",
+  "question": "¿Quién tiene el deber de contribuir al sostenimiento de los gastos públicos?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 642.5588999991305,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los ciudadanos tienen el deber de contribuir",
+    "el deber se vincula al sostenimiento de los gastos públicos",
+    "la obligación está recogida en la Constitución"
+  ]
+},
+{
+  "question_id": "tax-es-005",
+  "question": "¿Qué significa el principio de capacidad económica?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 300.9783000452444,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 2,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_",
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "las aportaciones deben ajustarse a la capacidad económica",
+    "es un principio del sistema tributario justo",
+    "se relaciona con igualdad y progresividad"
+  ]
+}
+]

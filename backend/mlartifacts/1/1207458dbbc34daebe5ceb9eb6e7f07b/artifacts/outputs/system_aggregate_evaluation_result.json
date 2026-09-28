@@ -1,0 +1,500 @@
+{
+  "dataset_name": "tax_qa_es_v2",
+  "dataset_version": "v2",
+  "system_name": "agentic_v1",
+  "total_examples": 10,
+  "aggregate_metrics": {
+    "avg_latency_ms": 5346.513269993011,
+    "source_hit_rate": 0.0,
+    "avg_source_count": 5.7,
+    "web_usage_rate": 1.0
+  },
+  "per_example_results": [
+    {
+      "question_id": "tax-es-web-001",
+      "question": "¿Cuáles son las fechas oficiales de la Campaña de Renta 2025 para presentar por internet y hasta cuándo se puede domiciliar el pago?",
+      "system_name": "agentic_v1",
+      "answer": "Basándonos en la evidencia disponible, la información sobre las fechas de la declaración de la renta se divide de la siguiente manera:\n\n* **Fechas generales de presentación:** Según la evidencia interna (Fuente 3), la declaración de la renta se presenta todos los años **entre abril y junio**. Como información complementaria de fuentes públicas aprobadas (Web Fuente 1), para la campaña específica de Renta, el plazo general de presentación por internet comenzó el **8 de abril** y finalizó el **30 de junio**.\n* **Domiciliación bancaria del pago:** Según la fuente pública aprobada (Web Fuente 1), si la declaración resultaba a ingresar y se optaba por domiciliar el pago en cuenta, el plazo límite para su presentación finalizó el **25 de junio**.\n\n*(Nota: Se han utilizado fuentes públicas aprobadas como apoyo secundario para detallar las fechas concretas de la campaña).*\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5175.6760000716895,
+      "source_count": 5,
+      "sources": [
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEn_hbQfbdyGb_l90R9qQsV8MpjX1p0MG1ELmnD69CtxA6JxxXN2qEjkWLv77qpFnOD7TCypdXaEr-WHR9lriJ0aATnOybqY7ePghz2AN2mlSZFMk9UW2F9KWv8drcxj9fXNCDRb5_CSb6U0Uu9jaqhNThiNMnuSy1zHOvhKZ-uc6AbNJ95ZXdHm9hABcqQeDe9HgVA-RIxfIkxAPv9sCepemXVdzGmxpSNjvngur6-Zb1uDGQywSZcwl4rArK2jMw1_QkSBzkn-h-jqK6qyw==",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "la presentación por internet va del 8 de abril al 30 de junio de 2026",
+        "la domiciliación bancaria del pago finaliza el 25 de junio de 2026",
+        "la respuesta debe atribuir las fechas a la Agencia Tributaria"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-002",
+      "question": "Según la Agencia Tributaria, ¿cuándo empieza la atención telefónica de la Renta 2025 y desde qué fecha se puede pedir cita?",
+      "system_name": "agentic_v1",
+      "answer": "¡Hola! Soy FinanceBuddy, tu asistente de educación financiera. \n\nSegún la evidencia web aprobada de la Agencia Tributaria para la campaña correspondiente, las fechas para la atención telefónica (plan «Le llamamos») son las siguientes:\n\n* **Inicio de la atención telefónica:** Comienza el **6 de mayo** y se extiende hasta el **30 de junio de 2026**.\n* **Plazo para pedir cita previa:** Se puede solicitar desde el **29 de abril hasta el 29 de junio de 2026**.\n\n*(Nota: Esta información ha sido obtenida utilizando fuentes web públicas aprobadas como apoyo secundario, ya que la evidencia interna no especifica las fechas exactas para este servicio).*\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5311.677300021984,
+      "source_count": 5,
+      "sources": [
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGSzIhnZdww773Pm5ALdiBX5v7_OpYj0Xa4kJPmCQF5zCPK0Blw6NeV6FB1Nc0CtOoiIu1nDsVX2Esxr79Jt1itNQ0zNsaQOF2eQQ702fxJkvkNfyNAAxubA0hmcd9m7FCh7KmVBK0x2kE_gjzj5YURA9kPrFBS0OUNG4rKjTIN_2dHMDqxRt4I_vgpXFz-LcFJafWsCeUxTgbh9i-wxiy3mdN1glVKpAjVyFN2skZxpnQ=",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "la atención telefónica empieza el 6 de mayo de 2026",
+        "la cita previa se puede solicitar desde el 29 de abril de 2026",
+        "la respuesta debe indicar que se trata de la campaña de Renta 2025"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-003",
+      "question": "¿Cuándo comienza la atención presencial en oficinas para la Renta 2025 y desde cuándo puede solicitarse la cita?",
+      "system_name": "agentic_v1",
+      "answer": "¡Hola! Como tu asistente financiero FinanceBuddy, aquí tienes la respuesta basada en los datos disponibles:\n\n* **Inicio de la atención presencial en oficinas:** Comienza el **1 de junio de 2026**.\n* **Solicitud de cita previa:** Se puede solicitar desde el **29 de mayo de 2026** hasta el 29 de junio de 2026.\n\n*(Nota: Para ofrecerte esta información exacta sobre las fechas de la campaña de la Renta 2025, se han utilizado fuentes web públicas aprobadas como soporte complementario).* \n\nSi tienes cualquier otra duda, ¡aquí estoy para ayudarte!\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5186.081299907528,
+      "source_count": 6,
+      "sources": [
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGPsK0p8B4W5n1y9tLlff-0BDDbcE8MygmpmQ-78jLPvSdx2tS6Xkqnh2iwe_1zYlwhbK980izzSJ-VewLAoLG8cKN3ndImCDTMiKPSFNcE_J7AXM-M5Z6Apsb4lKj6LTgl5_Wana2-_znwG1Ieup-fna1YPCQ9kcC7Ea1eXWwFXIJzYCaxWzdemOW4inXFAPvh2_KWVXk1khYW7TeIh56jVxE_lkyKQXC7rOoUl7DhptMSLvhgnLWGSkC2RSsgSAhkliFaJwHGqny6vmrbbnBW7aTCU48H9Qq69BEfOlr3ObE=",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "la atención presencial comienza el 1 de junio de 2026",
+        "la cita previa puede solicitarse desde el 29 de mayo de 2026",
+        "la respuesta debe enmarcarlo como información oficial de la AEAT"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-004",
+      "question": "¿Qué canales oficiales permite la AEAT para presentar por internet la declaración de la Renta 2025?",
+      "system_name": "agentic_v1",
+      "answer": "Basándome en las fuentes proporcionadas (utilizando fuentes web aprobadas como apoyo complementario), la Agencia Tributaria (AEAT) habilita los siguientes canales oficiales para la presentación de la declaración de la Renta por internet:\n\n1. **Internet mediante Renta WEB o Renta Directa:** A través de la Sede electrónica de la AEAT (`sede.agenciatributaria.gob.es`). Para acceder y tramitarla por esta vía, el contribuyente debe autenticarse utilizando sistemas de identificación permitidos como:\n   - Certificado electrónico o DNI electrónico (DNIe)\n   - Sistema Cl@ve (incluyendo Cl@ve Móvil)\n   - Número de referencia\n   - Sistema eIDAS (para identificación europea)\n\n2. **Aplicación móvil oficial (\"App Agencia Tributaria\"):** Utilizando la aplicación oficial para dispositivos móviles de la Agencia Tributaria para realizar la presentación de forma telemática.\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 6049.975399975665,
+      "source_count": 9,
+      "sources": [
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGys0x4NrCsQ52BCXIsP0v2FQG5ARX-A69NiiwoLmAATFsBprPixww59dUOou2mr3gA0cwvlaJGo5savdcJHn38jhr2PpTZHvxYcY-7F8dWj-HmU19a5WTLyyzqbqjG693fiGhDfuOYRifWa8TKdY192BQ2JUvEsqo71EgaBoQuErfKsoeISOy3F9vinUNU30Qn7-_dqTw5GkeOCcJV042Lvvzl-5uJHWDPtqXIJ9Rp9vhdXuRVehbs0MjAz9tIKHz1hiWiWq7bsBBqqQ-aImzirUJxsV2JelovpsEXWOKcmZ_2lijyYMyeqCva46JPeFXG1SrI0-wvoWFsJnQADGCjQZnzonTWG0Tz",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyhyKce1PSKKML3QQIISlhcQtoHtbODPIMxd7twMtaCodQaHYZs5BsXF-2wDPMDri6YLZ6KUpRZ0uV5LZPHHP3IaEApUh-6shkHYK4zaLQVFORXPT8LtafKppsrLGSzpcUcWNtrsh65_nOjUWhoZTABPb9C19NWHMgAR9mIEFLj0SkXryZzAj03WmMEIhGicW6OaXQtMWabYCoaHmEE73I1qyLQIc_FeyrTkdYZQhlGn5jKynoBRi65f_aozuU_AmdeU3dWWiw_w==",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH790fYEXWCs3Tlyy1-Xh9M3df0B3MQGBxesa45g_edNt40bDITySiWBqX20mYgXBr2oeGUqmfo0Jy66nyrVAdKX4n3MqDiqYmHSWtwZ6f9FI8LeCYG2n_gtw9OWDO0iGtsAE78qnKbtIRMns_3B_SPYCEXYd-XEvTg8uZdclFom5adQ2pXbpOZl3GF2noO-6_v9uVL3FlU8du7wWiore5VUBMq-pIlAXzG6YRPnNVx-gRskScuiulPDuInBvlgvpM=",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHB8UqZUcUIHx-fUaQZFMHn6nTb856h2Yjx-059jPebGNpurvLrAd0Fw_sd63k-dv30dxOlfIOomqmIi0C4LkgEhtsbL6t8Tfz5wMqZngf7gJTn3s3Sbw4rLkAeJbuoC3eGSJbew4ioIi4tMeAYkTjwhMU0W6-W1m4Bm0bBf5nEi5WcLeo5u50P3Iuhwo4nSxokDOPyftIkmWc2U5yRcaYGVWS1zMdRtYPFrJvxp-ZP1ks=",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHxhSqephbsWJ4Qwzlwm76J1HvoRXdnZR2I8tGC3JiCeZruDpQV4atEUcONvMde0zmb9uA4h95CQLUfarGKXuXWQQ1dX3JH94F4TPHyAJN0UWBtx62nUHQ-sevlgst4GGqYN0_UfoyK4BQwRGE8D3tfCN9Mpxf_KpI3f4ZsxMqVpA9QZQtLYvgS3M96ok9QJueS2RWq90xHMa1TNITpIu3MOD3PSKyM6FByhsK42RHNJkCuYFv1GCNRRmUdZcWEVw2JCwTjrbGW",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "la presentación por internet puede hacerse por Renta WEB",
+        "también puede hacerse por Renta DIRECTA",
+        "también puede hacerse por la APP de la Agencia Tributaria"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-005",
+      "question": "Para obtener el número de referencia de la Campaña de Renta 2025, ¿qué dato pide la AEAT si presenté la Renta 2024 y qué pide si no fui declarante el año anterior?",
+      "system_name": "agentic_v1",
+      "answer": "Hola, soy FinanceBuddy, tu asistente de educación financiera. \n\nPara responder a tu pregunta sobre cómo obtener el número de referencia para la Campaña de Renta, utilizaremos la información de las fuentes públicas aprobadas (ya que la evidencia interna disponible no contiene esta información específica sobre la Campaña de Renta). \n\nSegún la información oficial de la Agencia Tributaria (`agenciatributaria.gob.es`), los datos que se solicitan según tu situación son los siguientes:\n\n* **Si presentaste la Renta del año anterior (ejercicio 2024):** Se solicita el importe de la **casilla 505** de dicha declaración (correspondiente a la *base liquidable general sometida a gravamen*). Debes introducir los números enteros sin signos y separar los decimales con una coma.\n* **Si no fuiste declarante el año anterior (o el resultado de la casilla 505 fue cero):** Se solicitan las **últimas cinco posiciones (dígitos) del código IBAN** de una cuenta bancaria de la que conste que el contribuyente era titular durante el año correspondiente.\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5484.840400051326,
+      "source_count": 7,
+      "sources": [
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_son_las_aduanas_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGtR2jl0v1eLoDWk7uBVZTDqsUiLDHMqjBsy0cCJmSxKPH3_YY-7smnsNI7CiC8btTMA4u8uxNEE_llGaIMMgShPs5yLhRTpIm7kfa8zYQ3m5qnII7G_j2t3OlXY0r__xBA7osLKlifRroPgGTfEYtYT8b8JNL2USrAZ4ERgf97l27Pd8U8dZOGi5Do3PVbPLON1Rhuj5WrbOny1a5R7QcZSoZjARNaLANYfpD2SGnpIOOcAGYcWVQMf2nezw==",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH0E_6qroFdnjLkGO3ux3EG2almFAbQQ8Fmjy6y3ptY6xDjxsDNRC4yLHcwPbfAqgkYzy5ALEV9t511yZsoqQHdQyham9Wq0pY71kIhmyNX7mQcUPEQAxPZJzloxVEE0tCU7_k8js1UgQHdoBmo7MlAyH0aJbJa4e2j8ESlSqFJrhP6ArmJHB1jG9AZjzlwG-unIoTsIcRqjnqJd3vRmjnBWCg7eAHoFbms5VJOUxJVWA==",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "si presentó Renta 2024 se usa la casilla 505",
+        "la casilla es la base liquidable general sometida a gravamen del ejercicio 2024",
+        "si no fue declarante el año anterior debe aportar un IBAN español del que figure como titular a 31 de diciembre de 2025"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-006",
+      "question": "¿Hasta qué fecha se puede presentar el modelo 303 del primer trimestre de 2026 según el calendario del contribuyente de la AEAT?",
+      "system_name": "agentic_v1",
+      "answer": "¡Hola! Soy FinanceBuddy, tu asistente de educación financiera. \n\nSegún el calendario del contribuyente de la Agencia Tributaria (AEAT) para 2026 (información obtenida de fuentes públicas aprobadas, ya que la evidencia interna no contiene este dato específico), las fechas límite para presentar el modelo 303 correspondiente al primer trimestre de 2026 son las siguientes:\n\n* El **plazo general** finaliza el **20 de abril de 2026** (comenzando el 1 de abril).\n* Si se opta por la modalidad de **domiciliación bancaria**, el plazo finaliza antes, concretamente el **15 de abril de 2026**.\n\n*Nota: La evidencia interna disponible es incompleta respecto a los detalles específicos de los plazos del modelo 303, por lo que se han utilizado fuentes públicas aprobadas como apoyo complementario.*\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5173.509299987927,
+      "source_count": 5,
+      "sources": [
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_son_las_aduanas_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH6EWaLDkawc9hJnBcmgwXPczhKk5w36qm8ommRNSR8oZ1TFhZniBVjb_9J84AEDrFu-rzWo2TlFnucB7AUU9igKLrfaBbhgctXnQsS4UsVRfj6rfqasK-vjYXeZvKXnM3cCaTRPGnpdJuGvA6GFVS75lCiMECKjbrQYx79o1BJPGbgEhKKYjhGpa074AoVntMCdrXkwu_e7_1O8V7cQEmEIW4Zg1SyZF5xbUEf1fZeaSfLz7VL2MEWNxv8Fv2kQ0FQNFc2oR4HIQ5U3EHD6lyUen9xMN1Eky3kVh_3f3XXHrmRbvhvIb3CQFm-Y282sC2aEOS_I4WAPwwGO5tXwQ==",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "el plazo general llega hasta el 20 de abril de 2026",
+        "la respuesta debe referirse al primer trimestre de 2026",
+        "la respuesta debe citar el calendario oficial de la AEAT"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-007",
+      "question": "¿Cuál es el plazo oficial de presentación del modelo 390 del ejercicio 2025 y se presenta por vía electrónica?",
+      "system_name": "agentic_v1",
+      "answer": "¡Hola! Soy FinanceBuddy, tu asistente de educación financiera. \n\nCon base en la evidencia disponible, te explico los detalles sobre la presentación del modelo 390:\n\n* **Plazo oficial de presentación:** La declaración-resumen anual del IVA (Modelo 390) correspondiente al ejercicio 2025 debe presentarse durante los treinta primeros días naturales del mes de enero del año siguiente, es decir, **del 1 al 30 de enero de 2026** (si algún vencimiento coincide con un día inhábil, este se traslada al primer día hábil siguiente).\n* **Forma de presentación:** Sí, se presenta **obligatoriamente por vía electrónica** (a través de Internet) en la Sede Electrónica de la Agencia Tributaria (utilizando, por ejemplo, el sistema Cl@ve para personas físicas no obligadas al uso de certificado).\n\n*Nota: Para esta respuesta se han utilizado fuentes web públicas aprobadas (como apoyo secundario, ya que la evidencia interna no contiene esta información específica).* \n\nLa evidencia interna disponible se limita a mencionar los títulos y rutas de documentos generales del Programa de Educación Cívico-Tributaria (como \"¿Desde cuándo hay impuestos?\", \"¿Qué son las aduanas?\", \"¿Para qué son los impuestos?\", \"¿Quién paga los impuestos?\" y \"¿Qué impuestos hay?\"), por lo que la información restante sobre el modelo 390 proviene de las fuentes web públicas autorizadas.\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5907.580900005996,
+      "source_count": 7,
+      "sources": [
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_son_las_aduanas_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGuGNlaJJXioAwCUPKG0G7tOXv7NwJxrFb7JWIHPEathTc9LZtAf6lOwpfROxrXyekuCWuXNqEMBg8zLY4nc6NVkIgz-eLyrntZ_EdOVc8Om6zi96X1nG2QRuEcj3UQZunQE6Q_HGbk_7SyXps4s5IZyTFq4FGMWE280k_McpuXdjz6qXydTG0QPPU7Bsp9o2s1xxPWuNLMX6_meFEtHBSs0ZLKRN2_q3NOwBS3ptThWRQHpKMCPFcyAVnQp8CReplEvPGXmRMzKgZVVd4B9eAbGnoIednbQvOOOcw5V_wxQPCWWi7GuGVBaXyDe8kSQxcZf4QPRKSxHnhe8e1Ts22la3dSjgevPV_B9q7PY9J_fYvh98tp",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG5seucKaxcXCPt0IarIzfcMv6UZeCIm0OmnW__-QD3q3Cm3TEfFf50-ld7lTkcsHCnlXRrBRlJ38DmSX33ZE5WRPmdaq5Jbp72-NTFTzVxqV9mbWE5xXgADh-DivNxC8QuD6B9LJkubBH6SLxFKYNdCEL2N5zaJq1H2SZNT0VzvQgw3KCKxwDAoMSQ3OA4dls2rQ==",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "el plazo es del 1 al 30 de enero de 2026",
+        "el modelo 390 se presenta por vía electrónica a través de internet",
+        "la respuesta debe dejar claro que corresponde al ejercicio 2025"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-008",
+      "question": "Según la AEAT, ¿qué plazo tiene el modelo 349 si se presenta con periodicidad mensual y cuál si se presenta con periodicidad trimestral?",
+      "system_name": "agentic_v1",
+      "answer": "¡Hola! Como FinanceBuddy, tu asistente de educación financiera, responderé a tu pregunta utilizando la evidencia disponible (en este caso, empleando fuentes web oficiales aprobadas como apoyo complementario, ya que la evidencia interna no contiene esta información específica).\n\nSegún los datos oficiales de la Agencia Tributaria (AEAT) en la evidencia pública, los plazos para la presentación del **Modelo 349** son los siguientes:\n\n* **Periodicidad mensual:**\n  * **Regla general:** Se debe presentar durante los **veinte primeros días naturales del mes inmediato siguiente** al período mensual correspondiente.\n  * **Excepciones:** \n    * Para el mes de **julio**, se puede presentar durante el mes de agosto y los primeros veinte días naturales de septiembre.\n    * Para el mes de **diciembre**, se debe presentar durante los treinta primeros días naturales del mes de enero.\n\n* **Periodicidad trimestral:**\n  * **Regla general:** Se debe presentar durante los **veinte primeros días naturales del mes inmediato siguiente** al período trimestral correspondiente.\n  * **Excepción:** \n    * Para el **último trimestre del año**, debe presentarse durante los **treinta primeros días naturales del mes de enero**.\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5183.941999915987,
+      "source_count": 5,
+      "sources": [
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Para_qué_son_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Desde_cuándo_hay_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF1sp355GVsJDRgsvYoSiuj2QnJRiCR-QmO7mR1JGKEgS_dzpG0OcfDcRTVa28FOB6luue5ivAgq_x9W6yNwJFeghfxEsnZ05-lRpFDHKTeMXEsrWgXjYOxsPIUMp6nT0V58OlUagIaB6gsrcDDdo6GhtpGukD32dASeTqYOzTN2MfSluVNPuQeVHtZnSJItiV_pGFK_IVnzH14AgXIQqsqje6qjOjGddBkGT5M2wHPE59jyohUvujMgrFO43josxiiZlD_O6es8PsNUUjeWVYCMG9goXI60zwVgWdvjPLk38IvU4yn6qOdepntnJIsLypWTsej5JNF7voy",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "con periodicidad mensual se presenta durante los veinte primeros días naturales del mes siguiente",
+        "la declaración de julio puede presentarse durante agosto y los veinte primeros días naturales de septiembre",
+        "la de diciembre y la del cuarto trimestre se presentan durante los treinta primeros días naturales de enero",
+        "con periodicidad trimestral se presenta durante los veinte primeros días naturales del mes siguiente al trimestre"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-009",
+      "question": "Tras la ampliación del plazo de adaptación de VERI*FACTU y los SIF, ¿antes de qué fecha deben adaptarse las entidades que presentan Impuesto sobre Sociedades y antes de qué fecha el resto de obligados tributarios?",
+      "system_name": "agentic_v1",
+      "answer": "¡Hola! Como tu asistente de educación financiera FinanceBuddy, respondo a tu pregunta utilizando la evidencia disponible:\n\nCon base en la evidencia pública aprobada (ya que este detalle específico sobre los plazos de adaptación de VERI*FACTU y los SIF no se encuentra en las fuentes primarias internas), las fechas límite son las siguientes:\n\n* **Entidades que presentan el Impuesto sobre Sociedades:** Deben tener adaptados sus sistemas informáticos de facturación antes del **1 de enero de 2027**.\n* **Resto de obligados tributarios:** Deben hacerlo antes del **1 de julio de 2027**.\n\n*(Nota: Esta información proviene de fuentes públicas web aprobadas, ya que la evidencia interna de FinanceBuddy no contiene estos datos).*\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 5325.063899974339,
+      "source_count": 4,
+      "sources": [
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuUPQF3t3MVPDMyLIYn_Kr9PSIRtMiifpUUaNk5nPYI2AedqkYa8UpxTMbjKYoGGcGkAGM8AXR6x7c6X1YQC8rcFiHvJptJmP3fxuVjXfddbj2c6B6aGFBzZmzOyqkaCxgb8_tF8SicVk60YuudPoezoEp6QiYEWT2J2QzdtUXVB_BRVfhW15-huy-UGaIPdiWMKGu9KM_MLjnlG0E7bemx7II6Rk5Zvl8hpksTBCUHe5GgUJtWXNsn4mK5z5MWXGNixc9Tirls20qVt_wwCA=",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "las entidades que presentan Impuesto sobre Sociedades deben adaptarse antes del 1 de enero de 2027",
+        "el resto de obligados tributarios debe adaptarse antes del 1 de julio de 2027",
+        "la respuesta debe mencionar que hubo una ampliación del plazo"
+      ]
+    },
+    {
+      "question_id": "tax-es-web-010",
+      "question": "¿Qué reducción general sobre el rendimiento neto de módulos se mantiene para 2026 y hasta cuándo podía ejercerse la renuncia o revocación al método de estimación objetiva para 2026?",
+      "system_name": "agentic_v1",
+      "answer": "Basándose en la evidencia proporcionada (utilizando fuentes web públicas aprobadas como apoyo complementario):\n\n* **Reducción general sobre el rendimiento neto de módulos:** Para el ejercicio 2026 se mantiene con carácter general una **reducción del 5 por ciento** sobre el rendimiento neto de módulos para los contribuyentes que determinan dicho rendimiento mediante el método de estimación objetiva en el IRPF.\n* **Plazo para ejercer la renuncia o revocación:** Debido a las modificaciones normativas extraordinarias para el ejercicio 2026, el plazo para manifestar la renuncia o revocación al método de estimación objetiva del IRPF (y al régimen simplificado del IVA) quedó establecido de manera definitiva **hasta el 16 de febrero de 2026**.\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+      "answer_status": "answered_mixed_sources",
+      "latency_ms": 4666.786200017668,
+      "source_count": 4,
+      "sources": [
+        {
+          "title": "_Quién_paga_los_impuestos_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "_Qué_impuestos_hay_",
+          "url": null,
+          "publisher": "agencia_trib"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE8FTu-yetxZ_kDpBi8vqE6hM-zGtLh7jxQy6Ft5FH9Le5HecLRONfL4G0Y5fUZPRkIiNxoe2vrviH6gJ6HQIoSA5p_DZNeoOwpf64MKjUgIzw2_6jVLEGGAjx3P8pBGsWAU5SrfVnOuBpuoqC75MXQWjln9etaijRg04-P2kiuK48QMJq5-oHwxt4fStMeEkxmTEFluwaonA==",
+          "publisher": "agenciatributaria.gob.es"
+        },
+        {
+          "title": "agenciatributaria.gob.es",
+          "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKVVjf2XlWhNc5XFSnmZliHA1e7Y7TeMR7sOKlnB7XUsWuHn-Et1Z6uwQBHaG37_8s6fH4Kb0rxpmR3yuJvn4hDDYLu-B3lQu-NhKhkauekKckA_eVK_-E6MYCuCPpVecnWm0KiR4pI3qocoaGvcn5EYhVjNVT8NnYADMdbNb53SuGhFOPV-AIBZYjtnfbAFyKXX7T0RN-sojrNKzCi6sn0VaoMoWp83JlVpZgedk2R_ujT4k-mEOT5NquVSf5ss-eJXBUuvfnJNEJikTUA9_9XQJeoB_afLgUK7yem07wjtzXEr-gYkSeFS3d",
+          "publisher": "agenciatributaria.gob.es"
+        }
+      ],
+      "matched_expected_source_count": 0,
+      "used_web_search": true,
+      "trace_event_count": 6,
+      "expected_source_titles": [],
+      "expected_answer_points": [
+        "se mantiene una reducción del 5 por ciento sobre el rendimiento neto de módulos",
+        "la renuncia o revocación para 2026 podía ejercerse hasta el 31 de diciembre de 2025",
+        "la respuesta debe situarlo en la orden de módulos para 2026"
+      ]
+    }
+  ]
+}

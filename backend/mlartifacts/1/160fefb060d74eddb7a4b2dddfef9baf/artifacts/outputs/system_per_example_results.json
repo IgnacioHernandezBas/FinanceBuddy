@@ -1,0 +1,183 @@
+[
+{
+  "question_id": "tax-es-001",
+  "question": "¿Para qué sirven los impuestos en una sociedad?",
+  "system_name": "baseline_rag",
+  "answer": "Según la información proporcionada, los impuestos sirven para los siguientes propósitos en la sociedad:\n\n*   **Financiar gastos y servicios públicos:** Son la fuente principal de dinero para que el Estado y las administraciones públicas (como comunidades autónomas y ayuntamientos) puedan pagar los servicios y bienes que todos usamos y que satisfacen necesidades colectivas.\n*   **Lograr justicia y equidad:** Los impuestos permiten que el Estado redistribuya la riqueza. Se basan en la \"capacidad económica\", lo que significa que quienes tienen más dinero contribuyen más para ayudar a financiar las cargas públicas de forma solidaria.\n*   **Organizar los recursos del país:** El dinero recaudado se utiliza según los presupuestos públicos, donde se decide cuánto dinero se ingresará y en qué se gastará para cubrir las necesidades de los ciudadanos.\n\nEn resumen, los impuestos son herramientas esenciales para que una sociedad pueda funcionar, permitiendo que existan servicios para todos y buscando que la contribución de los ciudadanos sea justa según su situación económica.",
+  "answer_status": null,
+  "latency_ms": 5010.999999998603,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 0,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los impuestos financian bienes y servicios públicos",
+    "permiten cubrir necesidades colectivas",
+    "constituyen una aportación obligatoria por ley"
+  ]
+},
+{
+  "question_id": "tax-es-002",
+  "question": "¿Qué son los bienes y servicios públicos?",
+  "system_name": "baseline_rag",
+  "answer": "Basado en la evidencia proporcionada, aquí tienes una explicación básica sobre los bienes y servicios públicos:\n\nLos **bienes y servicios públicos** son aquellos recursos y actividades que las Administraciones Públicas (como el Estado, las Comunidades Autónomas y los Municipios) proporcionan para satisfacer las **necesidades colectivas** de todos los ciudadanos.\n\nAquí te explico sus puntos principales:\n\n*   **¿Cómo se pagan?**: Se financian principalmente a través de los **impuestos**, que son cantidades de dinero que los ciudadanos y las empresas están obligados a pagar por ley según su capacidad económica. A diferencia de un servicio privado, los impuestos se pagan para costear necesidades comunes sin que exista un beneficio individual directo por lo que se paga.\n*   **¿Cuál es su objetivo?**: Su función es satisfacer las necesidades públicas y ayudar a la redistribución de la renta para que haya mayor equidad en la sociedad.\n\n**Ejemplos de bienes y servicios públicos:**\nSegún los documentos, algunos ejemplos incluyen:\n*   **Infraestructuras:** Construcción y mantenimiento de carreteras, autopistas, ferrocarriles, puertos y aeropuertos.\n*   **Servicios de comunidad:** Recogida de basuras, abastecimiento de agua potable, alumbrado público y transporte público.\n*   **Seguridad y Justicia:** Servicios de policía, bomberos, defensa, prisiones y tribunales de justicia.\n*   **Bienestar:** Salud (sanidad), vivienda y protección del medio ambiente.\n*   **Trámites administrativos:** Servicios como la expedición del DNI (aunque en este caso se paga una \"tasa\" específica por el beneficio individual del documento).",
+  "answer_status": null,
+  "latency_ms": 9366.540299961343,
+  "source_count": 4,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 0,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "satisfacen necesidades que no pueden cubrirse individualmente",
+    "se financian con recursos públicos",
+    "benefician al conjunto de la sociedad"
+  ]
+},
+{
+  "question_id": "tax-es-003",
+  "question": "¿Qué es el gasto público?",
+  "system_name": "baseline_rag",
+  "answer": "Basado en la información proporcionada, el **gasto público** se puede explicar de la siguiente manera:\n\n*   **Definición:** Es el uso de los fondos o recursos públicos (dinero recaudado a través de impuestos y otros ingresos) para satisfacer las necesidades de los ciudadanos.\n*   **¿En qué se utiliza?** Se emplea para pagar servicios y bienes comunes, como:\n    *   **Infraestructuras:** Carreteras, puertos y aeropuertos.\n    *   **Servicios básicos:** Recogida de basuras, agua potable y transporte público.\n    *   **Áreas fundamentales:** Salud, educación, defensa, seguridad (policía y bomberos) y protección del medio ambiente.\n*   **Función social:** El gasto público sirve para redistribuir la riqueza. Esto significa que el Estado utiliza el dinero para apoyar a los sectores sociales económicamente más débiles, buscando compensar la desigualdad y asegurar una convivencia justa.\n*   **Planificación:** La cantidad y el destino de este gasto se deciden cada año a través de los llamados **Presupuestos públicos**, donde se determina cuánto dinero se va a gastar y en qué.",
+  "answer_status": null,
+  "latency_ms": 7249.584699980915,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 0,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "es el empleo de caudales públicos",
+    "sirve para satisfacer necesidades públicas",
+    "incluye ejemplos como sanidad o educación"
+  ]
+},
+{
+  "question_id": "tax-es-004",
+  "question": "¿Quién tiene el deber de contribuir al sostenimiento de los gastos públicos?",
+  "system_name": "baseline_rag",
+  "answer": "Según la información proporcionada, **todos los ciudadanos** tienen el deber de contribuir al sostenimiento de los gastos públicos.\n\nAquí te explico los puntos principales de este deber:\n\n*   **Es una obligación general:** Todos los ciudadanos, sin excepción, deben ayudar a financiar los gastos públicos mediante el pago de impuestos según lo establecido por las leyes.\n*   **Basado en la capacidad económica:** No todos pagan lo mismo. La cantidad que cada persona debe aportar depende de su riqueza, sus ingresos o su consumo. Esto significa que quienes tienen más recursos económicos deben aportar más al fondo común (principio de progresividad).\n*   **Fundamento legal:** Este deber está recogido en la Constitución Española (Artículo 31), que señala que todos contribuirán de forma justa e igualitaria para que el Estado pueda financiar servicios como la sanidad, la educación y la seguridad.",
+  "answer_status": null,
+  "latency_ms": 4930.7490000501275,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 0,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los ciudadanos tienen el deber de contribuir",
+    "el deber se vincula al sostenimiento de los gastos públicos",
+    "la obligación está recogida en la Constitución"
+  ]
+},
+{
+  "question_id": "tax-es-005",
+  "question": "¿Qué significa el principio de capacidad económica?",
+  "system_name": "baseline_rag",
+  "answer": "El principio de **capacidad económica** (también llamado capacidad contributiva) es la regla que determina cuánto debe pagar cada ciudadano en impuestos basándose en su situación económica real.\n\nA continuación, te explico sus puntos principales de forma sencilla:\n\n*   **¿Qué significa?:** Es el indicador que demuestra lo que un ciudadano **puede y debe pagar** al Estado. La idea básica es que las personas que tienen más dinero, ganan más o gastan más, deben pagar más impuestos que aquellas que tienen menos recursos.\n*   **¿Cómo se mide?:** La capacidad económica de una persona se manifiesta y se conoce a través de tres vías principales:\n    1.  **Lo que se gana (Renta):** El sueldo que cobras o los beneficios de un trabajo.\n    2.  **Lo que se posee (Patrimonio):** Las propiedades, bienes o riquezas que tienes (como casas o una herencia).\n    3.  **Lo que se gasta (Consumo):** El dinero que utilizas al comprar mercancías o servicios.\n*   **¿Para qué sirve?:** Se utiliza como un criterio de justicia y equidad. Sirve para que el sistema tributario sea progresivo y redistributivo, permitiendo que el Estado obtenga recursos de manera justa para financiar servicios públicos que beneficien a todos los ciudadanos.\n\nEn resumen, la capacidad económica significa que el pago de impuestos no es una cuota fija igual para todos, sino que se adapta a las posibilidades económicas de cada persona.\n\n**Fuentes:**\n*   Source 1: _Para qué son los impuestos_\n*   Source 2: _Quién paga los impuestos_\n*   Source 3: _Qué impuestos hay_",
+  "answer_status": null,
+  "latency_ms": 8281.430899980478,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 2,
+  "used_web_search": false,
+  "trace_event_count": 0,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_",
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "las aportaciones deben ajustarse a la capacidad económica",
+    "es un principio del sistema tributario justo",
+    "se relaciona con igualdad y progresividad"
+  ]
+}
+]

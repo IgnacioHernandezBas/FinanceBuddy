@@ -1,0 +1,459 @@
+[
+{
+  "question_id": "tax-es-001",
+  "question": "¿Para qué sirven los impuestos en una sociedad?",
+  "system_name": "agentic_v1",
+  "answer": "¡Hola! Como tu asistente FinanceBuddy, aquí tienes la respuesta a tu pregunta de forma sencilla, basándome estrictamente en los documentos proporcionados:\n\nEn una sociedad, los impuestos sirven para que el Estado y el resto de las administraciones públicas (como las comunidades autónomas y los municipios) dispongan de los recursos suficientes para:\n\n* **Financiar los gastos y necesidades públicas:** Permiten costear los bienes y servicios públicos, así como satisfacer las necesidades colectivas de los ciudadanos.\n* **Hacer realidad la justicia y la equidad:** A través de aportaciones solidarias exigidas a todos los ciudadanos, contribuyen a la redistribución de la renta y a que cada uno aporte según su capacidad económica.",
+  "answer_status": "answered_internal",
+  "latency_ms": 2461.8935000617057,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los impuestos financian bienes y servicios públicos",
+    "permiten cubrir necesidades colectivas",
+    "constituyen una aportación obligatoria por ley"
+  ]
+},
+{
+  "question_id": "tax-es-002",
+  "question": "¿Qué son los bienes y servicios públicos?",
+  "system_name": "agentic_v1",
+  "answer": "¡Hola! Aquí tienes la información sobre qué son los bienes y servicios públicos, explicada de forma sencilla basándonos en los datos disponibles:\n\n* **Definición y finalidad:** Son aquellos bienes y servicios destinados a satisfacer las necesidades colectivas de los ciudadanos. Su finalidad es atender los gastos públicos y las necesidades comunes de la sociedad.\n* **Provisión:** Su provisión corre a cargo de las Administraciones Públicas, como el Estado, las Comunidades Autónomas, los Municipios o Ayuntamientos.\n* **Financiación:** Se sufragan fundamentalmente a través de los ingresos públicos, obtenidos mediante el pago de impuestos, tasas y otros tributos que aportan los ciudadanos de acuerdo con su capacidad económica. Los impuestos actúan como la aportación solidaria o el \"precio\" social que hace posible su existencia.\n* **Acceso e igualdad:** Por regla general, todos los ciudadanos tienen derecho a beneficiarse de ellos (como las infraestructuras o las autovías), de manera independiente al nivel de impuestos que cada uno haya aportado. Además, el gasto público asociado cumple una función redistributiva y de igualdad de oportunidades para garantizar el bienestar social.\n\n*(Nota: Esta respuesta se ha elaborado utilizando principalmente los conceptos de las fuentes internas y ha incorporado apoyo complementario de fuentes web públicas aprobadas).* \n\nSi te queda alguna duda, ¡aquí estoy para ayudarte!\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+  "answer_status": "answered_mixed_sources",
+  "latency_ms": 7079.735800041817,
+  "source_count": 8,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFy336PrI2w1VD1EECo9t30I4fBFho9j1tZKIc59fdulSJrvkidbQxVL4TfF9w6T0bOpBiZrJFq7F_zcMPHjxZGcr0soSVBQKkMjWk7NbLK65qvC3Wan4C2ror3iBc9cmcXXsngiZm2nZC1t5MQxsTtFye57FtL95iOoypKqa4pyyOoZbyAEAQbjZqObyCAybOMrRktTfmwPSbPvcoALKuWpilSDefjiJ1nrDeiytOkmf5d0SBx6TSKrPyybGEAUaqRVEZY91K88FYQQ50fhs_DTt5bw9CtExBGAoxkfY5wiLKiVh6EO02MMTfZVeUZaDr1dln3-YcPZqJ6z06dACkECw==",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF83nvKekBDBeY1njhghxKOIwH9QyQE6AezP6-NKdEGRS3ukIUM32Ah7_unF5oePeczLh-BoVWV1y_7_9LXdgMntGvL0Q4D55ekbaKYHZVKoC92tJy5dzYMZp3JrhO60spBQVqxVoTIZSMmzNKsmyvuYiyrO8is6rtvLJ8e85lyQS9kdYdnygCxHk_pRPCmTYtsVO3eLQyrf7BoxjZVii9nd9UhIJxOOLdfBBL_TmRcNzRcTSbvqLEzSh-2yWHBcjgfJEW2dt4Skxf5livp6jxT-ZwQNBIkBTyxtQYIKG7s5A==",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFpH_AgWvBz6qUmOrrHQGDU-fYkVp3GKi9-dBwYmn9cWWuSoT_hGQcrnUXjgk4U6Adgz8O-HAUwklvHZ4iKo7y_bmG61QdVz2MjSw8UCo1oSi1HSTnJJW3PCNSFF-xU1OfOyx1-4Qc2Nnzz9tuMGYPhsNnowqkuiyeeaQA80bazy7oNDdJKZOh6NRaCYOX_XetmteSRfU3waHqTibpb33plBm123HacTu7PKY_Szlk8DoCnoyDTd05mPz4vDyQlyl8-FjhCKruTM2jDB7Mbs6978cUKzdAjGRA=",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFiEcmX7kGbfg-l1utbYvI0EK6iircLsC1Nd4cjX5be7Iwd0SDncaF4U-9fN-g1qI1dXSx0CZfXZ9gqrDwZmqqKWiJvz3esxdHPi1VSpalqhIRfDhHHPIYY1LD85XTZjhOpf0uImmnFm2OvgpzmI6EV7NDf6GpyCFcej0Cn-rtTrgSWQRNGwIro6aOnjIHpy7ZM-q2KboHxX_htH1U4fjFPAthQyyNC9TFPTC8s0Y96ULCITk85IHMi5uIVzRxU0tPr81PObYdoO-tcTOan_45-s-XQ9Vx6OQHx2HBXuXlPlOSf-jV85mgdvM_qtztzk95WWVk7YkmFZqQOy1tAEU4goaaie4hJ_OhGH1Wfr03R_w==",
+      "publisher": "agenciatributaria.gob.es"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": true,
+  "trace_event_count": 6,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "satisfacen necesidades que no pueden cubrirse individualmente",
+    "se financian con recursos públicos",
+    "benefician al conjunto de la sociedad"
+  ]
+},
+{
+  "question_id": "tax-es-003",
+  "question": "¿Qué es el gasto público?",
+  "system_name": "agentic_v1",
+  "answer": "Según la información proporcionada, el **gasto público** es el empleo de caudales públicos para la satisfacción de las necesidades públicas.",
+  "answer_status": "answered_internal",
+  "latency_ms": 1637.8658000612631,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "es el empleo de caudales públicos",
+    "sirve para satisfacer necesidades públicas",
+    "incluye ejemplos como sanidad o educación"
+  ]
+},
+{
+  "question_id": "tax-es-004",
+  "question": "¿Quién tiene el deber de contribuir al sostenimiento de los gastos públicos?",
+  "system_name": "agentic_v1",
+  "answer": "Según la información proporcionada, todos los ciudadanos tienen el deber de contribuir al sostenimiento de los gastos públicos mediante el pago de impuestos en la forma establecida por las leyes. \n\nEsta aportación se rige por el principio de capacidad económica: aunque todos los ciudadanos sin excepción tienen la obligación de contribuir, no todos lo hacen en la misma proporción, ya que quienes disponen de mayores recursos económicos deben aportar más.",
+  "answer_status": "answered_internal",
+  "latency_ms": 1881.6975000081584,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los ciudadanos tienen el deber de contribuir",
+    "el deber se vincula al sostenimiento de los gastos públicos",
+    "la obligación está recogida en la Constitución"
+  ]
+},
+{
+  "question_id": "tax-es-005",
+  "question": "¿Qué significa el principio de capacidad económica?",
+  "system_name": "agentic_v1",
+  "answer": "¡Hola! Como tu asistente FinanceBuddy, te explico de manera sencilla qué significa el **principio de capacidad económica** basándome en la información disponible:\n\nLa **capacidad económica** (también llamada capacidad contributiva) es el criterio preferente de justicia y equidad que tiene en cuenta el legislador para determinar lo que cada ciudadano puede y debe pagar en concepto de impuestos a la Hacienda Pública (es decir, las aportaciones tributarias necesarias para hacer frente a las necesidades y gastos públicos). \n\nEn términos sencillos, representa el dinero que se tiene, o que se demuestra que se tiene a juzgar por las cosas que uno compra o posee. Sus manifestaciones principales son:\n* **La renta:** El dinero o los ingresos que se obtienen.\n* **El patrimonio:** La riqueza o los bienes que se poseen.\n* **El consumo:** Los distintos tipos de gastos, adquisiciones (como una herencia o donación) o compras de mercancías que se realizan.\n\nDe este principio se deduce que **quien tiene mayor capacidad económica, tiene mayor capacidad contributiva** y, por tanto, debe pagar más impuestos (y viceversa). \n\n*(Nota: Para aportar mayor detalle y solidez, se han utilizado fuentes públicas aprobadas de la Agencia Tributaria como apoyo secundario para complementar la definición y sus manifestaciones).* \n\nSi te queda alguna duda sobre este tema, ¡aquí estoy para ayudarte!\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+  "answer_status": "answered_mixed_sources",
+  "latency_ms": 7467.158800107427,
+  "source_count": 8,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHedNbl5-J614JEF2lva9WUhx9mwOGNLgdZ8k5OosagXp9tPVG_jGwcGkoZjD_BGsGEOx153vd89yEFgMNA8BihE5dM6vBSXzdDgsZrsOV-O9VKNf7RNSpiVisjlpLM8-YQJvXQCbj_WhEeDyI3MQpRB2nSsbxH5ea34b6MkiZcUno1OvEpnZstP-8j2l6eVFoEuVp_gmtm6JzpWgFIDIAjXZhDL89tlcnHxIo8Wqjw4pLL2L1eL2RYm_Ovo20l8KCUN20qnECeACUBpwGCIOThQj1w9xMXV7feMTKlFepJq4Q8gWST6N2_54DbLJ77tJ-mhfY8FbNimtO1yigUR4NwP1XURJ0RzfU5kT_n-C9A0g==",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEC6-t9IVICPlaQCW7EXih6FnOPL1OuO-vXaopTHniMuN9kncWXGMRSzg3LgSf62_aCffNU0Girs3B8SO3e8eaumVMK-n2768WWUCTpYD_8iM95hVVdgYGlLSTG8qLNnuDB1naswoS3Z2cIol5j7538REjvB10s4SECprE2lsU75EUCJXzg7dYUbs5YBpIDF-XF_qdWdUatAtQTHf6KrzVAS8oe0N3upACWTs0NgHB-fu1q6ydpvin3uwUYQatU8FeJhfmEdPlz2s4YgnJ1GjWYqTj5w5BCLE_Gud_FeVzBTEprI0EEusg2fq9iVxPlUtjmb0s5lJ7k0jYDhp_icP5ndg==",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSHBZkHteb6ueRq8bXowtOYQSbaJpXrth7fDSgYAVkRz6ui8JVac4EssxuxHtcG3rXf8asxD3Sx_pm1di-IKGrARy2I7Tl67jVMzjeF0xu_ijVE5jxPdIlErOVdXo_CG3l2YZQvISknz-Sn2RxD2cqyXltbM-d3yFdUXTvt4LkkCFBodqV-JtDtFKNxbu3nWHCQPGAkcGKDpz_b2k09IXjObqk2NahMYFYDVZ2lbu8oL9erv6qRLMfypQWPfo4924pOZKr0ISjQbR7gl8tHNGscBDcWS9ZTBWoiVfdbChjoqbBFoAwwlivFpzRgZuxyp7IYOkSPqB2V-a83aTKP92IOmJbMANlCg8c",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG3RNXCyZj9sz9Vi2winurJeIUcq424uSbtXgimFuVT6qqYiNboyykH61-aOQsPATal1QkPyhczwtKTU-9IrAZRoLAUq6V70BaDq2W5oXY_OxpzM9QuRB-l-YK033SOdMRf8Ono7xEbDz1-QK2gD8GVEAxDUBQoM3VWFF4S1WrSgsb-EEmC0a2AyzDhDA7ckQiMer72QxfBFC0vlMkFvWVxBH8YXcgEQDnE19sz8gfLMPVf1amSdDoZ4OQZQ0AKY_pClV28gt8xktzsyZkU2DZQgoyZ_qafjNa74ZF6K8R1RLoM1AdUtdeDK2uE38McnDsOcVuO7BEuDCPLtRHErpYWLBJix_1IckSIEPAmaJFz",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH0BrMsBVY8UYvMbwiSISCmbF9Yacti56dsS-Bd3r4vGwU-KcIhf5nfSnaG2R200eXAKhC6YnYSWYgv4IJFsxZwrNWZTLd_Zx3axkZDJGr3bMQ0nsYveU3Ranzi3C7eeeGBDqV5h8iSUxYp8E3aJOiAdG1Mzf6lerV4lRkXfVRLFGX0w8SWf_BozgwIHFWETlIbtyt4l4bGZd2yh1qitJfBsLDgaxHRHlftirf9ibAN-sCYuHFXlw_jKkkiveoMkBTk",
+      "publisher": "agenciatributaria.gob.es"
+    }
+  ],
+  "matched_expected_source_count": 2,
+  "used_web_search": true,
+  "trace_event_count": 6,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_",
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "las aportaciones deben ajustarse a la capacidad económica",
+    "es un principio del sistema tributario justo",
+    "se relaciona con igualdad y progresividad"
+  ]
+},
+{
+  "question_id": "tax-es-006",
+  "question": "¿Qué es el fraude fiscal y por qué perjudica a la sociedad?",
+  "system_name": "agentic_v1",
+  "answer": "¡Hola! Como tu asistente FinanceBuddy, aquí tienes la explicación básica basada en los textos proporcionados:\n\n**¿Qué es el fraude fiscal?**\nEl fraude fiscal es el comportamiento de un contribuyente que oculta, disfraza o manipula su capacidad económica con el fin de no ingresar a la Hacienda Pública la cantidad de impuestos que está obligado a pagar según las leyes vigentes. También puede ocurrir mediante el uso incorrecto, el abuso o los destrozos en los bienes y servicios públicos financiados con el esfuerzo colectivo.\n\n**¿Por qué perjudica a la sociedad?**\nEl fraude fiscal perjudica a la sociedad de varias maneras:\n* **Perjudica especialmente a quienes cumplen:** Afecta de forma directa a los ciudadanos que asumen sus responsabilidades ciudadanas y pagan correctamente sus impuestos. Cuando algunas personas no pagan o pagan menos de lo que deben, el Estado tiene que pedir más dinero a los ciudadanos que sí cumplen para cubrir los servicios públicos necesarios, haciendo que estos tengan que ingresar más dinero por lo que otros usan y no pagan.\n* **Quita recursos a todos:** Quienes cometen fraude le están quitando una parte de lo que corresponde a todos los ciudadanos (incluyéndose a sí mismos) y actúan de forma egoísta e insolidaria.\n* **Daña los bienes comunes:** El mal uso o destrozo de los bienes y servicios públicos obliga al Estado, a las comunidades autónomas o a los ayuntamientos a gastar más dinero del que debieran para reponerlos.\n* **Problema ético:** Se basa en una mentalidad de derechos adquiridos sin asumir responsabilidades, lo cual muestra una socialización inadecuada en valores de justicia y solidaridad.",
+  "answer_status": "answered_internal",
+  "latency_ms": 2644.700099946931,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Desde_cuándo_hay_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "el fraude fiscal implica incumplir obligaciones tributarias",
+    "reduce recursos para servicios públicos",
+    "perjudica a los contribuyentes cumplidores"
+  ]
+},
+{
+  "question_id": "tax-es-007",
+  "question": "¿Qué son los tributos y qué tipos existen?",
+  "system_name": "agentic_v1",
+  "answer": "¡Hola! Como tu asistente FinanceBuddy, aquí tienes la respuesta basada exclusivamente en la información proporcionada:\n\n**¿Qué son los tributos?**\nLos tributos son prestaciones dinerarias que los ciudadanos están obligados por ley a pagar para que el Estado y otras Administraciones Públicas obtengan los ingresos necesarios con el fin de financiar las necesidades públicas.\n\n**¿Qué tipos existen?**\nA su vez, los tributos se clasifican en tres tipos:\n\n1. **Tasas:** Son pagos que realizan los ciudadanos como consecuencia de una actuación administrativa que les beneficia de forma individual, pero que están obligados a solicitar o recibir (por ejemplo, la recogida de basuras o la expedición del DNI).\n2. **Contribuciones especiales:** Son tributos que se pagan cuando una actuación pública destinada a satisfacer una necesidad colectiva produce un beneficio especial a determinados individuos (por ejemplo, el aumento de valor de una finca debido a una obra pública).\n3. **Impuestos:** Son los tributos más importantes, ya que a través de ellos se obtiene la mayoría de los ingresos públicos para costear las necesidades colectivas. Se exigen obligatoriamente por ley sin que exista una contraprestación individualizada específica, fundamentándose en hechos que demuestran la capacidad económica de los ciudadanos (como la riqueza que se posee, los ingresos que se obtienen o los consumos que se realizan).",
+  "answer_status": "answered_internal",
+  "latency_ms": 1781.9798000855371,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Desde_cuándo_hay_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "los tributos son prestaciones dinerarias obligatorias por ley",
+    "se clasifican en tasas, contribuciones especiales e impuestos",
+    "los impuestos son la fuente principal de ingresos públicos"
+  ]
+},
+{
+  "question_id": "tax-es-008",
+  "question": "¿Qué diferencia hay entre tasas, contribuciones especiales e impuestos?",
+  "system_name": "agentic_v1",
+  "answer": "¡Hola! Como tu asistente FinanceBuddy, te explico la diferencia según la información disponible:\n\n* **Tasas:** Son tributos que pagan los ciudadanos como consecuencia de una actuación administrativa que les beneficia individualmente, pero que están obligados a solicitar o recibir (por ejemplo, la recogida de basuras o la expedición del DNI).\n* **Contribuciones especiales:** Son tributos que se pagan cuando una actuación pública dirigida a satisfacer una necesidad colectiva produce un beneficio especial a determinados individuos (por ejemplo, el aumento de valor de una finca debido a una obra pública).\n* **Impuestos:** Son los tributos más importantes (a través de los cuales se obtiene la mayoría de los ingresos públicos para costear las necesidades colectivas). Se exigen obligatoriamente por ley sin que exista una contraprestación individualizada específica, y se fundamentan en hechos que demuestran la capacidad económica de los ciudadanos (como la renta, el patrimonio o el consumo).",
+  "answer_status": "answered_internal",
+  "latency_ms": 2033.5963000543416,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "las tasas se pagan por actuaciones administrativas concretas",
+    "las contribuciones especiales se vinculan a beneficios especiales por una actuación pública",
+    "los impuestos no tienen contraprestación individualizada específica"
+  ]
+},
+{
+  "question_id": "tax-es-009",
+  "question": "¿Qué grava el IRPF?",
+  "system_name": "agentic_v1",
+  "answer": "Basándose en la evidencia proporcionada, el IRPF (Impuesto sobre la Renta de las Personas Físicas) grava la **obtención de la renta** como una manifestación de la capacidad económica de los ciudadanos. \n\nDentro de este concepto de renta que se grava se engloban:\n* Los **rendimientos del trabajo y actividades económicas** (como sueldos, salarios y rendimientos de profesionales independientes).\n* Los **rendimientos del capital** (como intereses de cuentas bancarias y dividendos de acciones).\n* Las **ganancias y pérdidas patrimoniales**.",
+  "answer_status": "answered_internal",
+  "latency_ms": 1981.534200021997,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "el IRPF grava la renta",
+    "afecta a las personas físicas",
+    "es un impuesto directo"
+  ]
+},
+{
+  "question_id": "tax-es-010",
+  "question": "¿Qué grava el IVA?",
+  "system_name": "agentic_v1",
+  "answer": "El Impuesto sobre el Valor Añadido (IVA) grava:\n\n* **El consumo:** Considerado como una manifestación indirecta de la capacidad económica de las personas, recayendo sobre las ventas y sobre el consumo de bienes y servicios producidos o comercializados en el desarrollo de actividades empresariales o profesionales.\n* **Operaciones concretas:** Las entregas de bienes y las prestaciones de servicios efectuadas por empresarios y profesionales, así como las importaciones (tanto desde dentro como desde fuera de la Unión Europea).\n* **El incremento de valor:** Al comparar los valores iniciales y finales, grava el aumento de valor que experimentan los bienes y servicios en cada una de las fases del proceso productivo y de distribución (o comercialización) hasta llegar al consumidor final.",
+  "answer_status": "answered_internal",
+  "latency_ms": 1835.8134999871254,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "el IVA grava el consumo",
+    "es el impuesto sobre el valor añadido",
+    "es un impuesto indirecto"
+  ]
+},
+{
+  "question_id": "tax-es-011",
+  "question": "¿Cuál es la diferencia entre el IRPF y el IVA?",
+  "system_name": "agentic_v1",
+  "answer": "Basándose en los textos proporcionados, las principales diferencias entre el IRPF y el IVA son las siguientes:\n\n* **Tipo de impuesto:** El IRPF es un impuesto **directo** que grava la capacidad económica de las personas según el dinero que ganan (sus rentas). Por el contrario, el IVA es el impuesto **indirecto** más importante, y grava el consumo de bienes y servicios (considerado una manifestación indirecta de la capacidad económica).\n* **Progresividad frente a igualdad en el pago:** El IRPF es **progresivo**, lo que significa que el que gana más paga proporcionalmente un porcentaje superior de sus ingresos (el que gana más paga más, y el que gana menos paga menos). En cambio, con el IVA **todos pagamos igual** cuando compramos un mismo artículo con el mismo precio, ya que las circunstancias personales y familiares no se consideran para determinar su importe.\n* **Quién lo soporta y cómo se aplica:** El IRPF se vincula de forma concreta a cada persona teniendo en cuenta sus circunstancias personales y familiares (como el mínimo personal y familiar). En el caso del IVA, los empresarios y profesionales son quienes se relacionan con Hacienda y pagan las cuotas, pero los verdaderos contribuyentes que soportan el impuesto son los consumidores finales, que lo abonan dentro del precio del producto o servicio que adquieren.",
+  "answer_status": "answered_internal",
+  "latency_ms": 1767.8609000286087,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "el IRPF grava la renta",
+    "el IVA grava el consumo",
+    "el IRPF es directo",
+    "el IVA es indirecto"
+  ]
+},
+{
+  "question_id": "tax-es-012",
+  "question": "¿Qué es una aduana y qué función cumple?",
+  "system_name": "agentic_v1",
+  "answer": "Basándonos en la evidencia disponible (utilizando fuentes web aprobadas como apoyo complementario):\n\n**¿Qué es una aduana?**\nLas aduanas son el conjunto de instalaciones donde se controlan las mercancías que entran o salen de un determinado territorio. En el ámbito de la Unión Europea, se encargan específicamente de regular y controlar el intercambio de mercancías con países que están fuera de la Unión.\n\n**¿Qué función cumple?**\nCumple las siguientes funciones principales:\n* **Control del intercambio de mercancías:** Inspecciona y verifica los productos que entran (importación) o salen (exportación) para asegurar que cumplen con la normativa aduanera.\n* **Aplicación de normativas comerciales y arancelarias:** Gestiona los derechos de importación y los aranceles correspondientes al paso de mercancías por las fronteras.\n* **Lucha contra el contrabando y fraude:** Persigue la entrada o salida de productos ilegales o que no cumplen las regulaciones específicas (como tráfico de sustancias prohibidas, animales o mercancías restringidas).\n* **Protección de la propiedad intelectual e industrial:** Realiza una labor importante en la lucha contra las falsificaciones de artículos y la piratería.\n\nNote: approved public web sources were used as supplemental evidence after internal retrieval was insufficient.",
+  "answer_status": "answered_mixed_sources",
+  "latency_ms": 7796.117600053549,
+  "source_count": 6,
+  "sources": [
+    {
+      "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Desde_cuándo_hay_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE-rVSR4f1XYbo_RZk90KSgkNKnlgmUyOW3b6jRZfXwiw0inX_lYGH9L_YN4hJobMg1u3abm7a9wktBIvCtw8DiHXLoz1R6eRJ1dsfFR8wAEldav1s1T97IGbbDf7ohgPYbKwyV3yTRgWqkoRCqNMXQrPQzorRaXKwJ_IcJKlkHgurNhto9-FdOHBOqkR1FRo8XntGFtV76Ge_xyvLwUG6cxX9DlIRoH5XDasgPxUHGZT3sLTmPLXUJQ8mHTvG3JbXdG2-t4A8rMPg=",
+      "publisher": "agenciatributaria.gob.es"
+    },
+    {
+      "title": "agenciatributaria.gob.es",
+      "url": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFxlk5-WZUkw36EUmmJm2Rssfx3eA_qJCPYmFEkfcKB_pMiCzEhK1KXOk-qny6XTfKKoMlzARI7I_iltSfJcSEE_Q7eBmL_zS1t_4BnNrH5y-Zgc2bLuNA97gR16H2S2jYaC7CBT_HrtgSvuC-hu1HoqxNiLkJ0ODkAxW-QSSFtS_7-HbkUA7ILtDzA6yqxzmrnlCVJOzUxHVrQH5MDkoGTjd6g_sqfro4hvdlNQWyLCh2MBI-jtD6CblB6AvSplrI=",
+      "publisher": "agenciatributaria.gob.es"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": true,
+  "trace_event_count": 6,
+  "expected_source_titles": [
+    "_Qué_son_las_aduanas_",
+    "_Quién_recauda_los_impuestos_y_controla_las_aduanas_"
+  ],
+  "expected_answer_points": [
+    "la aduana controla la entrada y salida de mercancías",
+    "actúa en relación con importaciones y exportaciones",
+    "forma parte del control aduanero del territorio correspondiente"
+  ]
+}
+]

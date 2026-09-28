@@ -1,0 +1,429 @@
+[
+{
+  "question_id": "tax-es-001",
+  "question": "¿Para qué sirven los impuestos en una sociedad?",
+  "system_name": "agentic_v1",
+  "answer": "De acuerdo con los documentos proporcionados, los impuestos sirven para las siguientes funciones principales en una sociedad:\n\n*   **Financiar los gastos públicos:** Son la fuente principal de dinero para que el Estado y las administraciones públicas (como Comunidades Autónomas y Ayuntamientos) tengan recursos para pagar los gastos de todos (Fuentes 1, 3 y 5).\n*   **Pagar bienes y servicios públicos:** Gracias a los impuestos se pueden costear servicios y bienes que benefician a la colectividad y satisfacen necesidades comunes (Fuentes 1 y 3).\n*   **Promover la justicia y la equidad:** Los impuestos ayudan a que se cumplan principios de justicia social. A través de las aportaciones de todos, se busca que el Estado pueda ofrecer servicios de forma solidaria (Fuentes 1 y 3).\n*   **Redistribuir la riqueza:** El gasto público, financiado por los impuestos, sirve para realizar una redistribución de la renta entre los ciudadanos (Fuente 5).\n\nEn resumen, los impuestos son la herramienta para que la sociedad pueda pagar aquello que es de uso común y para ayudar a que exista una mayor igualdad entre las personas.",
+  "answer_status": "answered_internal",
+  "latency_ms": 5525.553399987984,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los impuestos financian bienes y servicios públicos",
+    "permiten cubrir necesidades colectivas",
+    "constituyen una aportación obligatoria por ley"
+  ]
+},
+{
+  "question_id": "tax-es-002",
+  "question": "¿Qué son los bienes y servicios públicos?",
+  "system_name": "agentic_v1",
+  "answer": "Based on the provided documents, here is a basic explanation of public goods and services:\n\n**Public goods and services** are the things provided by the State and other public administrations to satisfy the needs of the entire community (collective needs). They are financed using the money (taxes) that citizens and businesses are required by law to pay.\n\nExamples of public goods and services mentioned in the text include:\n\n*   **Infrastructure:** Building and maintaining roads, highways, railways, ports, and airports.\n*   **Daily Community Services:** Trash collection, drinking water supply, public transport, and street lighting.\n*   **Safety and Protection:** Police services, fire protection, and national defense.\n*   **Health and Justice:** Healthcare services and the court system (justice).\n*   **Environment and Housing:** Environmental protection and public housing.\n*   **Administrative Services:** Tasks such as issuing ID cards (DNI).\n\nThe government manages these through **Public Budgets**, which determine how much money will be collected and how it will be spent to ensure these services reach everyone fairly.",
+  "answer_status": "answered_internal",
+  "latency_ms": 7529.963900044095,
+  "source_count": 4,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "satisfacen necesidades que no pueden cubrirse individualmente",
+    "se financian con recursos públicos",
+    "benefician al conjunto de la sociedad"
+  ]
+},
+{
+  "question_id": "tax-es-003",
+  "question": "¿Qué es el gasto público?",
+  "system_name": "agentic_v1",
+  "answer": "El **gasto público** es el uso del dinero de todos (caudales públicos) para cubrir las necesidades de los ciudadanos. Según la información proporcionada, estos son los puntos clave para entenderlo de forma sencilla:\n\n*   **¿Para qué sirve?**: Se utiliza para financiar servicios y bienes que benefician a la sociedad, como la construcción de carreteras, la recogida de basura, el suministro de agua potable, el transporte público, la salud y la defensa.\n*   **Función de ayuda**: El gasto público tiene una \"función redistributiva\". Esto significa que busca reducir la desigualdad, moviendo recursos hacia los sectores de la población con menos dinero para asegurar una convivencia justa.\n*   **¿Cómo se decide?**: Cada año, el Estado y otras administraciones (como municipios y comunidades autónomas) calculan cuánto dinero van a gastar en los **Presupuestos públicos**. En estos documentos se decide en qué se invertirá el dinero el año siguiente.\n*   **Principios**: El gasto debe realizarse siguiendo el principio de equidad.\n\nEn resumen, es el dinero que el gobierno emplea para pagar todo lo que la comunidad necesita para funcionar correctamente.",
+  "answer_status": "answered_internal",
+  "latency_ms": 5299.1472000139765,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Para_qué_son_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "es el empleo de caudales públicos",
+    "sirve para satisfacer necesidades públicas",
+    "incluye ejemplos como sanidad o educación"
+  ]
+},
+{
+  "question_id": "tax-es-004",
+  "question": "¿Quién tiene el deber de contribuir al sostenimiento de los gastos públicos?",
+  "system_name": "agentic_v1",
+  "answer": "Según la información proporcionada, el deber de contribuir al sostenimiento de los gastos públicos recae en las siguientes figuras:\n\n*   **Todos los ciudadanos:** De acuerdo con la Constitución Española (Artículo 31) y el principio de generalidad, todos los ciudadanos sin excepción tienen la obligación de contribuir al pago de los gastos públicos mediante los impuestos (Fuentes 3 y 4).\n*   **Según su capacidad económica:** Aunque todos deben contribuir, no lo hacen en la misma proporción. El deber de aportar depende de los recursos económicos de cada persona (su riqueza, ingresos o consumo). Esto significa que quienes tienen más dinero deben aportar más al fondo común (Fuentes 3 y 4).\n\nEn resumen, es una responsabilidad colectiva donde cada miembro de la sociedad debe aportar según sus posibilidades para financiar las necesidades comunes (Fuente 3).",
+  "answer_status": "answered_internal",
+  "latency_ms": 4980.33829999622,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "los ciudadanos tienen el deber de contribuir",
+    "el deber se vincula al sostenimiento de los gastos públicos",
+    "la obligación está recogida en la Constitución"
+  ]
+},
+{
+  "question_id": "tax-es-005",
+  "question": "¿Qué significa el principio de capacidad económica?",
+  "system_name": "agentic_v1",
+  "answer": "El principio de **capacidad económica** (también llamada capacidad contributiva) es la regla que se usa para decidir cuánto debe pagar cada persona en impuestos de manera justa.\n\nSegún los documentos proporcionados, esto es lo que significa de forma sencilla:\n\n*   **Es lo que tienes o gastas:** Se refiere al dinero que una persona tiene o demuestra que tiene según las cosas que posee o compra.\n*   **¿Cómo se demuestra?** La capacidad económica de un ciudadano se ve de tres formas principales:\n    1.  **Su riqueza (patrimonio):** Las cosas que tiene, como una casa o ahorros.\n    2.  **Sus ingresos (renta):** El dinero que gana, por ejemplo, a través de su sueldo o los beneficios de su trabajo.\n    3.  **Sus compras (consumo):** Lo que gasta al comprar mercancías o servicios.\n*   **La regla de oro:** Quien tiene mayor capacidad económica, tiene mayor capacidad contributiva. Esto significa que **quien más tiene, más gana o más gasta, debe pagar más impuestos** que quien tiene menos dinero.\n*   **Su objetivo:** Sirve como un indicador de lo que un ciudadano \"puede y debe\" pagar para ayudar a financiar los gastos públicos (como educación o carreteras) y permitir que el Estado reparta mejor la riqueza entre todos.\n\nEn resumen, es el criterio que busca que el pago de impuestos sea proporcional a los medios económicos de cada persona.",
+  "answer_status": "answered_internal",
+  "latency_ms": 6240.839799982496,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Para_qué_son_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 2,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_",
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "las aportaciones deben ajustarse a la capacidad económica",
+    "es un principio del sistema tributario justo",
+    "se relaciona con igualdad y progresividad"
+  ]
+},
+{
+  "question_id": "tax-es-006",
+  "question": "¿Qué es el fraude fiscal y por qué perjudica a la sociedad?",
+  "system_name": "agentic_v1",
+  "answer": "De acuerdo con la información proporcionada, aquí tienes una explicación básica sobre el fraude fiscal:\n\n**¿Qué es el fraude fiscal?**\nEl fraude fiscal es cuando una persona oculta, disfraza o manipula la cantidad de dinero que tiene o gana para no pagar los impuestos que le corresponden según la ley. También se considera fraude el mal uso, abuso o destrozo de los bienes y servicios públicos (como parques, señales o transporte), ya que estos han sido pagados con el dinero de todos.\n\n**¿Por qué perjudica a la sociedad?**\nEl fraude fiscal afecta negativamente a todos los ciudadanos por varias razones:\n*   **Afecta a los que sí pagan:** Cuando algunas personas no pagan sus impuestos, el Estado puede verse obligado a pedir más dinero a quienes sí cumplen correctamente con sus obligaciones para poder mantener los servicios públicos.\n*   **Daña el bienestar común:** Al defraudar, se le está quitando una parte de lo que les pertenece a todos los ciudadanos. Esto reduce los recursos disponibles para cosas necesarias como la sanidad, becas, ayudas para vivienda o el cuidado de personas mayores.\n*   **Es una injusticia:** Se considera una falta de solidaridad y de civismo. Perjudica especialmente a las personas que sí asumen sus responsabilidades ciudadanas.\n*   **Costes adicionales:** En el caso del mal uso de bienes públicos, el Estado o los ayuntamientos tienen que gastar dinero extra para reparar lo que otros han roto o usado mal, dinero que sale del esfuerzo colectivo.\n\nEn resumen, el fraude fiscal es un comportamiento egoísta que hace que la carga de los gastos públicos no se distribuya de forma justa.",
+  "answer_status": "answered_internal",
+  "latency_ms": 6561.3923000055365,
+  "source_count": 2,
+  "sources": [
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Desde_cuándo_hay_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Quién_paga_los_impuestos_"
+  ],
+  "expected_answer_points": [
+    "el fraude fiscal implica incumplir obligaciones tributarias",
+    "reduce recursos para servicios públicos",
+    "perjudica a los contribuyentes cumplidores"
+  ]
+},
+{
+  "question_id": "tax-es-007",
+  "question": "¿Qué son los tributos y qué tipos existen?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 280.69659997709095,
+  "source_count": 3,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Desde_cuándo_hay_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "los tributos son prestaciones dinerarias obligatorias por ley",
+    "se clasifican en tasas, contribuciones especiales e impuestos",
+    "los impuestos son la fuente principal de ingresos públicos"
+  ]
+},
+{
+  "question_id": "tax-es-008",
+  "question": "¿Qué diferencia hay entre tasas, contribuciones especiales e impuestos?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 271.2826000060886,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "las tasas se pagan por actuaciones administrativas concretas",
+    "las contribuciones especiales se vinculan a beneficios especiales por una actuación pública",
+    "los impuestos no tienen contraprestación individualizada específica"
+  ]
+},
+{
+  "question_id": "tax-es-009",
+  "question": "¿Qué grava el IRPF?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 557.7005000086501,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "el IRPF grava la renta",
+    "afecta a las personas físicas",
+    "es un impuesto directo"
+  ]
+},
+{
+  "question_id": "tax-es-010",
+  "question": "¿Qué grava el IVA?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 269.0386000322178,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "el IVA grava el consumo",
+    "es el impuesto sobre el valor añadido",
+    "es un impuesto indirecto"
+  ]
+},
+{
+  "question_id": "tax-es-011",
+  "question": "¿Cuál es la diferencia entre el IRPF y el IVA?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a grounded answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 327.8755000210367,
+  "source_count": 1,
+  "sources": [
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": false,
+  "trace_event_count": 4,
+  "expected_source_titles": [
+    "_Qué_impuestos_hay_"
+  ],
+  "expected_answer_points": [
+    "el IRPF grava la renta",
+    "el IVA grava el consumo",
+    "el IRPF es directo",
+    "el IVA es indirecto"
+  ]
+},
+{
+  "question_id": "tax-es-012",
+  "question": "¿Qué es una aduana y qué función cumple?",
+  "system_name": "agentic_v1",
+  "answer": "I could not generate a mixed-source answer at this time. Please try again in a moment.",
+  "answer_status": "generation_failed",
+  "latency_ms": 2899.3419999605976,
+  "source_count": 9,
+  "sources": [
+    {
+      "title": "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Qué_impuestos_hay_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Quién_paga_los_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "_Desde_cuándo_hay_impuestos_",
+      "url": null,
+      "publisher": "agencia_trib"
+    },
+    {
+      "title": "Zerga Agentzia: 4.2.2. Control aduanero, de los impuestos especiales y medioambientales",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/eu_es/informacion-institucional/memorias/memoria-2024/4-principales-actuaciones-2024/4_2-control-fraude-tributario-aduanero/4_2_2-control-aduanero-impuestos-especiales-medioambientales.html",
+      "publisher": "sede.agenciatributaria.gob.es"
+    },
+    {
+      "title": "Zerga Agentzia: 4.6. Relaciones internacionales",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/eu_es/informacion-institucional/memorias/memoria-2023/4-principales-actuaciones/4_6_relaciones-internacionales.html",
+      "publisher": "sede.agenciatributaria.gob.es"
+    },
+    {
+      "title": "Zerga Agentzia: Aduanak",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/eu_es/aduanas_.html?navigMW=mm",
+      "publisher": "sede.agenciatributaria.gob.es"
+    },
+    {
+      "title": "Zerga Agentzia: Aitorpen sumarioak. ENS eta EXS-ak. Zertan datza Sarrera Aitorpen Laburra? (ICS2...",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/eu_es/aduanas/entrada-salida-mercancias/declaraciones-sumarias-ens.html?faqId=a7dd282fae773910VgnVCM100000dc381e0aRCRD",
+      "publisher": "sede.agenciatributaria.gob.es"
+    },
+    {
+      "title": "Agencia Tributaria: IX.4.1. Introducción",
+      "url": "https://sede.agenciatributaria.gob.es/Sede/ayuda/manuales-videos-folletos/manuales-practicos/manual-transito/parte-ix-regimen-tir/ix_4-tramites-aduana-partida-entrada/ix_4_1-introduccion.html",
+      "publisher": "sede.agenciatributaria.gob.es"
+    }
+  ],
+  "matched_expected_source_count": 1,
+  "used_web_search": true,
+  "trace_event_count": 6,
+  "expected_source_titles": [
+    "_Qué_son_las_aduanas_",
+    "_Quién_recauda_los_impuestos_y_controla_las_aduanas_"
+  ],
+  "expected_answer_points": [
+    "la aduana controla la entrada y salida de mercancías",
+    "actúa en relación con importaciones y exportaciones",
+    "forma parte del control aduanero del territorio correspondiente"
+  ]
+}
+]

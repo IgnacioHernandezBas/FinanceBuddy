@@ -1,0 +1,83 @@
+{
+  "dataset_name": "tax_qa_es_v1",
+  "dataset_version": "v1",
+  "description": "Baseline Spanish tax education evaluation set for FinanceBuddy, grounded in the currently ingested Agencia Tributaria educational corpus.",
+  "language": "es",
+  "domain": "tax_education",
+  "record_count": 12,
+  "created_on": "2026-04-05",
+  "authoring_status": "draft_baseline",
+  "source_family": "agencia_tributaria",
+  "source_documents": [
+    "_Desde_cuándo_hay_impuestos_.pdf",
+    "_Para_qué_son_los_impuestos_.pdf",
+    "_Quién_paga_los_impuestos_.pdf",
+    "_Quién_recauda_los_impuestos_y_controla_las_aduanas_.pdf",
+    "_Qué_impuestos_hay_.pdf",
+    "_Qué_son_las_aduanas_.pdf"
+  ],
+  "stored_source_titles": [
+    "_Desde_cuándo_hay_impuestos_",
+    "_Para_qué_son_los_impuestos_",
+    "_Quién_paga_los_impuestos_",
+    "_Quién_recauda_los_impuestos_y_controla_las_aduanas_",
+    "_Qué_impuestos_hay_",
+    "_Qué_son_las_aduanas_"
+  ],
+  "intended_use": [
+    "retrieval evaluation",
+    "end_to_end_rag evaluation",
+    "baseline prompt comparison",
+    "query normalization regression checks"
+  ],
+  "scoring_targets": [
+    "retrieval_hit_rate",
+    "retrieval_mrr",
+    "retrieval_source_precision_at_k",
+    "citation_presence_rate",
+    "citation_correctness_rate",
+    "answer_non_empty_rate",
+    "no_evidence_behavior_rate",
+    "groundedness_score",
+    "relevance_to_query_score",
+    "answer_completeness_score",
+    "average_latency_ms",
+    "average_retrieval_latency_ms",
+    "average_generation_latency_ms"
+  ],
+  "required_record_fields": [
+    "question_id",
+    "question",
+    "language",
+    "difficulty",
+    "expected_topics",
+    "expected_source_titles",
+    "expected_source_ids",
+    "expected_answer_points",
+    "must_refuse_without_evidence",
+    "notes"
+  ],
+  "corpus_assumptions": {
+    "source_type": "trusted_public_finance_documents",
+    "publisher": "agencia_trib",
+    "primary_language": "es",
+    "stored_title_rule": "pdf_path.stem",
+    "notes": "Retrieval evaluation should compare against the exact stored DB titles in stored_source_titles and in each record expected_source_titles."
+  },
+  "comparison_policy": {
+    "keep_dataset_fixed_across_prompt_and_retriever_comparisons": true,
+    "change_one_major_variable_per_run": true,
+    "baseline_required": true
+  },
+  "baseline_configuration_expectations": {
+    "run_type": "end_to_end_rag_eval",
+    "query_normalization_enabled": true,
+    "retriever_top_k": 5,
+    "language_scope": "es"
+  },
+  "known_limitations": [
+    "This dataset is grounded only in the currently ingested Agencia Tributaria educational corpus.",
+    "It does not evaluate CNMV, Banco de España, invoices, or personalized tax-calculation scenarios.",
+    "Some answer-quality metrics require LLM-as-a-judge or human review and should not be treated as purely deterministic."
+  ]
+}
